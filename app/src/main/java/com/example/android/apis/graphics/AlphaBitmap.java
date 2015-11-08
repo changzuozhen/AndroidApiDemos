@@ -16,12 +16,20 @@
 
 package com.example.android.apis.graphics;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Shader;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
+
+import com.example.android.apis.R;
 
 import java.io.InputStream;
 
@@ -38,24 +46,7 @@ public class AlphaBitmap extends GraphicsActivity {
         private Bitmap mBitmap2;
         private Bitmap mBitmap3;
         private Shader mShader;
-
-        private static void drawIntoBitmap(Bitmap bm) {
-            float x = bm.getWidth();
-            float y = bm.getHeight();
-            Canvas c = new Canvas(bm);
-            Paint p = new Paint();
-            p.setAntiAlias(true);
-
-            p.setAlpha(0x80);
-            c.drawCircle(x/2, y/2, x/2, p);
-
-            p.setAlpha(0x30);
-            p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
-            p.setTextSize(60);
-            p.setTextAlign(Paint.Align.CENTER);
-            Paint.FontMetrics fm = p.getFontMetrics();
-            c.drawText("Alpha", x/2, (y-fm.ascent)/2, p);
-        }
+        private Shader mShader2;
 
         public SampleView(Context context) {
             super(context);
@@ -67,12 +58,35 @@ public class AlphaBitmap extends GraphicsActivity {
             mBitmap3 = Bitmap.createBitmap(200, 200, Bitmap.Config.ALPHA_8);
             drawIntoBitmap(mBitmap3);
 
-            mShader = new LinearGradient(0, 0, 100, 70, new int[] {
-                                         Color.RED, Color.GREEN, Color.BLUE },
-                                         null, Shader.TileMode.MIRROR);
+            mShader = new LinearGradient(0, 0, 100, 70, new int[]{
+                    Color.RED, Color.GREEN, Color.BLUE},
+                    null, Shader.TileMode.REPEAT);
+            mShader2 = new LinearGradient(0, 0, 100, 70, new int[]{
+                    Color.RED, Color.GREEN, Color.BLUE},
+                    null, Shader.TileMode.CLAMP);
+
         }
 
-        @Override protected void onDraw(Canvas canvas) {
+        private static void drawIntoBitmap(Bitmap bm) {
+            float x = bm.getWidth();
+            float y = bm.getHeight();
+            Canvas c = new Canvas(bm);
+            Paint p = new Paint();
+            p.setAntiAlias(true);
+
+            p.setAlpha(0x80);
+            c.drawCircle(x / 2, y / 2, x / 2, p);
+
+            p.setAlpha(0x30);
+            p.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC));
+            p.setTextSize(60);
+            p.setTextAlign(Paint.Align.CENTER);
+            Paint.FontMetrics fm = p.getFontMetrics();
+            c.drawText("Alpha", x / 2, (y - fm.ascent) / 2, p);
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
             canvas.drawColor(Color.WHITE);
 
             Paint p = new Paint();
@@ -85,6 +99,9 @@ public class AlphaBitmap extends GraphicsActivity {
             y += mBitmap2.getHeight() + 10;
             p.setShader(mShader);
             canvas.drawBitmap(mBitmap3, 10, y, p);
+            y += mBitmap3.getHeight() + 10;
+            p.setShader(mShader2);
+            canvas.drawBitmap(mBitmap2, 10, y, p);
         }
     }
 }
