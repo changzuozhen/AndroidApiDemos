@@ -29,16 +29,19 @@
             android:id="@+id/bt_scrollLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:text="Scroller滑到下一屏" />
 
         <Button
             android:id="@+id/bt_scrollRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_toRightOf="@id/bt_scrollLeft"
             android:text="停止滑动" />
+
+        <Button
+            android:id="@+id/bt_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test" />
 
     </LinearLayout>
 

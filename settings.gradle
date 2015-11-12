@@ -1,1 +1,1 @@
-include ':app', ':Demo_ScrollerView'
+include ':apidemos', ':Demo_ScrollerView', ':testapplication', ':commontools'
