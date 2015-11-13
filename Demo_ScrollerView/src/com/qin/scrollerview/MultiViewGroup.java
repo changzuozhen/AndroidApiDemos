@@ -9,8 +9,11 @@ import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
+
+import java.util.ArrayList;
 
 //自定义ViewGroup ， 包含了三个LinearLayout控件，存放在不同的布局位置，通过scrollBy或者scrollTo方法切换
 public class MultiViewGroup extends ViewGroup {
@@ -21,6 +24,7 @@ public class MultiViewGroup extends ViewGroup {
     //处理触摸事件 ~
     public static int SNAP_VELOCITY = 600;
     private static String TAG = "MultiViewGroup";
+    public boolean isScrollAble = true;
     private Context mContext;
     private int curScreen = 0;  //当前屏
     private Scroller mScroller = null;
@@ -34,6 +38,7 @@ public class MultiViewGroup extends ViewGroup {
     //处理触摸的速率
     private VelocityTracker mVelocityTracker = null;
     private int curPage = 0;
+    private ArrayList<ScrollListener> listeners = new ArrayList<>();
 
     public MultiViewGroup(Context context) {
         super(context);
@@ -60,7 +65,7 @@ public class MultiViewGroup extends ViewGroup {
         //暴力点直接到目标出
         //scrollTo(curScreen * getWidth(), 0);
         //其实在点击按钮的时候，就回触发View绘制流程，这儿我们在强制绘制下View
-//        invalidate();
+        invalidate();
     }
 
     //停止滑屏
@@ -92,6 +97,14 @@ public class MultiViewGroup extends ViewGroup {
             }
         } else
             Log.i(TAG, "----OK mScroller.is  finished ---- ");
+    }
+
+    @Override
+    public void scrollTo(int x, int y) {
+        trigerListener(x);
+        if (isScrollAble) {
+            super.scrollTo(x, y);
+        }
     }
 
     // 只有当前LAYOUT中的某个CHILD导致SCROLL发生滚动，才会致使自己的COMPUTESCROLL被调用
@@ -347,4 +360,39 @@ public class MultiViewGroup extends ViewGroup {
             //三个子视图的在屏幕中的分布如下 [0 , 320] / [320,640] / [640,960]
         }
     }
+
+    public void registerListener(ScrollListener listener) {
+        if (listener != null)
+            listeners.add(listener);
+    }
+
+    public void unregisterListener(ScrollListener listener) {
+        if (listener != null && listeners.contains(listener)) {
+            listeners.remove(listener);
+        }
+    }
+
+    private void trigerListener(int x) {
+        for (ScrollListener listener : listeners) {
+            listener.onScrollX(x);
+        }
+    }
+
+    //    AccelerateDecelerateInterpolator 动画效果：开始和结束都是缓慢的，通过中间时候加速
+//    AccelerateInterpolator,      动画效果：开始缓慢，之后加速
+//    AnticipateInterpolator,       动画效果：开始后退，然后前进
+//    AnticipateOvershootInterpolator,   动画效果：开始后退，之后前进并超过终点位置，最终退回到终点
+//    BounceInterpolator,        动画效果：慢慢反弹到，弹性衰减到结束
+//    CycleInterpolator,          动画效果：重复循环动画，速度变化遵循正弦定律
+//    DecelerateInterpolator,        动画效果：刚开始快速，之后减速
+//    LinearInterpolator,         动画效果：不断的变化
+//    OvershootInterpolator 动画效果：像前超越最终点然后回来
+    public void setInterpolator(Interpolator interpolator) {
+        mScroller = new Scroller(getContext(), interpolator);
+    }
+
+    public interface ScrollListener {
+        void onScrollX(int x);
+    }
+
 }

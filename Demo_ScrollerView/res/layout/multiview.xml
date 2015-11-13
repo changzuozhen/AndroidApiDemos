@@ -14,8 +14,6 @@
         android:id="@+id/mymultiViewGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_weight="1">
 
     </com.qin.scrollerview.MultiViewGroup>
@@ -23,26 +21,117 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/bt_scrollLeft"
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Scroller滑到下一屏" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/bt_scrollRight"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/bt_scrollLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Scroller滑到下一屏" />
+
+                <Button
+                    android:id="@+id/bt_scrollRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="停止滑动" />
+
+                <Button
+                    android:id="@+id/bt_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test" />
+
+                <Switch
+                    android:id="@+id/switch1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    />
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="停止滑动" />
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/bt_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="test" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/bt_DefaultInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_DefaultInterpolator" />
+                <Button
+                    android:id="@+id/bt_AccelerateDecelerateInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_AccelerateDecelerateInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_AccelerateInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_AccelerateInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_AnticipateInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_AnticipateInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_AnticipateOvershootInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_AnticipateOvershootInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_BounceInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_BounceInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_CycleInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_CycleInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_DecelerateInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_DecelerateInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_LinearInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_LinearInterpolator" />
+
+                <Button
+                    android:id="@+id/bt_OvershootInterpolator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="bt_OvershootInterpolator" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>
