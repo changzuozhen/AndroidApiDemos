@@ -18,6 +18,7 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
+import android.annotation.TargetApi;
 import android.graphics.drawable.ColorDrawable;
 import com.example.android.apis.R;
 
@@ -30,6 +31,7 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,6 +62,7 @@ public class BouncingBalls extends Activity {
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
         AnimatorSet animation = null;
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public MyAnimationView(Context context) {
             super(context);
 
@@ -75,6 +78,7 @@ public class BouncingBalls extends Activity {
             colorAnim.start();
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             if (event.getAction() != MotionEvent.ACTION_DOWN &&
