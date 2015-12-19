@@ -69,11 +69,12 @@ public class BouncingBalls extends Activity {
 
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
         AnimatorSet animation = null;
+        private float mDensity = 1.f;
 
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public MyAnimationView(Context context) {
             super(context);
-
+            mDensity = getContext().getResources().getDisplayMetrics().density;
             // Animate background color
             // Note that setting the background color will automatically invalidate the
             // view, so that the animated color, and the bouncing balls, get redisplayed on
@@ -97,7 +98,7 @@ public class BouncingBalls extends Activity {
 
             // Bouncing animation with squash and stretch
             float startY = newBall.getY();
-            float endY = getHeight() - 50f;
+            float endY = getHeight() - 50f * mDensity;
             float h = (float) getHeight();
             float eventY = event.getY();
             int duration = (int) (500 * ((h - eventY) / h));
@@ -107,28 +108,28 @@ public class BouncingBalls extends Activity {
             bounceAnim.setInterpolator(new AccelerateInterpolator());
 
             ValueAnimator squashAnim1x = ObjectAnimator.ofFloat(newBall, "x", newBall.getX(),
-                    newBall.getX() - 25f);
+                    newBall.getX() - 25f * mDensity);
             squashAnim1x.setDuration(duration / 4);
             squashAnim1x.setRepeatCount(1);
             squashAnim1x.setRepeatMode(ValueAnimator.REVERSE);
             squashAnim1x.setInterpolator(new DecelerateInterpolator());
 
             ValueAnimator squashAnim2width = ObjectAnimator.ofFloat(newBall, "width", newBall.getWidth(),
-                    newBall.getWidth() + 50);
+                    newBall.getWidth() + 50 * mDensity);
             squashAnim2width.setDuration(duration / 4);
             squashAnim2width.setRepeatCount(1);
             squashAnim2width.setRepeatMode(ValueAnimator.REVERSE);
             squashAnim2width.setInterpolator(new DecelerateInterpolator());
 
             ValueAnimator stretchAnim1y = ObjectAnimator.ofFloat(newBall, "y", endY,
-                    endY + 25f);
+                    endY + 25f * mDensity);
             stretchAnim1y.setDuration(duration / 4);
             stretchAnim1y.setRepeatCount(1);
             stretchAnim1y.setInterpolator(new DecelerateInterpolator());
             stretchAnim1y.setRepeatMode(ValueAnimator.REVERSE);
 
             ValueAnimator stretchAnim2height = ObjectAnimator.ofFloat(newBall, "height",
-                    newBall.getHeight(), newBall.getHeight() - 25);
+                    newBall.getHeight(), newBall.getHeight() - 25 * mDensity);
             stretchAnim2height.setDuration(duration / 4);
             stretchAnim2height.setRepeatCount(1);
             stretchAnim2height.setInterpolator(new DecelerateInterpolator());
@@ -194,18 +195,18 @@ public class BouncingBalls extends Activity {
 
         private ShapeHolder addRect(float x, float y) {
             RectShape rectShape = new RectShape();
-            rectShape.resize(50f, 50f);
+            rectShape.resize(50f * mDensity, 50f * mDensity);
             ShapeDrawable drawable = new ShapeDrawable(rectShape);
             ShapeHolder shapeHolder = new ShapeHolder(drawable);
-            shapeHolder.setX(x - 25f);
-            shapeHolder.setY(y - 25f);
+            shapeHolder.setX(x - 25f * mDensity);
+            shapeHolder.setY(y - 25f * mDensity);
             int red = (int) (Math.random() * 255);
             int green = (int) (Math.random() * 255);
             int blue = (int) (Math.random() * 255);
             int color = 0xff000000 | red << 16 | green << 8 | blue;
             int darkColor = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue / 4;
             Paint paint = drawable.getPaint();
-            RadialGradient gradient = new RadialGradient(37.5f, 12.5f, 50f, color, darkColor, Shader.TileMode.CLAMP);
+            RadialGradient gradient = new RadialGradient(37.5f * mDensity, 12.5f * mDensity, 50f * mDensity, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);
             shapeHolder.setPaint(paint);
             balls.add(shapeHolder);

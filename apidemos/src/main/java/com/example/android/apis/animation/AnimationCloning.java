@@ -18,10 +18,11 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import android.widget.Button;
-import com.example.android.apis.R;
 
-import android.animation.*;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -30,17 +31,23 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.example.android.apis.R;
 
 import java.util.ArrayList;
 
 
 public class AnimationCloning extends Activity {
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +65,7 @@ public class AnimationCloning extends Activity {
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdateListener {
 
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
@@ -75,6 +83,7 @@ public class AnimationCloning extends Activity {
             ShapeHolder ball3 = addBall(350f, 25f);
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         private void createAnimation() {
             if (animation == null) {
                 ObjectAnimator anim1 = ObjectAnimator.ofFloat(balls.get(0), "y",
@@ -89,6 +98,7 @@ public class AnimationCloning extends Activity {
                 animDown.setInterpolator(new AccelerateInterpolator());
                 ObjectAnimator animUp = ObjectAnimator.ofFloat(ball2, "y",
                         getHeight() - ball2.getHeight(), 0f).setDuration(500);
+
                 animUp.setInterpolator(new DecelerateInterpolator());
                 AnimatorSet s1 = new AnimatorSet();
                 s1.playSequentially(animDown, animUp);
@@ -108,16 +118,16 @@ public class AnimationCloning extends Activity {
             circle.resize(50f * mDensity, 50f * mDensity);
             ShapeDrawable drawable = new ShapeDrawable(circle);
             ShapeHolder shapeHolder = new ShapeHolder(drawable);
-            shapeHolder.setX(x - 25f);
-            shapeHolder.setY(y - 25f);
-            int red = (int)(100 + Math.random() * 155);
-            int green = (int)(100 + Math.random() * 155);
-            int blue = (int)(100 + Math.random() * 155);
+            shapeHolder.setX(x * mDensity - 25f * mDensity);
+            shapeHolder.setY(y * mDensity - 25f * mDensity);
+            int red = (int) (100 + Math.random() * 155);
+            int green = (int) (100 + Math.random() * 155);
+            int blue = (int) (100 + Math.random() * 155);
             int color = 0xff000000 | red << 16 | green << 8 | blue;
             Paint paint = drawable.getPaint(); //new Paint(Paint.ANTI_ALIAS_FLAG);
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
-            RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
-                    50f, color, darkColor, Shader.TileMode.CLAMP);
+            int darkColor = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue / 4;
+            RadialGradient gradient = new RadialGradient(37.5f * mDensity, 12.5f * mDensity,
+                    50f * mDensity, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);
             shapeHolder.setPaint(paint);
             balls.add(shapeHolder);
@@ -135,6 +145,7 @@ public class AnimationCloning extends Activity {
             }
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public void startAnimation() {
             createAnimation();
             animation.start();

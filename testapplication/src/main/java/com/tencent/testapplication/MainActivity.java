@@ -1,6 +1,7 @@
 package com.tencent.testapplication;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -20,8 +21,30 @@ import com.tencent.commontools.LogUtils;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
-
+    protected Handler mPressedHandler;
     View centerView;
+
+    int tag1 = 0;
+    int tag2 = 0;
+    Handler mHandler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            LogUtils.d(TAG, "tag1:" + tag1 + "tag2:" + (tag2++));
+        }
+    };
+
+    private void delayPost() {
+        mHandler.removeCallbacks(runnable);
+        mHandler.postDelayed(runnable, 100);
+    }
+
+    private void testDelayPost() {
+        for (int i = 0; i < 10; i++) {
+            tag1++;
+            delayPost();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +79,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 LogUtils.d(TAG, "onClick");
+                testDelayPost();
             }
         });
         button.setOnTouchListener(new View.OnTouchListener() {
@@ -66,6 +90,7 @@ public class MainActivity extends AppCompatActivity
                 return false;
             }
         });
+        mPressedHandler = new Handler();
     }
 
     @Override
