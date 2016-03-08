@@ -1,1 +1,2 @@
 include ':apidemos', ':Demo_ScrollerView', ':testapplication', ':commontools'
+include ':threadsample'

@@ -18,13 +18,11 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
+
 import android.animation.ObjectAnimator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
-import com.example.android.apis.R;
-
-import java.util.ArrayList;
-
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -33,10 +31,15 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.example.android.apis.R;
+
+import java.util.ArrayList;
 
 public class CustomEvaluator extends Activity {
 
@@ -82,6 +85,7 @@ public class CustomEvaluator extends Activity {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public class XYEvaluator implements TypeEvaluator {
         public Object evaluate(float fraction, Object startValue, Object endValue) {
             XYHolder startXY = (XYHolder) startValue;
@@ -99,25 +103,28 @@ public class CustomEvaluator extends Activity {
             mBall = ball;
         }
 
+        public XYHolder getXY() {
+            return new XYHolder(mBall.getX(), mBall.getY());
+        }
+
         public void setXY(XYHolder xyHolder) {
             mBall.setX(xyHolder.getX());
             mBall.setY(xyHolder.getY());
         }
-
-        public XYHolder getXY() {
-            return new XYHolder(mBall.getX(), mBall.getY());
-        }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdateListener {
 
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
         ValueAnimator bounceAnim = null;
         ShapeHolder ball = null;
         BallXYHolder ballHolder = null;
+        private float mDensity = 1.f;
 
         public MyAnimationView(Context context) {
             super(context);
+            mDensity = getContext().getResources().getDisplayMetrics().density;
             ball = createBall(25, 25);
             ballHolder = new BallXYHolder(ball);
         }
@@ -125,9 +132,10 @@ public class CustomEvaluator extends Activity {
         private void createAnimation() {
             if (bounceAnim == null) {
                 XYHolder startXY = new XYHolder(0f, 0f);
-                XYHolder endXY = new XYHolder(300f, 500f);
+                XYHolder endXY = new XYHolder(300f, 300f);
+                XYHolder endXY2 = new XYHolder(500f, 300f);
                 bounceAnim = ObjectAnimator.ofObject(ballHolder, "xY",
-                        new XYEvaluator(), endXY);
+                        new XYEvaluator(), startXY, endXY, endXY2);
                 bounceAnim.setDuration(1500);
                 bounceAnim.addUpdateListener(this);
             }
@@ -140,19 +148,19 @@ public class CustomEvaluator extends Activity {
 
         private ShapeHolder createBall(float x, float y) {
             OvalShape circle = new OvalShape();
-            circle.resize(50f, 50f);
+            circle.resize(50f * mDensity, 50f * mDensity);
             ShapeDrawable drawable = new ShapeDrawable(circle);
             ShapeHolder shapeHolder = new ShapeHolder(drawable);
-            shapeHolder.setX(x - 25f);
-            shapeHolder.setY(y - 25f);
-            int red = (int)(Math.random() * 255);
-            int green = (int)(Math.random() * 255);
-            int blue = (int)(Math.random() * 255);
+            shapeHolder.setX(x - 25f * mDensity);
+            shapeHolder.setY(y - 25f * mDensity);
+            int red = (int) (Math.random() * 255);
+            int green = (int) (Math.random() * 255);
+            int blue = (int) (Math.random() * 255);
             int color = 0xff000000 | red << 16 | green << 8 | blue;
             Paint paint = drawable.getPaint(); //new Paint(Paint.ANTI_ALIAS_FLAG);
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
-            RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
-                    50f, color, darkColor, Shader.TileMode.CLAMP);
+            int darkColor = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue / 4;
+            RadialGradient gradient = new RadialGradient(37.5f * mDensity, 12.5f * mDensity,
+                    50f * mDensity, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);
             shapeHolder.setPaint(paint);
             return shapeHolder;

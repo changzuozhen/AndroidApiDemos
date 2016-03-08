@@ -1,18 +1,19 @@
 package com.example.android.apis.animation;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ListView;
-import android.widget.ArrayAdapter;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 /**
  * This sample application shows how to use layout animation and various
@@ -26,12 +27,8 @@ import android.view.animation.DecelerateInterpolator;
  */
 public class Transition3d extends Activity implements
         AdapterView.OnItemClickListener, View.OnClickListener {
-    private ListView mPhotosList;
-    private ViewGroup mContainer;
-    private ImageView mImageView;
-
     // Names of the photos we show in the list
-    private static final String[] PHOTOS_NAMES = new String[] {
+    private static final String[] PHOTOS_NAMES = new String[]{
             "Lyon",
             "Livermore",
             "Tahoe Pier",
@@ -39,9 +36,8 @@ public class Transition3d extends Activity implements
             "Grand Canyon",
             "Bodie"
     };
-
     // Resource identifiers for the photos we want to display
-    private static final int[] PHOTOS_RESOURCES = new int[] {
+    private static final int[] PHOTOS_RESOURCES = new int[]{
             R.drawable.photo1,
             R.drawable.photo2,
             R.drawable.photo3,
@@ -49,6 +45,10 @@ public class Transition3d extends Activity implements
             R.drawable.photo5,
             R.drawable.photo6
     };
+    private static final String TAG = "Transition3d";
+    private ListView mPhotosList;
+    private ViewGroup mContainer;
+    private ImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +81,8 @@ public class Transition3d extends Activity implements
      * Setup a new 3D rotation on the container view.
      *
      * @param position the item that was clicked to show a picture, or -1 to show the list
-     * @param start the start angle at which the rotation must begin
-     * @param end the end angle of the rotation
+     * @param start    the start angle at which the rotation must begin
+     * @param end      the end angle of the rotation
      */
     private void applyRotation(int position, float start, float end) {
         // Find the center of the container
@@ -103,11 +103,13 @@ public class Transition3d extends Activity implements
 
     public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
         // Pre-load the image then start the animation
+        LogUtils.d(TAG, "onItemClick() called with: " + "parent = [" + parent + "], v = [" + v + "], position = [" + position + "], id = [" + id + "]");
         mImageView.setImageResource(PHOTOS_RESOURCES[position]);
         applyRotation(position, 0, 90);
     }
 
     public void onClick(View v) {
+        LogUtils.d(TAG, "onClick() called with: " + "v = [" + v + "]");
         applyRotation(-1, 180, 90);
     }
 
@@ -149,7 +151,7 @@ public class Transition3d extends Activity implements
             final float centerX = mContainer.getWidth() / 2.0f;
             final float centerY = mContainer.getHeight() / 2.0f;
             Rotate3dAnimation rotation;
-            
+
             if (mPosition > -1) {
                 mPhotosList.setVisibility(View.GONE);
                 mImageView.setVisibility(View.VISIBLE);
