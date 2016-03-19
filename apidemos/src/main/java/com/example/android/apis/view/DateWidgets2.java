@@ -16,18 +16,24 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
+import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.os.Bundle;
+
+import com.example.android.apis.R;
 
 public class DateWidgets2 extends Activity {
 
     // where we display the selected date and time
     private TextView mTimeDisplay;
 
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +62,6 @@ public class DateWidgets2 extends Activity {
                     new StringBuilder()
                     .append(pad(hourOfDay)).append(":")
                     .append(pad(minute)));
-    }
-
-    private static String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
     }
 
 }

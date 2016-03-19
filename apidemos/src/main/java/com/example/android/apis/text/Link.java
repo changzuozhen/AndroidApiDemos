@@ -16,8 +16,6 @@
 
 package com.example.android.apis.text;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -28,6 +26,8 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.StyleSpan;
 import android.text.style.URLSpan;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 public class Link extends Activity {
     @Override

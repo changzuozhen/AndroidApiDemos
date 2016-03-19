@@ -16,13 +16,13 @@
 
 package com.example.android.apis.nfc;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 public class TechFilter extends Activity {
     private TextView mText;

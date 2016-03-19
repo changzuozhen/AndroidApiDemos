@@ -17,14 +17,18 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+
+import com.tencent.commontools.LogUtils;
 
 public class Compass extends GraphicsActivity {
 
@@ -37,7 +41,7 @@ public class Compass extends GraphicsActivity {
 
     private final SensorEventListener mListener = new SensorEventListener() {
         public void onSensorChanged(SensorEvent event) {
-            if (false) Log.d(TAG,
+            if (false) LogUtils.d(TAG,
                     "sensorChanged (" + event.values[0] + ", " + event.values[1] + ", " + event.values[2] + ")");
             mValues = event.values;
             if (mView != null) {
@@ -61,7 +65,7 @@ public class Compass extends GraphicsActivity {
     @Override
     protected void onResume()
     {
-        if (false) Log.d(TAG, "onResume");
+        if (false) LogUtils.d(TAG, "onResume");
         super.onResume();
 
         mSensorManager.registerListener(mListener, mSensor,
@@ -71,7 +75,7 @@ public class Compass extends GraphicsActivity {
     @Override
     protected void onStop()
     {
-        if (false) Log.d(TAG, "onStop");
+        if (false) LogUtils.d(TAG, "onStop");
         mSensorManager.unregisterListener(mListener);
         super.onStop();
     }
@@ -116,14 +120,14 @@ public class Compass extends GraphicsActivity {
         @Override
         protected void onAttachedToWindow() {
             mAnimate = true;
-            if (false) Log.d(TAG, "onAttachedToWindow. mAnimate=" + mAnimate);
+            if (false) LogUtils.d(TAG, "onAttachedToWindow. mAnimate=" + mAnimate);
             super.onAttachedToWindow();
         }
 
         @Override
         protected void onDetachedFromWindow() {
             mAnimate = false;
-            if (false) Log.d(TAG, "onDetachedFromWindow. mAnimate=" + mAnimate);
+            if (false) LogUtils.d(TAG, "onDetachedFromWindow. mAnimate=" + mAnimate);
             super.onDetachedFromWindow();
         }
     }

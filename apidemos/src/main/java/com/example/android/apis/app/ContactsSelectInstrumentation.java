@@ -20,10 +20,11 @@ import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.view.KeyEvent;
-import android.provider.ContactsContract;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.ContactsContract;
+import android.view.KeyEvent;
+
+import com.tencent.commontools.LogUtils;
 
 /**
  * This is an example implementation of the {@link android.app.Instrumentation}
@@ -54,32 +55,32 @@ public class ContactsSelectInstrumentation extends Instrumentation {
         Activity activity = startActivitySync(intent);
 
         // This is the Activity object that was started, to do with as we want.
-        Log.i("ContactsSelectInstrumentation", "Started: " + activity);
+        LogUtils.i("ContactsSelectInstrumentation", "Started: " + activity);
 
         // Monitor for the expected start activity call.
         ActivityMonitor am = addMonitor(IntentFilter.create(
-            Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_ITEM_TYPE), null, true);
+                Intent.ACTION_VIEW, ContactsContract.Contacts.CONTENT_ITEM_TYPE), null, true);
 
         // We are going to enqueue a couple key events to simulate the user
         // selecting an item in the list.
         sendKeySync(new KeyEvent(
-            KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_DOWN));
+                KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_DOWN));
         sendKeySync(new KeyEvent(
-            KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_DOWN));
+                KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_DOWN));
         sendKeySync(new KeyEvent(
-            KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_CENTER));
+                KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DPAD_CENTER));
         sendKeySync(new KeyEvent(
-            KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_CENTER));
+                KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DPAD_CENTER));
 
         // Was the expected activity started?
         if (checkMonitorHit(am, 1)) {
-            Log.i("ContactsSelectInstrumentation", "Activity started!");
+            LogUtils.i("ContactsSelectInstrumentation", "Activity started!");
         } else {
-            Log.i("ContactsSelectInstrumentation", "*** ACTIVITY NOT STARTED!");
+            LogUtils.i("ContactsSelectInstrumentation", "*** ACTIVITY NOT STARTED!");
         }
 
         // And we are done!
-        Log.i("ContactsSelectInstrumentation", "Done!");
+        LogUtils.i("ContactsSelectInstrumentation", "Done!");
         finish(Activity.RESULT_OK, null);
     }
 }

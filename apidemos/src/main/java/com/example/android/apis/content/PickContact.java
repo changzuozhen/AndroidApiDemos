@@ -18,15 +18,11 @@ package com.example.android.apis.content;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.provider.ContactsContract;
@@ -35,7 +31,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import java.util.Calendar;
+import com.example.android.apis.R;
 
 /**
  * Demonstrates launching the contacts app to pick a contact.  Does not
@@ -46,23 +42,6 @@ public class PickContact extends Activity {
     Toast mToast;
     ResultDisplayer mPendingResult;
 
-    class ResultDisplayer implements OnClickListener {
-        String mMsg;
-        String mMimeType;
-        
-        ResultDisplayer(String msg, String mimeType) {
-            mMsg = msg;
-            mMimeType = mimeType;
-        }
-        
-        public void onClick(View v) {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType(mMimeType);
-            mPendingResult = this;
-            startActivityForResult(intent, 1);
-        }
-    }
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +87,23 @@ public class PickContact extends Activity {
                     }
                 }
             }
+        }
+    }
+
+    class ResultDisplayer implements OnClickListener {
+        String mMsg;
+        String mMimeType;
+
+        ResultDisplayer(String msg, String mimeType) {
+            mMsg = msg;
+            mMimeType = mimeType;
+        }
+
+        public void onClick(View v) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType(mMimeType);
+            mPendingResult = this;
+            startActivityForResult(intent, 1);
         }
     }
 }

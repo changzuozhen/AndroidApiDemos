@@ -16,17 +16,17 @@
 
 package com.example.android.apis.app;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+ import android.app.Activity;
+ import android.os.Bundle;
+ import android.speech.tts.TextToSpeech;
+ import android.view.View;
+ import android.widget.Button;
 
-import com.example.android.apis.R;
+ import com.example.android.apis.R;
+ import com.tencent.commontools.LogUtils;
 
-import java.util.Locale;
-import java.util.Random;
+ import java.util.Locale;
+ import java.util.Random;
 
 /**
  * <p>Demonstrates text-to-speech (TTS). Please note the following steps:</p>
@@ -47,7 +47,15 @@ import java.util.Random;
 public class TextToSpeechActivity extends Activity implements TextToSpeech.OnInitListener {
 
     private static final String TAG = "TextToSpeechDemo";
-
+    private static final Random RANDOM = new Random();
+    private static final String[] HELLOS = {
+            "Hello",
+            "Salutations",
+            "Greetings",
+            "Howdy",
+            "What's crack-a-lackin?",
+            "That explains the stench!"
+    };
     private TextToSpeech mTts;
     private Button mAgainButton;
 
@@ -96,7 +104,7 @@ public class TextToSpeechActivity extends Activity implements TextToSpeech.OnIni
             if (result == TextToSpeech.LANG_MISSING_DATA ||
                 result == TextToSpeech.LANG_NOT_SUPPORTED) {
                // Lanuage data is missing or the language is not supported.
-                Log.e(TAG, "Language is not available.");
+                LogUtils.e(TAG, "Language is not available.");
             } else {
                 // Check the documentation for other possible result codes.
                 // For example, the language may be available for the locale,
@@ -110,19 +118,9 @@ public class TextToSpeechActivity extends Activity implements TextToSpeech.OnIni
             }
         } else {
             // Initialization failed.
-            Log.e(TAG, "Could not initialize TextToSpeech.");
+            LogUtils.e(TAG, "Could not initialize TextToSpeech.");
         }
     }
-
-    private static final Random RANDOM = new Random();
-    private static final String[] HELLOS = {
-      "Hello",
-      "Salutations",
-      "Greetings",
-      "Howdy",
-      "What's crack-a-lackin?",
-      "That explains the stench!"
-    };
 
     private void sayHello() {
         // Select a random hello.

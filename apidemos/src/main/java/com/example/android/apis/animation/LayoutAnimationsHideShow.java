@@ -18,23 +18,23 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.widget.LinearLayout;
-import com.example.android.apis.R;
 
+import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.Keyframe;
 import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.LinearLayout;
+
+import com.example.android.apis.R;
 
 /**
  * This application demonstrates how to use LayoutTransition to automate transition animations
@@ -42,8 +42,8 @@ import android.widget.Button;
  */
 public class LayoutAnimationsHideShow extends Activity {
 
-    private int numButtons = 1;
     ViewGroup container = null;
+    private int numButtons = 1;
     private LayoutTransition mTransitioner;
 
     /** Called when the activity is first created. */

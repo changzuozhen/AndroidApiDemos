@@ -19,9 +19,10 @@ package com.example.android.apis.app;
 import android.app.Activity;
 import android.app.Instrumentation;
 import android.content.Intent;
-import android.view.KeyEvent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
+
+import com.tencent.commontools.LogUtils;
 
 /**
  * This is an example implementation of the {@link android.app.Instrumentation}
@@ -52,7 +53,7 @@ public class ContactsFilterInstrumentation extends Instrumentation {
         Activity activity = startActivitySync(intent);
 
         // This is the Activity object that was started, to do with as we want.
-        Log.i("ContactsFilterInstrumentation", "Started: " + activity);
+        LogUtils.i("ContactsFilterInstrumentation", "Started: " + activity);
 
         // We are going to enqueue a couple key events to simulate the user
         // filtering the list.  This is the low-level API so we must send both
@@ -66,7 +67,7 @@ public class ContactsFilterInstrumentation extends Instrumentation {
         waitForIdleSync();
 
         // And we are done!
-        Log.i("ContactsFilterInstrumentation", "Done!");
+        LogUtils.i("ContactsFilterInstrumentation", "Done!");
         finish(Activity.RESULT_OK, null);
     }
 }

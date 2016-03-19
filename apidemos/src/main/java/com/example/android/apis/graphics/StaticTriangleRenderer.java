@@ -16,7 +16,15 @@
 
 package com.example.android.apis.graphics;
 
-import static android.opengl.GLES10.*;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.opengl.GLSurfaceView;
+import android.opengl.GLU;
+import android.opengl.GLUtils;
+import android.os.SystemClock;
+
+import com.example.android.apis.R;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,15 +36,58 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLSurfaceView;
-import android.opengl.GLU;
-import android.opengl.GLUtils;
-import android.os.SystemClock;
-
-import com.example.android.apis.R;
+import static android.opengl.GLES10.GL_CCW;
+import static android.opengl.GLES10.GL_CLAMP_TO_EDGE;
+import static android.opengl.GLES10.GL_COLOR_BUFFER_BIT;
+import static android.opengl.GLES10.GL_DEPTH_BUFFER_BIT;
+import static android.opengl.GLES10.GL_DEPTH_TEST;
+import static android.opengl.GLES10.GL_DITHER;
+import static android.opengl.GLES10.GL_FASTEST;
+import static android.opengl.GLES10.GL_FLOAT;
+import static android.opengl.GLES10.GL_LINEAR;
+import static android.opengl.GLES10.GL_MODELVIEW;
+import static android.opengl.GLES10.GL_MODULATE;
+import static android.opengl.GLES10.GL_NEAREST;
+import static android.opengl.GLES10.GL_PERSPECTIVE_CORRECTION_HINT;
+import static android.opengl.GLES10.GL_PROJECTION;
+import static android.opengl.GLES10.GL_REPEAT;
+import static android.opengl.GLES10.GL_REPLACE;
+import static android.opengl.GLES10.GL_SMOOTH;
+import static android.opengl.GLES10.GL_TEXTURE0;
+import static android.opengl.GLES10.GL_TEXTURE_2D;
+import static android.opengl.GLES10.GL_TEXTURE_COORD_ARRAY;
+import static android.opengl.GLES10.GL_TEXTURE_ENV;
+import static android.opengl.GLES10.GL_TEXTURE_ENV_MODE;
+import static android.opengl.GLES10.GL_TEXTURE_MAG_FILTER;
+import static android.opengl.GLES10.GL_TEXTURE_MIN_FILTER;
+import static android.opengl.GLES10.GL_TEXTURE_WRAP_S;
+import static android.opengl.GLES10.GL_TEXTURE_WRAP_T;
+import static android.opengl.GLES10.GL_TRIANGLE_STRIP;
+import static android.opengl.GLES10.GL_UNSIGNED_SHORT;
+import static android.opengl.GLES10.GL_VERTEX_ARRAY;
+import static android.opengl.GLES10.glActiveTexture;
+import static android.opengl.GLES10.glBindTexture;
+import static android.opengl.GLES10.glClear;
+import static android.opengl.GLES10.glClearColor;
+import static android.opengl.GLES10.glDisable;
+import static android.opengl.GLES10.glDrawElements;
+import static android.opengl.GLES10.glEnable;
+import static android.opengl.GLES10.glEnableClientState;
+import static android.opengl.GLES10.glFrontFace;
+import static android.opengl.GLES10.glFrustumf;
+import static android.opengl.GLES10.glGenTextures;
+import static android.opengl.GLES10.glHint;
+import static android.opengl.GLES10.glLoadIdentity;
+import static android.opengl.GLES10.glMatrixMode;
+import static android.opengl.GLES10.glRotatef;
+import static android.opengl.GLES10.glShadeModel;
+import static android.opengl.GLES10.glTexCoordPointer;
+import static android.opengl.GLES10.glTexEnvf;
+import static android.opengl.GLES10.glTexEnvx;
+import static android.opengl.GLES10.glTexParameterf;
+import static android.opengl.GLES10.glTexParameterx;
+import static android.opengl.GLES10.glVertexPointer;
+import static android.opengl.GLES10.glViewport;
 
 /**
  * A GLSurfaceView.Renderer that uses the Android-specific
@@ -50,12 +101,10 @@ import com.example.android.apis.R;
  */
 public class StaticTriangleRenderer implements GLSurfaceView.Renderer{
 
-    public interface TextureLoader {
-        /**
-         * Load a texture into the currently bound OpenGL texture.
-         */
-        void load(GL10 gl);
-    }
+    private Context mContext;
+    private Triangle mTriangle;
+    private int mTextureID;
+    private TextureLoader mTextureLoader;
 
     public StaticTriangleRenderer(Context context) {
         init(context, new RobotTextureLoader());
@@ -179,32 +228,18 @@ public class StaticTriangleRenderer implements GLSurfaceView.Renderer{
         glFrustumf(-ratio, ratio, -1, 1, 3, 7);
     }
 
-    private Context mContext;
-    private Triangle mTriangle;
-    private int mTextureID;
-    private TextureLoader mTextureLoader;
-
-    private class RobotTextureLoader implements TextureLoader {
-        public void load(GL10 gl) {
-            InputStream is = mContext.getResources().openRawResource(
-                    R.raw.robot);
-            Bitmap bitmap;
-            try {
-                bitmap = BitmapFactory.decodeStream(is);
-            } finally {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    // Ignore.
-                }
-            }
-
-            GLUtils.texImage2D(GL_TEXTURE_2D, 0, bitmap, 0);
-            bitmap.recycle();
-        }
+    public interface TextureLoader {
+        /**
+         * Load a texture into the currently bound OpenGL texture.
+         */
+        void load(GL10 gl);
     }
 
     static class Triangle {
+        private final static int VERTS = 3;
+        private FloatBuffer mFVertexBuffer;
+        private FloatBuffer mTexBuffer;
+        private ShortBuffer mIndexBuffer;
         public Triangle() {
 
             // Buffers to be passed to gl*Pointer() functions
@@ -264,11 +299,25 @@ public class StaticTriangleRenderer implements GLSurfaceView.Renderer{
             glDrawElements(GL_TRIANGLE_STRIP, VERTS,
                     GL_UNSIGNED_SHORT, mIndexBuffer);
         }
+    }
 
-        private final static int VERTS = 3;
+    private class RobotTextureLoader implements TextureLoader {
+        public void load(GL10 gl) {
+            InputStream is = mContext.getResources().openRawResource(
+                    R.raw.robot);
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(is);
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    // Ignore.
+                }
+            }
 
-        private FloatBuffer mFVertexBuffer;
-        private FloatBuffer mTexBuffer;
-        private ShortBuffer mIndexBuffer;
+            GLUtils.texImage2D(GL_TEXTURE_2D, 0, bitmap, 0);
+            bitmap.recycle();
+        }
     }
 }

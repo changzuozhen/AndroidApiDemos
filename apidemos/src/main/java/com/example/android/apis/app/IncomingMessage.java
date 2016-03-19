@@ -16,10 +16,6 @@
 
 package com.example.android.apis.app;
 
-import java.util.Random;
-
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -31,33 +27,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.android.apis.R;
+
+import java.util.Random;
+
 /**
  * UI for posting an example notification.
  */
 public class IncomingMessage extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.incoming_message);
-
-        Button button = (Button) findViewById(R.id.notify_app);
-        button.setOnClickListener(new Button.OnClickListener() {
-                public void onClick(View v) {
-                    showAppNotification();
-                }
-            });
-
-        button = (Button) findViewById(R.id.notify_interstitial);
-        button.setOnClickListener(new Button.OnClickListener() {
-                public void onClick(View v) {
-                    showInterstitialNotification();
-                }
-            });
-    }
-
-
-
     /**
      * This method creates an array of Intent objects representing the
      * activity stack for the incoming message details state that the
@@ -93,6 +70,26 @@ public class IncomingMessage extends Activity {
         return intents;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.incoming_message);
+
+        Button button = (Button) findViewById(R.id.notify_app);
+        button.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                showAppNotification();
+            }
+        });
+
+        button = (Button) findViewById(R.id.notify_interstitial);
+        button.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                showInterstitialNotification();
+            }
+        });
+    }
 
     /**
      * The notification is the icon and associated expanded entry in the

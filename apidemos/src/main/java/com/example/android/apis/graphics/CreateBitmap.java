@@ -17,19 +17,17 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 
 import java.io.ByteArrayOutputStream;
 
 public class CreateBitmap extends GraphicsActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(new SampleView(this));
-    }
 
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
@@ -49,21 +47,18 @@ public class CreateBitmap extends GraphicsActivity {
         return colors;
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(new SampleView(this));
+    }
+
     private static class SampleView extends View {
         private Bitmap[] mBitmaps;
         private Bitmap[] mJPEG;
         private Bitmap[] mPNG;
         private int[]    mColors;
         private Paint    mPaint;
-
-        private static Bitmap codec(Bitmap src, Bitmap.CompressFormat format,
-                                    int quality) {
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            src.compress(format, quality, os);
-
-            byte[] array = os.toByteArray();
-            return BitmapFactory.decodeByteArray(array, 0, array.length);
-        }
 
         public SampleView(Context context) {
             super(context);
@@ -102,6 +97,15 @@ public class CreateBitmap extends GraphicsActivity {
                 mJPEG[i] = codec(mBitmaps[i], Bitmap.CompressFormat.JPEG, 80);
                 mPNG[i] = codec(mBitmaps[i], Bitmap.CompressFormat.PNG, 0);
             }
+        }
+
+        private static Bitmap codec(Bitmap src, Bitmap.CompressFormat format,
+                                    int quality) {
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            src.compress(format, quality, os);
+
+            byte[] array = os.toByteArray();
+            return BitmapFactory.decodeByteArray(array, 0, array.length);
         }
 
         @Override protected void onDraw(Canvas canvas) {

@@ -16,8 +16,6 @@
 
 package com.example.android.apis.media;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -26,10 +24,12 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.media.MediaPlayer.OnVideoSizeChangedListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.widget.Toast;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 
 public class MediaPlayerDemo_Video extends Activity implements
@@ -37,6 +37,12 @@ public class MediaPlayerDemo_Video extends Activity implements
         OnPreparedListener, OnVideoSizeChangedListener, SurfaceHolder.Callback {
 
     private static final String TAG = "MediaPlayerDemo";
+    private static final String MEDIA = "media";
+    private static final int LOCAL_AUDIO = 1;
+    private static final int STREAM_AUDIO = 2;
+    private static final int RESOURCES_AUDIO = 3;
+    private static final int LOCAL_VIDEO = 4;
+    private static final int STREAM_VIDEO = 5;
     private int mVideoWidth;
     private int mVideoHeight;
     private MediaPlayer mMediaPlayer;
@@ -44,12 +50,6 @@ public class MediaPlayerDemo_Video extends Activity implements
     private SurfaceHolder holder;
     private String path;
     private Bundle extras;
-    private static final String MEDIA = "media";
-    private static final int LOCAL_AUDIO = 1;
-    private static final int STREAM_AUDIO = 2;
-    private static final int RESOURCES_AUDIO = 3;
-    private static final int LOCAL_VIDEO = 4;
-    private static final int STREAM_VIDEO = 5;
     private boolean mIsVideoSizeKnown = false;
     private boolean mIsVideoReadyToBePlayed = false;
 
@@ -131,23 +131,23 @@ public class MediaPlayerDemo_Video extends Activity implements
 
 
         } catch (Exception e) {
-            Log.e(TAG, "error: " + e.getMessage(), e);
+            LogUtils.e(TAG, "error: " + e.getMessage(), e);
         }
     }
 
     public void onBufferingUpdate(MediaPlayer arg0, int percent) {
-        Log.d(TAG, "onBufferingUpdate percent:" + percent);
+        LogUtils.d(TAG, "onBufferingUpdate percent:" + percent);
 
     }
 
     public void onCompletion(MediaPlayer arg0) {
-        Log.d(TAG, "onCompletion called");
+        LogUtils.d(TAG, "onCompletion called");
     }
 
     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-        Log.v(TAG, "onVideoSizeChanged called");
+        LogUtils.v(TAG, "onVideoSizeChanged called");
         if (width == 0 || height == 0) {
-            Log.e(TAG, "invalid video width(" + width + ") or height(" + height + ")");
+            LogUtils.e(TAG, "invalid video width(" + width + ") or height(" + height + ")");
             return;
         }
         mIsVideoSizeKnown = true;
@@ -159,7 +159,7 @@ public class MediaPlayerDemo_Video extends Activity implements
     }
 
     public void onPrepared(MediaPlayer mediaplayer) {
-        Log.d(TAG, "onPrepared called");
+        LogUtils.d(TAG, "onPrepared called");
         mIsVideoReadyToBePlayed = true;
         if (mIsVideoReadyToBePlayed && mIsVideoSizeKnown) {
             startVideoPlayback();
@@ -167,17 +167,17 @@ public class MediaPlayerDemo_Video extends Activity implements
     }
 
     public void surfaceChanged(SurfaceHolder surfaceholder, int i, int j, int k) {
-        Log.d(TAG, "surfaceChanged called");
+        LogUtils.d(TAG, "surfaceChanged called");
 
     }
 
     public void surfaceDestroyed(SurfaceHolder surfaceholder) {
-        Log.d(TAG, "surfaceDestroyed called");
+        LogUtils.d(TAG, "surfaceDestroyed called");
     }
 
 
     public void surfaceCreated(SurfaceHolder holder) {
-        Log.d(TAG, "surfaceCreated called");
+        LogUtils.d(TAG, "surfaceCreated called");
         playVideo(extras.getInt(MEDIA));
 
 
@@ -212,7 +212,7 @@ public class MediaPlayerDemo_Video extends Activity implements
     }
 
     private void startVideoPlayback() {
-        Log.v(TAG, "startVideoPlayback");
+        LogUtils.v(TAG, "startVideoPlayback");
         holder.setFixedSize(mVideoWidth, mVideoHeight);
         mMediaPlayer.start();
     }

@@ -17,13 +17,19 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Picture;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.Bundle;
 import android.view.View;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class Pictures extends GraphicsActivity {
 
@@ -37,17 +43,6 @@ public class Pictures extends GraphicsActivity {
         private Picture mPicture;
         private Drawable mDrawable;
 
-        static void drawSomething(Canvas canvas) {
-            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-            p.setColor(0x88FF0000);
-            canvas.drawCircle(50, 50, 40, p);
-
-            p.setColor(Color.GREEN);
-            p.setTextSize(30);
-            canvas.drawText("Pictures", 60, 60, p);
-        }
-
         public SampleView(Context context) {
             super(context);
             setFocusable(true);
@@ -58,6 +53,17 @@ public class Pictures extends GraphicsActivity {
             mPicture.endRecording();
 
             mDrawable = new PictureDrawable(mPicture);
+        }
+
+        static void drawSomething(Canvas canvas) {
+            Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+            p.setColor(0x88FF0000);
+            canvas.drawCircle(50, 50, 40, p);
+
+            p.setColor(Color.GREEN);
+            p.setTextSize(30);
+            canvas.drawText("Pictures", 60, 60, p);
         }
 
         @Override protected void onDraw(Canvas canvas) {

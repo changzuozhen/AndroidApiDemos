@@ -16,14 +16,14 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.android.apis.R;
 
 /**
  * Demonstrates the use of progress dialogs.  Uses {@link Activity#onCreateDialog}
@@ -32,12 +32,10 @@ import android.widget.Button;
  */
 public class ProgressBar3 extends Activity {
 
-    ProgressDialog mDialog1;
-    ProgressDialog mDialog2;
-
     private static final int DIALOG1_KEY = 0;
     private static final int DIALOG2_KEY = 1;
-
+    ProgressDialog mDialog1;
+    ProgressDialog mDialog2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

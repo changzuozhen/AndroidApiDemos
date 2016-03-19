@@ -16,10 +16,10 @@
 
 package com.example.android.apis.text;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.android.apis.R;
 
 public class Marquee extends Activity {
     @Override

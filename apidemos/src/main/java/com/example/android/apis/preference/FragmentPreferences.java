@@ -16,11 +16,11 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.example.android.apis.R;
 
 /**
  * Demonstration of PreferenceFragment, showing a single fragment in an

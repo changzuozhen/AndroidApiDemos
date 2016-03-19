@@ -21,10 +21,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.tencent.commontools.LogUtils;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -96,7 +97,7 @@ public class ApiDemos extends ListActivity {
                     ? labelSeq.toString()
                     : info.activityInfo.name;
 
-            Log.i(TAG, label);
+            LogUtils.i(TAG, label);
             if (prefixWithSlash.length() == 0 || label.startsWith(prefixWithSlash)) {
 
                 String[] labelPath = label.split("/");

@@ -16,12 +16,12 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
+
+import com.example.android.apis.R;
 
 /**
  * Executed when a new version of the application is is installed.

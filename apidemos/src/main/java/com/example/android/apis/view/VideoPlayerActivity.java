@@ -26,7 +26,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,11 +34,11 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SeekBar;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SearchView.OnQueryTextListener;
 
 import com.example.android.apis.R;
 
@@ -51,6 +50,105 @@ import com.example.android.apis.R;
  */
 public class VideoPlayerActivity extends Activity
         implements OnQueryTextListener, ActionBar.TabListener {
+
+    Content mContent;
+
+
+    public VideoPlayerActivity() {
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
+
+        setContentView(R.layout.video_player);
+        mContent = (Content) findViewById(R.id.content);
+        mContent.init(this, (TextView) findViewById(R.id.title),
+                (Button) findViewById(R.id.play),
+                (SeekBar) findViewById(R.id.seekbar));
+
+        ActionBar bar = getActionBar();
+        bar.addTab(bar.newTab().setText("Tab 1").setTabListener(this));
+        bar.addTab(bar.newTab().setText("Tab 2").setTabListener(this));
+        bar.addTab(bar.newTab().setText("Tab 3").setTabListener(this));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.content_actions, menu);
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        // Set file with share history to the provider and set the share intent.
+        MenuItem actionItem = menu.findItem(R.id.menu_item_share_action_provider_action_bar);
+        ShareActionProvider actionProvider = (ShareActionProvider) actionItem.getActionProvider();
+        actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+        // Note that you can set/change the intent any time,
+        // say when the user has selected an image.
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("image/*");
+        Uri uri = Uri.fromFile(getFileStreamPath("shared.png"));
+        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+        actionProvider.setShareIntent(shareIntent);
+        return true;
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    /**
+     * This method is declared in the menu.
+     */
+    public void onSort(MenuItem item) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.show_tabs:
+                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+                item.setChecked(true);
+                return true;
+            case R.id.hide_tabs:
+                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                item.setChecked(true);
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Toast.makeText(this, "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+    }
+
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    }
+
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    }
 
     /**
      * Implementation of a view for displaying full-screen video playback,
@@ -178,104 +276,5 @@ public class VideoPlayerActivity extends Activity
             mPlayButton.setVisibility(visible ? VISIBLE : INVISIBLE);
             mSeekView.setVisibility(visible ? VISIBLE : INVISIBLE);
         }
-    }
-
-
-    Content mContent;
-
-    public VideoPlayerActivity() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-
-        setContentView(R.layout.video_player);
-        mContent = (Content)findViewById(R.id.content);
-        mContent.init(this, (TextView)findViewById(R.id.title),
-                (Button)findViewById(R.id.play),
-                (SeekBar)findViewById(R.id.seekbar));
-
-        ActionBar bar = getActionBar();
-        bar.addTab(bar.newTab().setText("Tab 1").setTabListener(this));
-        bar.addTab(bar.newTab().setText("Tab 2").setTabListener(this));
-        bar.addTab(bar.newTab().setText("Tab 3").setTabListener(this));
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.content_actions, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setOnQueryTextListener(this);
-
-        // Set file with share history to the provider and set the share intent.
-        MenuItem actionItem = menu.findItem(R.id.menu_item_share_action_provider_action_bar);
-        ShareActionProvider actionProvider = (ShareActionProvider) actionItem.getActionProvider();
-        actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-        // Note that you can set/change the intent any time,
-        // say when the user has selected an image.
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        Uri uri = Uri.fromFile(getFileStreamPath("shared.png"));
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-        actionProvider.setShareIntent(shareIntent);
-        return true;
-    }
-
-    @Override
-    public void onAttachedToWindow() {
-        super.onAttachedToWindow();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    /**
-     * This method is declared in the menu.
-     */
-    public void onSort(MenuItem item) {
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.show_tabs:
-                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-                item.setChecked(true);
-                return true;
-            case R.id.hide_tabs:
-                getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
-                item.setChecked(true);
-                return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        Toast.makeText(this, "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
-        return true;
-    }
-
-    @Override
-    public void onTabSelected(Tab tab, FragmentTransaction ft) {
-    }
-
-    @Override
-    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-    }
-
-    @Override
-    public void onTabReselected(Tab tab, FragmentTransaction ft) {
     }
 }

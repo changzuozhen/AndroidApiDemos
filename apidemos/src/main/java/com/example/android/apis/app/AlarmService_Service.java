@@ -18,7 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -31,6 +30,8 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import android.widget.Toast;
 
+import com.example.android.apis.R;
+
 /**
  * This is an example of implementing an application service that will run in
  * response to an alarm, allowing us to move long duration work out of an
@@ -40,7 +41,39 @@ import android.widget.Toast;
  * @see AlarmService_Alarm
  */
 public class AlarmService_Service extends Service {
+    /**
+     * This is the object that receives interactions from clients.  See RemoteService
+     * for a more complete example.
+     */
+    private final IBinder mBinder = new Binder() {
+        @Override
+        protected boolean onTransact(int code, Parcel data, Parcel reply,
+                                     int flags) throws RemoteException {
+            return super.onTransact(code, data, reply, flags);
+        }
+    };
     NotificationManager mNM;
+    /**
+     * The function that runs in our worker thread
+     */
+    Runnable mTask = new Runnable() {
+        public void run() {
+            // Normally we would do some work here...  for our sample, we will
+            // just sleep for 30 seconds.
+            long endTime = System.currentTimeMillis() + 15 * 1000;
+            while (System.currentTimeMillis() < endTime) {
+                synchronized (mBinder) {
+                    try {
+                        mBinder.wait(endTime - System.currentTimeMillis());
+                    } catch (Exception e) {
+                    }
+                }
+            }
+
+            // Done with our work...  stop the service!
+            AlarmService_Service.this.stopSelf();
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -64,28 +97,6 @@ public class AlarmService_Service extends Service {
         // Tell the user we stopped.
         Toast.makeText(this, R.string.alarm_service_finished, Toast.LENGTH_SHORT).show();
     }
-
-    /**
-     * The function that runs in our worker thread
-     */
-    Runnable mTask = new Runnable() {
-        public void run() {
-            // Normally we would do some work here...  for our sample, we will
-            // just sleep for 30 seconds.
-            long endTime = System.currentTimeMillis() + 15*1000;
-            while (System.currentTimeMillis() < endTime) {
-                synchronized (mBinder) {
-                    try {
-                        mBinder.wait(endTime - System.currentTimeMillis());
-                    } catch (Exception e) {
-                    }
-                }
-            }
-
-            // Done with our work...  stop the service!
-            AlarmService_Service.this.stopSelf();
-        }
-    };
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -115,17 +126,5 @@ public class AlarmService_Service extends Service {
         // We use a layout id because it is a unique number.  We use it later to cancel.
         mNM.notify(R.string.alarm_service_started, notification);
     }
-
-    /**
-     * This is the object that receives interactions from clients.  See RemoteService
-     * for a more complete example.
-     */
-    private final IBinder mBinder = new Binder() {
-        @Override
-		protected boolean onTransact(int code, Parcel data, Parcel reply,
-		        int flags) throws RemoteException {
-            return super.onTransact(code, data, reply, flags);
-        }
-    };
 }
 

@@ -17,9 +17,9 @@
 package com.example.android.apis.view;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.app.ActionBar.Tab;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -27,22 +27,20 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.ActionMode;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ShareActionProvider;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.SearchView.OnQueryTextListener;
 
 import com.example.android.apis.R;
 
@@ -53,65 +51,17 @@ import com.example.android.apis.R;
  */
 public class OverscanActivity extends Activity
         implements OnQueryTextListener, ActionBar.TabListener {
-    public static class IV extends ImageView implements View.OnSystemUiVisibilityChangeListener {
-        private OverscanActivity mActivity;
-        private ActionMode mActionMode;
-        public IV(Context context) {
-            super(context);
-        }
-        public IV(Context context, AttributeSet attrs) {
-            super(context, attrs);
-        }
-        public void setActivity(OverscanActivity act) {
-            setOnSystemUiVisibilityChangeListener(this);
-            mActivity = act;
-        }
-        @Override
-        public void onSizeChanged(int w, int h, int oldw, int oldh) {
-            mActivity.refreshSizes();
-        }
-        @Override
-        public void onSystemUiVisibilityChange(int visibility) {
-            mActivity.updateCheckControls();
-            mActivity.refreshSizes();
-        }
+    static int TOAST_LENGTH = 500;
+    IV mImage;
+    CheckBox[] mCheckControls = new CheckBox[6];
+    int[] mCheckFlags = new int[]{View.SYSTEM_UI_FLAG_LOW_PROFILE,
+            View.SYSTEM_UI_FLAG_FULLSCREEN, View.SYSTEM_UI_FLAG_HIDE_NAVIGATION,
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN,
+            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+    };
+    TextView mMetricsText;
 
-        private class MyActionModeCallback implements ActionMode.Callback {
-            @Override public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                mode.setTitle("My Action Mode!");
-                mode.setSubtitle(null);
-                mode.setTitleOptionalHint(false);
-                menu.add("Sort By Size").setIcon(android.R.drawable.ic_menu_sort_by_size);
-                menu.add("Sort By Alpha").setIcon(android.R.drawable.ic_menu_sort_alphabetically);
-                return true;
-            }
-
-            @Override public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                return true;
-            }
-
-            @Override public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                return true;
-            }
-
-            @Override public void onDestroyActionMode(ActionMode mode) {
-                mActionMode = null;
-                mActivity.clearActionMode();
-            }
-        }
-
-        public void startActionMode() {
-            if (mActionMode == null) {
-                ActionMode.Callback cb = new MyActionModeCallback();
-                mActionMode = startActionMode(cb);
-            }
-        }
-
-        public void stopActionMode() {
-            if (mActionMode != null) {
-                mActionMode.finish();
-            }
-        }
+    public OverscanActivity() {
     }
 
     private void setFullscreen(boolean on) {
@@ -130,26 +80,15 @@ public class OverscanActivity extends Activity
         DisplayMetrics dm = getResources().getDisplayMetrics();
         return String.format("DisplayMetrics = (%d x %d)", dm.widthPixels, dm.heightPixels);
     }
+
     private String getViewSize() {
         return String.format("View = (%d,%d - %d,%d)",
                 mImage.getLeft(), mImage.getTop(),
                 mImage.getRight(), mImage.getBottom());
     }
+
     void refreshSizes() {
         mMetricsText.setText(getDisplaySize() + " " + getViewSize());
-    }
-
-    static int TOAST_LENGTH = 500;
-    IV mImage;
-    CheckBox[] mCheckControls = new CheckBox[6];
-    int[] mCheckFlags = new int[] { View.SYSTEM_UI_FLAG_LOW_PROFILE,
-            View.SYSTEM_UI_FLAG_FULLSCREEN, View.SYSTEM_UI_FLAG_HIDE_NAVIGATION,
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE, View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN,
-            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-    };
-    TextView mMetricsText;
-
-    public OverscanActivity() {
     }
 
     @Override
@@ -303,5 +242,75 @@ public class OverscanActivity extends Activity
 
     public void clearActionMode() {
         ((CheckBox) findViewById(R.id.windowActionMode)).setChecked(false);
+    }
+
+    public static class IV extends ImageView implements View.OnSystemUiVisibilityChangeListener {
+        private OverscanActivity mActivity;
+        private ActionMode mActionMode;
+
+        public IV(Context context) {
+            super(context);
+        }
+
+        public IV(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public void setActivity(OverscanActivity act) {
+            setOnSystemUiVisibilityChangeListener(this);
+            mActivity = act;
+        }
+
+        @Override
+        public void onSizeChanged(int w, int h, int oldw, int oldh) {
+            mActivity.refreshSizes();
+        }
+
+        @Override
+        public void onSystemUiVisibilityChange(int visibility) {
+            mActivity.updateCheckControls();
+            mActivity.refreshSizes();
+        }
+
+        public void startActionMode() {
+            if (mActionMode == null) {
+                ActionMode.Callback cb = new MyActionModeCallback();
+                mActionMode = startActionMode(cb);
+            }
+        }
+
+        public void stopActionMode() {
+            if (mActionMode != null) {
+                mActionMode.finish();
+            }
+        }
+
+        private class MyActionModeCallback implements ActionMode.Callback {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                mode.setTitle("My Action Mode!");
+                mode.setSubtitle(null);
+                mode.setTitleOptionalHint(false);
+                menu.add("Sort By Size").setIcon(android.R.drawable.ic_menu_sort_by_size);
+                menu.add("Sort By Alpha").setIcon(android.R.drawable.ic_menu_sort_alphabetically);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                mActionMode = null;
+                mActivity.clearActionMode();
+            }
+        }
     }
 }

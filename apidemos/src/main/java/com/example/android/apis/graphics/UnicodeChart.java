@@ -17,7 +17,9 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,18 +37,15 @@ public class UnicodeChart extends GraphicsActivity {
     }
 
     private static class SampleView extends View {
-        private Paint mBigCharPaint;
-        private Paint mLabelPaint;
-        private final char[] mChars = new char[256];
-        private final float[] mPos = new float[512];
-
-        private int mBase;
-
         private static final float SCALE = 4;
-
         private static final int XMUL = (int) (20*SCALE);
         private static final int YMUL = (int) (28*SCALE);
         private static final int YBASE = (int) (18*SCALE);
+        private final char[] mChars = new char[256];
+        private final float[] mPos = new float[512];
+        private Paint mBigCharPaint;
+        private Paint mLabelPaint;
+        private int mBase;
 
         public SampleView(Context context) {
             super(context);

@@ -17,8 +17,6 @@
 package com.example.android.apis.animation;
 
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 

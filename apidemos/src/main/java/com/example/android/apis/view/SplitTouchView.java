@@ -16,23 +16,37 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
+
+import com.example.android.apis.R;
 
 
 /**
  * Demonstrates splitting touch events across multiple views within a view group.
  */
 public class SplitTouchView extends Activity {
+    private int responseIndex = 0;
+    private final OnItemClickListener itemClickListener = new OnItemClickListener() {
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String[] responses = getResources().getStringArray(R.array.cheese_responses);
+            String response = responses[responseIndex++ % responses.length];
+
+            String message = getResources().getString(R.string.split_touch_view_cheese_toast,
+                    Cheeses.sCheeseStrings[position], response);
+
+            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,19 +62,4 @@ public class SplitTouchView extends Activity {
         list1.setOnItemClickListener(itemClickListener);
         list2.setOnItemClickListener(itemClickListener);
     }
-
-    private int responseIndex = 0;
-
-    private final OnItemClickListener itemClickListener = new OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            String[] responses = getResources().getStringArray(R.array.cheese_responses);
-            String response = responses[responseIndex++ % responses.length];
-
-            String message = getResources().getString(R.string.split_touch_view_cheese_toast,
-                    Cheeses.sCheeseStrings[position], response);
-
-            Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    };
 }

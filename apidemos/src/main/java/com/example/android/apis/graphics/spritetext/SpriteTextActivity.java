@@ -16,13 +16,15 @@
 
 package com.example.android.apis.graphics.spritetext;
 
-import javax.microedition.khronos.opengles.GL;
-
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
+import javax.microedition.khronos.opengles.GL;
+
 public class SpriteTextActivity extends Activity {
+
+    private GLSurfaceView mGLSurfaceView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,4 @@ public class SpriteTextActivity extends Activity {
         super.onResume();
         mGLSurfaceView.onResume();
     }
-
-    private GLSurfaceView mGLSurfaceView;
 }

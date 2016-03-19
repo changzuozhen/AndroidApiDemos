@@ -16,13 +16,13 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
-import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.android.apis.R;
 
 /**
  * Demonstrates the use of non-focusable views.

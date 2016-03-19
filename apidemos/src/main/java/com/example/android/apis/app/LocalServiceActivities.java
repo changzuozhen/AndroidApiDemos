@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -30,6 +28,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.android.apis.R;
+
 public class LocalServiceActivities {
     /**
      * <p>Example of explicitly starting and stopping the local service.
@@ -41,19 +41,6 @@ public class LocalServiceActivities {
      * all together; typically this code would appear in some separate class.
      */
     public static class Controller extends Activity {
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            setContentView(R.layout.local_service_controller);
-
-            // Watch for button clicks.
-            Button button = (Button)findViewById(R.id.start);
-            button.setOnClickListener(mStartListener);
-            button = (Button)findViewById(R.id.stop);
-            button.setOnClickListener(mStopListener);
-        }
-
         private OnClickListener mStartListener = new OnClickListener() {
             public void onClick(View v) {
                 // Make sure the service is started.  It will continue running
@@ -65,7 +52,6 @@ public class LocalServiceActivities {
                         LocalService.class));
             }
         };
-
         private OnClickListener mStopListener = new OnClickListener() {
             public void onClick(View v) {
                 // Cancel a previous call to startService().  Note that the
@@ -75,6 +61,19 @@ public class LocalServiceActivities {
                         LocalService.class));
             }
         };
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            setContentView(R.layout.local_service_controller);
+
+            // Watch for button clicks.
+            Button button = (Button) findViewById(R.id.start);
+            button.setOnClickListener(mStartListener);
+            button = (Button) findViewById(R.id.stop);
+            button.setOnClickListener(mStopListener);
+        }
     }
 
     // ----------------------------------------------------------------------
@@ -117,17 +116,27 @@ public class LocalServiceActivities {
                         Toast.LENGTH_SHORT).show();
             }
         };
+        private OnClickListener mBindListener = new OnClickListener() {
+            public void onClick(View v) {
+                doBindService();
+            }
+        };
+        private OnClickListener mUnbindListener = new OnClickListener() {
+            public void onClick(View v) {
+                doUnbindService();
+            }
+        };
         
         void doBindService() {
             // Establish a connection with the service.  We use an explicit
             // class name because we want a specific service implementation that
             // we know will be running in our own process (and thus won't be
             // supporting component replacement by other applications).
-            bindService(new Intent(Binding.this, 
+            bindService(new Intent(Binding.this,
                     LocalService.class), mConnection, Context.BIND_AUTO_CREATE);
             mIsBound = true;
         }
-        
+
         void doUnbindService() {
             if (mIsBound) {
                 // Detach our existing connection.
@@ -135,25 +144,12 @@ public class LocalServiceActivities {
                 mIsBound = false;
             }
         }
-        
+
         @Override
         protected void onDestroy() {
             super.onDestroy();
             doUnbindService();
         }
-
-
-        private OnClickListener mBindListener = new OnClickListener() {
-            public void onClick(View v) {
-                doBindService();
-            }
-        };
-
-        private OnClickListener mUnbindListener = new OnClickListener() {
-            public void onClick(View v) {
-                doUnbindService();
-            }
-        };
         
         @Override
         protected void onCreate(Bundle savedInstanceState) {

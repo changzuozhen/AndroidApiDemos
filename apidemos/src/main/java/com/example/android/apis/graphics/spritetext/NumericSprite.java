@@ -16,11 +16,17 @@
 
 package com.example.android.apis.graphics.spritetext;
 
-import javax.microedition.khronos.opengles.GL10;
-
 import android.graphics.Paint;
 
+import javax.microedition.khronos.opengles.GL10;
+
 public class NumericSprite {
+    private final static String sStrike = "0123456789";
+    private LabelMaker mLabelMaker;
+    private String mText;
+    private int[] mWidth = new int[10];
+    private int[] mLabelId = new int[10];
+
     public NumericSprite() {
         mText = "";
         mLabelMaker = null;
@@ -90,10 +96,4 @@ public class NumericSprite {
     private String format(int value) {
         return Integer.toString(value);
     }
-
-    private LabelMaker mLabelMaker;
-    private String mText;
-    private int[] mWidth = new int[10];
-    private int[] mLabelId = new int[10];
-    private final static String sStrike = "0123456789";
 }

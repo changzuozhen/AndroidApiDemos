@@ -16,8 +16,6 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -34,7 +32,15 @@ import android.widget.FilterQueryProvider;
 import android.widget.Filterable;
 import android.widget.TextView;
 
+import com.example.android.apis.R;
+
 public class AutoComplete4 extends Activity {
+    public static final String[] CONTACT_PROJECTION = new String[]{
+            Contacts._ID,
+            Contacts.DISPLAY_NAME
+    };
+    private static final int COLUMN_DISPLAY_NAME = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,8 @@ public class AutoComplete4 extends Activity {
     // XXX compiler bug in javac 1.5.0_07-164, we need to implement Filterable
     // to make compilation work
     public static class ContactListAdapter extends CursorAdapter implements Filterable {
+        private ContentResolver mContent;
+
         public ContactListAdapter(Context context, Cursor c) {
             super(context, c);
             mContent = context.getContentResolver();
@@ -90,14 +98,5 @@ public class AutoComplete4 extends Activity {
                     Uri.encode(constraint.toString()));
             return mContent.query(uri, CONTACT_PROJECTION, null, null, null);
         }
-
-        private ContentResolver mContent;
     }
-
-    public static final String[] CONTACT_PROJECTION = new String[] {
-        Contacts._ID,
-        Contacts.DISPLAY_NAME
-    };
-
-    private static final int COLUMN_DISPLAY_NAME = 1;
 }

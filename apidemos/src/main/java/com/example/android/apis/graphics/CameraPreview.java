@@ -23,7 +23,6 @@ import android.hardware.Camera;
 import android.hardware.Camera.CameraInfo;
 import android.hardware.Camera.Size;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -34,23 +33,24 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
 import java.io.IOException;
 import java.util.List;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 // ----------------------------------------------------------------------
 
 public class CameraPreview extends Activity {
-    private Preview mPreview;
     Camera mCamera;
     int numberOfCameras;
     int cameraCurrentlyLocked;
-
     // The first rear facing camera
     int defaultCameraId;
+    private Preview mPreview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,7 +193,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
        try {
            camera.setPreviewDisplay(mHolder);
        } catch (IOException exception) {
-           Log.e(TAG, "IOException caused by setPreviewDisplay()", exception);
+           LogUtils.e(TAG, "IOException caused by setPreviewDisplay()", exception);
        }
        Camera.Parameters parameters = camera.getParameters();
        parameters.setPreviewSize(mPreviewSize.width, mPreviewSize.height);
@@ -252,7 +252,7 @@ class Preview extends ViewGroup implements SurfaceHolder.Callback {
                 mCamera.setPreviewDisplay(holder);
             }
         } catch (IOException exception) {
-            Log.e(TAG, "IOException caused by setPreviewDisplay()", exception);
+            LogUtils.e(TAG, "IOException caused by setPreviewDisplay()", exception);
         }
     }
 

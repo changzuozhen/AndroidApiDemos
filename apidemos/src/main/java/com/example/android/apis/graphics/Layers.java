@@ -17,9 +17,11 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 
 public class Layers extends GraphicsActivity {
 

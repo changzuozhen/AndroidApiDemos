@@ -4,10 +4,9 @@ import android.app.Activity;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+
+import com.tencent.commontools.LogUtils;
 
 /**
  * Demonstrates how to take over the Surface from a window to do direct
@@ -136,32 +135,27 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
      * window's surface.
      */
     class DrawingThread extends Thread {
+        static final int NUM_OLD = 100;
+        final MovingPoint mPoint1 = new MovingPoint();
+        final MovingPoint mPoint2 = new MovingPoint();
+        final float[] mOld = new float[NUM_OLD * 4];
+        final int[] mOldColor = new int[NUM_OLD];
+        // X is red, Y is blue.
+        final MovingPoint mColor = new MovingPoint();
+        final Paint mBackground = new Paint();
+        final Paint mForeground = new Paint();
         // These are protected by the Thread's lock.
         SurfaceHolder mSurface;
         boolean mRunning;
         boolean mActive;
         boolean mQuit;
-        
         // Internal state.
         int mLineWidth;
         float mMinStep;
         float mMaxStep;
-        
         boolean mInitialized;
-        final MovingPoint mPoint1 = new MovingPoint();
-        final MovingPoint mPoint2 = new MovingPoint();
-        
-        static final int NUM_OLD = 100;
         int mNumOld = 0;
-        final float[] mOld = new float[NUM_OLD*4];
-        final int[] mOldColor = new int[NUM_OLD];
         int mBrightLine = 0;
-        
-        // X is red, Y is blue.
-        final MovingPoint mColor = new MovingPoint();
-        
-        final Paint mBackground = new Paint();
-        final Paint mForeground = new Paint();
         
         int makeGreen(int index) {
             int dist = Math.abs(mBrightLine-index);
@@ -208,7 +202,7 @@ public class WindowSurface extends Activity implements SurfaceHolder.Callback2 {
                     // Lock the canvas for drawing.
                     Canvas canvas = mSurface.lockCanvas();
                     if (canvas == null) {
-                        Log.i("WindowSurface", "Failure locking canvas");
+                        LogUtils.i("WindowSurface", "Failure locking canvas");
                         continue;
                     }
                     

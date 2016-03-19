@@ -18,18 +18,18 @@ package com.example.android.apis.os;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.view.View;
 
 /**
  * <h3>Application that displays the values of the acceleration sensor graphically.</h3>
@@ -51,6 +51,41 @@ public class Sensors extends Activity {
     private SensorManager mSensorManager;
     private GraphView mGraphView;
 
+    /**
+     * Initialization of the Activity after it is first created.  Must at least
+     * call {@link android.app.Activity#setContentView setContentView()} to
+     * describe what is to be displayed in the screen.
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // Be sure to call the super class.
+        super.onCreate(savedInstanceState);
+
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mGraphView = new GraphView(this);
+        setContentView(mGraphView);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mGraphView,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
+                SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(mGraphView,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
+                SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(mGraphView,
+                mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
+                SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    @Override
+    protected void onStop() {
+        mSensorManager.unregisterListener(mGraphView);
+        super.onStop();
+    }
+    
     private class GraphView extends View implements SensorEventListener
     {
         private Bitmap  mBitmap;
@@ -68,7 +103,7 @@ public class Sensors extends Activity {
         private float   mSpeed = 1.0f;
         private float   mWidth;
         private float   mHeight;
-        
+
         public GraphView(Context context) {
             super(context);
             mColors[0] = Color.argb(192, 255, 64, 64);
@@ -82,7 +117,7 @@ public class Sensors extends Activity {
             mRect.set(-0.5f, -0.5f, 0.5f, 0.5f);
             mPath.arcTo(mRect, 0, 180);
         }
-        
+
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.RGB_565);
@@ -171,7 +206,7 @@ public class Sensors extends Activity {
         }
 
         public void onSensorChanged(SensorEvent event) {
-            //Log.d(TAG, "sensor: " + sensor + ", x: " + values[0] + ", y: " + values[1] + ", z: " + values[2]);
+            //LogUtils.d(TAG, "sensor: " + sensor + ", x: " + values[0] + ", y: " + values[1] + ", z: " + values[2]);
             synchronized (this) {
                 if (mBitmap != null) {
                     final Canvas canvas = mCanvas;
@@ -202,40 +237,5 @@ public class Sensors extends Activity {
 
         public void onAccuracyChanged(Sensor sensor, int accuracy) {
         }
-    }
-    
-    /**
-     * Initialization of the Activity after it is first created.  Must at least
-     * call {@link android.app.Activity#setContentView setContentView()} to
-     * describe what is to be displayed in the screen.
-     */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        // Be sure to call the super class.
-        super.onCreate(savedInstanceState);
-
-        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mGraphView = new GraphView(this);
-        setContentView(mGraphView);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(mGraphView,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
-                SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(mGraphView,
-                mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD),
-                SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(mGraphView, 
-                mSensorManager.getDefaultSensor(Sensor.TYPE_ORIENTATION),
-                SensorManager.SENSOR_DELAY_FASTEST);
-    }
-    
-    @Override
-    protected void onStop() {
-        mSensorManager.unregisterListener(mGraphView);
-        super.onStop();
     }
 }

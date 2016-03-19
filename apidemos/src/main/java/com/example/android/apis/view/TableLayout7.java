@@ -16,8 +16,6 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -26,6 +24,8 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 
 public class TableLayout7 extends Activity {

@@ -18,7 +18,6 @@ package com.example.android.apis.content;
 
 //Need the following import to get access to the app resources, since this
 //class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -29,12 +28,14 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -48,16 +49,12 @@ import java.io.OutputStream;
 */
 public class ExternalStorage extends Activity {
     ViewGroup mLayout;
-
-    static class Item {
-        View mRoot;
-        Button mCreate;
-        Button mDelete;
-    }
-
     Item mExternalStoragePublicPicture;
     Item mExternalStoragePrivatePicture;
     Item mExternalStoragePrivateFile;
+    BroadcastReceiver mExternalStorageReceiver;
+    boolean mExternalStorageAvailable = false;
+    boolean mExternalStorageWriteable = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,11 +133,6 @@ public class ExternalStorage extends Activity {
         mExternalStoragePrivateFile.mDelete.setEnabled(writeable && has);
     }
 
-
-    BroadcastReceiver mExternalStorageReceiver;
-    boolean mExternalStorageAvailable = false;
-    boolean mExternalStorageWriteable = false;
-
     void updateExternalStorageState() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -159,7 +151,7 @@ public class ExternalStorage extends Activity {
         mExternalStorageReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.i("test", "Storage: " + intent.getData());
+                LogUtils.i("test", "Storage: " + intent.getData());
                 updateExternalStorageState();
             }
         };
@@ -173,8 +165,6 @@ public class ExternalStorage extends Activity {
     void stopWatchingExternalStorage() {
         unregisterReceiver(mExternalStorageReceiver);
     }
-
-
 
     void createExternalStoragePublicPicture() {
         // Create a path where we will place our picture in the user's
@@ -209,14 +199,14 @@ public class ExternalStorage extends Activity {
                     new String[] { file.toString() }, null,
                     new MediaScannerConnection.OnScanCompletedListener() {
                 public void onScanCompleted(String path, Uri uri) {
-                    Log.i("ExternalStorage", "Scanned " + path + ":");
-                    Log.i("ExternalStorage", "-> uri=" + uri);
+                    LogUtils.i("ExternalStorage", "Scanned " + path + ":");
+                    LogUtils.i("ExternalStorage", "-> uri=" + uri);
                 }
             });
         } catch (IOException e) {
             // Unable to create file, likely because external storage is
             // not currently mounted.
-            Log.w("ExternalStorage", "Error writing " + file, e);
+            LogUtils.w("ExternalStorage", "Error writing " + file, e);
         }
     }
 
@@ -240,8 +230,6 @@ public class ExternalStorage extends Activity {
         File file = new File(path, "DemoPicture.jpg");
         return file.exists();
     }
-
-
 
     void createExternalStoragePrivatePicture() {
         // Create a path where we will place our picture in our own private
@@ -273,14 +261,14 @@ public class ExternalStorage extends Activity {
                     new String[] { file.toString() }, null,
                     new MediaScannerConnection.OnScanCompletedListener() {
                 public void onScanCompleted(String path, Uri uri) {
-                    Log.i("ExternalStorage", "Scanned " + path + ":");
-                    Log.i("ExternalStorage", "-> uri=" + uri);
+                    LogUtils.i("ExternalStorage", "Scanned " + path + ":");
+                    LogUtils.i("ExternalStorage", "-> uri=" + uri);
                 }
             });
         } catch (IOException e) {
             // Unable to create file, likely because external storage is
             // not currently mounted.
-            Log.w("ExternalStorage", "Error writing " + file, e);
+            LogUtils.w("ExternalStorage", "Error writing " + file, e);
         }
     }
 
@@ -308,8 +296,6 @@ public class ExternalStorage extends Activity {
         return false;
     }
 
-
-
      void createExternalStoragePrivateFile() {
          // Create a path where we will place our private file on external
          // storage.
@@ -331,7 +317,7 @@ public class ExternalStorage extends Activity {
          } catch (IOException e) {
              // Unable to create file, likely because external storage is
              // not currently mounted.
-             Log.w("ExternalStorage", "Error writing " + file, e);
+             LogUtils.w("ExternalStorage", "Error writing " + file, e);
          }
      }
 
@@ -354,7 +340,6 @@ public class ExternalStorage extends Activity {
          return false;
      }
 
-
     Item createStorageControls(CharSequence label, File path,
             View.OnClickListener createClick,
             View.OnClickListener deleteClick) {
@@ -372,5 +357,11 @@ public class ExternalStorage extends Activity {
         item.mDelete = (Button)item.mRoot.findViewById(R.id.delete);
         item.mDelete.setOnClickListener(deleteClick);
         return item;
+    }
+
+    static class Item {
+        View mRoot;
+        Button mCreate;
+        Button mDelete;
     }
 }

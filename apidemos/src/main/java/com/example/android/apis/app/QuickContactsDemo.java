@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.CharArrayBuffer;
@@ -29,6 +27,8 @@ import android.view.ViewGroup;
 import android.widget.QuickContactBadge;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 public class QuickContactsDemo extends ListActivity {
     static final String[] CONTACTS_SUMMARY_PROJECTION = new String[] {
@@ -67,6 +67,12 @@ public class QuickContactsDemo extends ListActivity {
 
     }
 
+    final static class ContactListItemCache {
+        public TextView nameView;
+        public QuickContactBadge photoView;
+        public CharArrayBuffer nameBuffer = new CharArrayBuffer(128);
+    }
+
     private final class ContactListItemAdapter extends ResourceCursorAdapter {
         public ContactListItemAdapter(Context context, int layout, Cursor c) {
             super(context, layout, c);
@@ -94,11 +100,5 @@ public class QuickContactsDemo extends ListActivity {
 
             return view;
         }
-    }
-
-    final static class ContactListItemCache {
-        public TextView nameView;
-        public QuickContactBadge photoView;
-        public CharArrayBuffer nameBuffer = new CharArrayBuffer(128);
     }
 }

@@ -16,13 +16,13 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+
+import com.example.android.apis.R;
 
 /**
  * This activity is an example of a simple settings screen that has default
@@ -44,6 +44,12 @@ public class DefaultValues extends PreferenceActivity {
     // determine whether these preferences' defaults have already been written.
     static final String PREFS_NAME = "defaults";
 
+    static SharedPreferences getPrefs(Context context) {
+        PreferenceManager.setDefaultValues(context, PREFS_NAME, MODE_PRIVATE,
+                R.xml.default_values, false);
+        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +57,5 @@ public class DefaultValues extends PreferenceActivity {
         getPrefs(this);
         getPreferenceManager().setSharedPreferencesName(PREFS_NAME);
         addPreferencesFromResource(R.xml.default_values);
-    }
-
-    static SharedPreferences getPrefs(Context context) {
-        PreferenceManager.setDefaultValues(context, PREFS_NAME, MODE_PRIVATE,
-                R.xml.default_values, false);
-        return context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
     }
 }

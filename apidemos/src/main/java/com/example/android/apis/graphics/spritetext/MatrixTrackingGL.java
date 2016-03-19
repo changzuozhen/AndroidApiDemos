@@ -16,7 +16,7 @@
 
 package com.example.android.apis.graphics.spritetext;
 
-import android.util.Log;
+import com.tencent.commontools.LogUtils;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -41,6 +41,11 @@ import javax.microedition.khronos.opengles.GL11Ext;
  * driver.
  */
 class MatrixTrackingGL implements GL, GL10, GL10Ext, GL11, GL11Ext {
+    private final static boolean _check = false;
+    ByteBuffer mByteBuffer;
+    FloatBuffer mFloatBuffer;
+    float[] mCheckA;
+    float[] mCheckB;
     private GL10 mgl;
     private GL10Ext mgl10Ext;
     private GL11 mgl11;
@@ -50,12 +55,6 @@ class MatrixTrackingGL implements GL, GL10, GL10Ext, GL11, GL11Ext {
     private MatrixStack mModelView;
     private MatrixStack mTexture;
     private MatrixStack mProjection;
-
-    private final static boolean _check = false;
-    ByteBuffer mByteBuffer;
-    FloatBuffer mFloatBuffer;
-    float[] mCheckA;
-    float[] mCheckB;
 
     public MatrixTrackingGL(GL gl) {
         mgl = (GL10) gl;
@@ -1073,8 +1072,8 @@ class MatrixTrackingGL implements GL, GL10, GL10Ext, GL11, GL11Ext {
         boolean fail = false;
         for(int i = 0; i < 16; i++) {
             if (mCheckA[i] != mCheckB[i]) {
-                Log.d("GLMatWrap", "i:" + i + " a:" + mCheckA[i]
-                + " a:" + mCheckB[i]);
+                LogUtils.d("GLMatWrap", "i:" + i + " a:" + mCheckA[i]
+                        + " a:" + mCheckB[i]);
                 fail = true;
             }
         }

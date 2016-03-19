@@ -16,14 +16,14 @@
 
 package com.example.android.apis.accessibility;
 
-import com.example.android.apis.R;
-
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.android.apis.R;
 
 /** Starts up the task list that will interact with the AccessibilityService sample. */
 public class TaskListActivity extends ListActivity {

@@ -16,8 +16,6 @@
 
 package com.example.android.apis.os;
 
-import java.util.Locale;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -26,19 +24,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
-import android.util.Log;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
+import java.util.Locale;
 
 public class SmsReceivedDialog extends Activity implements OnInitListener {
-    private static final String TAG = "SmsReceivedDialog";
-
-    private static final int DIALOG_SHOW_MESSAGE = 1;
-
     public static final String SMS_FROM_ADDRESS_EXTRA = "com.example.android.apis.os.SMS_FROM_ADDRESS";
     public static final String SMS_FROM_DISPLAY_NAME_EXTRA = "com.example.android.apis.os.SMS_FROM_DISPLAY_NAME";
     public static final String SMS_MESSAGE_EXTRA = "com.example.android.apis.os.SMS_MESSAGE";
-
+    private static final String TAG = "SmsReceivedDialog";
+    private static final int DIALOG_SHOW_MESSAGE = 1;
     private TextToSpeech mTts;
 
     private String mFromDisplayName;
@@ -68,13 +65,13 @@ public class SmsReceivedDialog extends Activity implements OnInitListener {
             int result = mTts.setLanguage(Locale.US);
             if (result == TextToSpeech.LANG_MISSING_DATA
                     || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Log.e(TAG, "TTS language is not available.");
+                LogUtils.e(TAG, "TTS language is not available.");
             } else {
                 mTts.speak(mFullBodyString, TextToSpeech.QUEUE_ADD, null);
             }
         } else {
             // Initialization failed.
-            Log.e(TAG, "Could not initialize TTS.");
+            LogUtils.e(TAG, "Could not initialize TTS.");
         }
     }
 

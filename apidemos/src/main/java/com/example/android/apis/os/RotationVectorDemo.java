@@ -16,11 +16,6 @@
 
 package com.example.android.apis.os;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
 import android.app.Activity;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -28,6 +23,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Wrapper activity demonstrating the use of the new
@@ -79,9 +81,9 @@ public class RotationVectorDemo extends Activity {
 
 
     class MyRenderer implements GLSurfaceView.Renderer, SensorEventListener {
+        private final float[] mRotationMatrix = new float[16];
         private Cube mCube;
         private Sensor mRotationVectorSensor;
-        private final float[] mRotationMatrix = new float[16];
 
         public MyRenderer() {
             // find the rotation-vector sensor
@@ -153,6 +155,9 @@ public class RotationVectorDemo extends Activity {
             gl.glClearColor(1,1,1,1);
         }
 
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+
         class Cube {
             // initialize our cube
             private FloatBuffer mVertexBuffer;
@@ -207,10 +212,7 @@ public class RotationVectorDemo extends Activity {
                 gl.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
                 gl.glColorPointer(4, GL10.GL_FLOAT, 0, mColorBuffer);
                 gl.glDrawElements(GL10.GL_TRIANGLES, 36, GL10.GL_UNSIGNED_BYTE, mIndexBuffer);
-            }            
-        }
-
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+            }
         }
     }
 }

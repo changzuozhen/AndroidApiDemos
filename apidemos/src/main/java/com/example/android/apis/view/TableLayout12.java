@@ -16,10 +16,10 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.android.apis.R;
 
 /**
  * <p>This example shows how to use cell spanning in a table layout.</p>

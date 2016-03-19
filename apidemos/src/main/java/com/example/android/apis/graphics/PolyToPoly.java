@@ -21,7 +21,10 @@ package com.example.android.apis.graphics;
 //import com.example.android.apis.R;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -37,6 +40,17 @@ public class PolyToPoly extends GraphicsActivity {
         private Paint   mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         private Matrix  mMatrix = new Matrix();
         private Paint.FontMetrics mFontMetrics;
+
+        public SampleView(Context context) {
+            super(context);
+
+            // for when the style is STROKE
+            mPaint.setStrokeWidth(4);
+            // for when we draw text
+            mPaint.setTextSize(40);
+            mPaint.setTextAlign(Paint.Align.CENTER);
+            mFontMetrics = mPaint.getFontMetrics();
+        }
 
         private void doDraw(Canvas canvas, float src[], float dst[]) {
             canvas.save();
@@ -56,20 +70,9 @@ public class PolyToPoly extends GraphicsActivity {
             float x = 64/2;
             // centering in Y, we need to measure ascent/descent first
             float y = 64/2 - (mFontMetrics.ascent + mFontMetrics.descent)/2;
-            canvas.drawText(src.length/2 + "", x, y, mPaint);
+            canvas.drawText(src.length / 2 + "", x, y, mPaint);
 
             canvas.restore();
-        }
-
-        public SampleView(Context context) {
-            super(context);
-
-            // for when the style is STROKE
-            mPaint.setStrokeWidth(4);
-            // for when we draw text
-            mPaint.setTextSize(40);
-            mPaint.setTextAlign(Paint.Align.CENTER);
-            mFontMetrics = mPaint.getFontMetrics();
         }
 
         @Override

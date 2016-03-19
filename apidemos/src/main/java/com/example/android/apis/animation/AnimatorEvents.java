@@ -18,16 +18,11 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
+
 import android.animation.Animator;
-import android.animation.ObjectAnimator;
-import android.widget.CheckBox;
-import android.widget.TextView;
-import com.example.android.apis.R;
-
-import java.util.ArrayList;
-
-import android.animation.ValueAnimator;
 import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -40,7 +35,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.example.android.apis.R;
+
+import java.util.ArrayList;
 
 /**
  * This demo shows how the AnimatorListener events work.

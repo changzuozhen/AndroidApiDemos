@@ -16,21 +16,21 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.View;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 
 /**
@@ -41,19 +41,14 @@ import android.widget.TextView;
  */
 public class List9 extends ListActivity implements ListView.OnScrollListener {
 
-    private final class RemoveWindow implements Runnable {
-        public void run() {
-            removeWindow();
-        }
-    }
-
-    private RemoveWindow mRemoveWindow = new RemoveWindow();
     Handler mHandler = new Handler();
+    private RemoveWindow mRemoveWindow = new RemoveWindow();
     private WindowManager mWindowManager;
     private TextView mDialogText;
     private boolean mShowing;
     private boolean mReady;
     private char mPrevLetter = Character.MIN_VALUE;
+    private String[] mStrings = Cheeses.sCheeseStrings;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -140,5 +135,9 @@ public class List9 extends ListActivity implements ListView.OnScrollListener {
         }
     }
 
-    private String[] mStrings = Cheeses.sCheeseStrings;
+    private final class RemoveWindow implements Runnable {
+        public void run() {
+            removeWindow();
+        }
+    }
 }

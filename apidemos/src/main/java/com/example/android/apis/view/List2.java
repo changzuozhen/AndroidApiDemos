@@ -18,8 +18,8 @@ package com.example.android.apis.view;
 
 import android.app.ListActivity;
 import android.database.Cursor;
-import android.provider.ContactsContract.Contacts;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 
@@ -28,6 +28,11 @@ import android.widget.SimpleCursorAdapter;
  * data comes from a cursor.
  */
 public class List2 extends ListActivity {
+
+    private static final String[] CONTACT_PROJECTION = new String[]{
+            Contacts._ID,
+            Contacts.DISPLAY_NAME
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +54,4 @@ public class List2 extends ListActivity {
                 new int[] {android.R.id.text1});
         setListAdapter(adapter);
     }
-
-    private static final String[] CONTACT_PROJECTION = new String[] {
-        Contacts._ID,
-        Contacts.DISPLAY_NAME
-    };
 }

@@ -15,8 +15,6 @@
  */
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +31,8 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.android.apis.R;
+
 import java.util.List;
 
 /**
@@ -41,6 +41,7 @@ import java.util.List;
 public class Grid3 extends Activity {
 
     GridView mGrid;
+    private List<ResolveInfo> mApps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,6 @@ public class Grid3 extends Activity {
         mGrid.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
         mGrid.setMultiChoiceModeListener(new MultiChoiceModeListener());
     }
-
-    private List<ResolveInfo> mApps;
 
     private void loadApps() {
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -112,15 +111,15 @@ public class Grid3 extends Activity {
             super(context);
         }
 
+        public boolean isChecked() {
+            return mChecked;
+        }
+
         public void setChecked(boolean checked) {
             mChecked = checked;
             setBackgroundDrawable(checked ?
                     getResources().getDrawable(R.drawable.blue)
                     : null);
-        }
-
-        public boolean isChecked() {
-            return mChecked;
         }
 
         public void toggle() {

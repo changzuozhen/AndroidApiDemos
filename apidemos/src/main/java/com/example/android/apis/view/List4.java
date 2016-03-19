@@ -16,8 +16,6 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.Shakespeare;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -26,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.android.apis.Shakespeare;
 
 
 /**
@@ -48,6 +48,11 @@ public class List4 extends ListActivity {
      * 
      */
     private class SpeechListAdapter extends BaseAdapter {
+        /**
+         * Remember our context so we can use it when constructing views.
+         */
+        private Context mContext;
+
         public SpeechListAdapter(Context context) {
             mContext = context;
         }
@@ -55,7 +60,7 @@ public class List4 extends ListActivity {
         /**
          * The number of items in the list is determined by the number of speeches
          * in our array.
-         * 
+         *
          * @see android.widget.ListAdapter#getCount()
          */
         public int getCount() {
@@ -67,7 +72,7 @@ public class List4 extends ListActivity {
          * sufficent to get at the data. If we were using a more complex data
          * structure, we would return whatever object represents one row in the
          * list.
-         * 
+         *
          * @see android.widget.ListAdapter#getItem(int)
          */
         public Object getItem(int position) {
@@ -76,7 +81,7 @@ public class List4 extends ListActivity {
 
         /**
          * Use the array index as a unique id.
-         * 
+         *
          * @see android.widget.ListAdapter#getItemId(int)
          */
         public long getItemId(int position) {
@@ -85,7 +90,7 @@ public class List4 extends ListActivity {
 
         /**
          * Make a SpeechView to hold each row.
-         * 
+         *
          * @see android.widget.ListAdapter#getView(int, android.view.View,
          *      android.view.ViewGroup)
          */
@@ -102,11 +107,6 @@ public class List4 extends ListActivity {
 
             return sv;
         }
-
-        /**
-         * Remember our context so we can use it when constructing views.
-         */
-        private Context mContext;
     }
     
     /**
@@ -115,6 +115,9 @@ public class List4 extends ListActivity {
      *
      */
     private class SpeechView extends LinearLayout {
+        private TextView mTitle;
+        private TextView mDialogue;
+
         public SpeechView(Context context, String title, String words) {
             super(context);
 
@@ -147,8 +150,5 @@ public class List4 extends ListActivity {
         public void setDialogue(String words) {
             mDialogue.setText(words);
         }
-
-        private TextView mTitle;
-        private TextView mDialogue;
     }
 }

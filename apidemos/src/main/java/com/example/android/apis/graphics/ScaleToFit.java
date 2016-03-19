@@ -17,7 +17,11 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
 
@@ -30,12 +34,6 @@ public class ScaleToFit extends GraphicsActivity {
     }
 
     private static class SampleView extends View {
-        private final Paint   mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        private final Paint   mHairPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        private final Paint   mLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        private final Matrix  mMatrix = new Matrix();
-        private final RectF   mSrcR = new RectF();
-
         private static final Matrix.ScaleToFit[] sFits =
                 new Matrix.ScaleToFit[] {
             Matrix.ScaleToFit.FILL,
@@ -43,11 +41,9 @@ public class ScaleToFit extends GraphicsActivity {
             Matrix.ScaleToFit.CENTER,
             Matrix.ScaleToFit.END
         };
-
         private static final String[] sFitLabels = new String[] {
             "FILL", "START", "CENTER", "END"
         };
-
         private static final int[] sSrcData = new int[] {
             80, 40, Color.RED,
             40, 80, Color.GREEN,
@@ -55,9 +51,13 @@ public class ScaleToFit extends GraphicsActivity {
             80, 80, Color.BLACK
         };
         private static final int N = 4;
-
         private static final int WIDTH = 52;
         private static final int HEIGHT = 52;
+        private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint mHairPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Paint mLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        private final Matrix mMatrix = new Matrix();
+        private final RectF mSrcR = new RectF();
         private final RectF mDstR = new RectF(0, 0, WIDTH, HEIGHT);
 
         public SampleView(Context context) {

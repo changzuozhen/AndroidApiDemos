@@ -16,14 +16,14 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.widget.Button;
-import android.widget.ProgressBar;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.ProgressBar;
+
+import com.example.android.apis.R;
 
 
 /**

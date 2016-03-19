@@ -16,26 +16,14 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.MultiAutoCompleteTextView;
-import android.os.Bundle;
+
+import com.example.android.apis.R;
 
 public class AutoComplete6 extends Activity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.autocomplete_6);
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
-        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.edit);
-        textView.setAdapter(adapter);
-        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
-    }
 
     static final String[] COUNTRIES = new String[] {
     "Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra",
@@ -80,4 +68,16 @@ public class AutoComplete6 extends Activity {
     "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Wallis and Futuna", "Western Sahara",
     "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.autocomplete_6);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_dropdown_item_1line, COUNTRIES);
+        MultiAutoCompleteTextView textView = (MultiAutoCompleteTextView) findViewById(R.id.edit);
+        textView.setAdapter(adapter);
+        textView.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+    }
 }

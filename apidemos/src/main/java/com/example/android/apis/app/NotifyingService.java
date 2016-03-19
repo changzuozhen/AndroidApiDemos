@@ -18,7 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -31,6 +30,8 @@ import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
 
+import com.example.android.apis.R;
+
 /**
  * This is an example of service that will update its status bar balloon 
  * every 5 seconds for a minute.
@@ -40,30 +41,18 @@ public class NotifyingService extends Service {
     
     // Use a layout id for a unique identifier
     private static int MOOD_NOTIFICATIONS = R.layout.status_bar_notifications;
-
-    // variable which controls the notification thread 
+    // This is the object that receives interactions from clients.  See
+    // RemoteService for a more complete example.
+    private final IBinder mBinder = new Binder() {
+        @Override
+        protected boolean onTransact(int code, Parcel data, Parcel reply,
+                                     int flags) throws RemoteException {
+            return super.onTransact(code, data, reply, flags);
+        }
+    };
+    // variable which controls the notification thread
     private ConditionVariable mCondition;
- 
-    @Override
-    public void onCreate() {
-        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        // Start up the thread running the service.  Note that we create a
-        // separate thread because the service normally runs in the process's
-        // main thread, which we don't want to block.
-        Thread notifyingThread = new Thread(null, mTask, "NotifyingService");
-        mCondition = new ConditionVariable(false);
-        notifyingThread.start();
-    }
-
-    @Override
-    public void onDestroy() {
-        // Cancel the persistent notification.
-        mNM.cancel(MOOD_NOTIFICATIONS);
-        // Stop the thread from generating further notifications
-        mCondition.open();
-    }
-
+    private NotificationManager mNM;
     private Runnable mTask = new Runnable() {
         public void run() {
             for (int i = 0; i < 4; ++i) {
@@ -86,10 +75,30 @@ public class NotifyingService extends Service {
     };
 
     @Override
+    public void onCreate() {
+        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        // Start up the thread running the service.  Note that we create a
+        // separate thread because the service normally runs in the process's
+        // main thread, which we don't want to block.
+        Thread notifyingThread = new Thread(null, mTask, "NotifyingService");
+        mCondition = new ConditionVariable(false);
+        notifyingThread.start();
+    }
+
+    @Override
+    public void onDestroy() {
+        // Cancel the persistent notification.
+        mNM.cancel(MOOD_NOTIFICATIONS);
+        // Stop the thread from generating further notifications
+        mCondition.open();
+    }
+
+    @Override
     public IBinder onBind(Intent intent) {
         return mBinder;
     }
-    
+
     private void showNotification(int moodId, int textId) {
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = getText(textId);
@@ -113,16 +122,4 @@ public class NotifyingService extends Service {
         // We use a layout id because it is a unique number.  We use it later to cancel.
         mNM.notify(MOOD_NOTIFICATIONS, notification);
     }
-
-    // This is the object that receives interactions from clients.  See
-    // RemoteService for a more complete example.
-    private final IBinder mBinder = new Binder() {
-        @Override
-        protected boolean onTransact(int code, Parcel data, Parcel reply,
-                int flags) throws RemoteException {
-            return super.onTransact(code, data, reply, flags);
-        }
-    };
-
-    private NotificationManager mNM;
 }

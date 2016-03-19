@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,7 +23,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.example.android.apis.R;
+
 public class Intents extends Activity {
+    private OnClickListener mGetMusicListener = new OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("audio/*");
+            startActivity(Intent.createChooser(intent, "Select music"));
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,12 +44,4 @@ public class Intents extends Activity {
         Button button = (Button)findViewById(R.id.get_music);
         button.setOnClickListener(mGetMusicListener);
     }
-
-    private OnClickListener mGetMusicListener = new OnClickListener() {
-        public void onClick(View v) {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("audio/*");
-            startActivity(Intent.createChooser(intent, "Select music"));
-        }
-    };
 }

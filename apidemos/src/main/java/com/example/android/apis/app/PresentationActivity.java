@@ -18,7 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,21 +31,22 @@ import android.hardware.display.DisplayManager;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 
 /**
@@ -75,11 +75,8 @@ import android.widget.TextView;
  */
 public class PresentationActivity extends Activity
         implements OnCheckedChangeListener, OnClickListener {
-    private final String TAG = "PresentationActivity";
-
     // Key for storing saved instance state.
     private static final String PRESENTATION_KEY = "presentation";
-
     // The content that we want to show on the presentation.
     private static final int[] PHOTOS = new int[] {
         R.drawable.frantic,
@@ -87,21 +84,62 @@ public class PresentationActivity extends Activity
         R.drawable.photo4, R.drawable.photo5, R.drawable.photo6,
         R.drawable.sample_4,
     };
-
+    private final String TAG = "PresentationActivity";
+    // List of all currently visible presentations indexed by display id.
+    private final SparseArray<DemoPresentation> mActivePresentations =
+            new SparseArray<DemoPresentation>();
     private DisplayManager mDisplayManager;
     private DisplayListAdapter mDisplayListAdapter;
+    /**
+     * Listens for when presentations are dismissed.
+     */
+    private final DialogInterface.OnDismissListener mOnDismissListener =
+            new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    DemoPresentation presentation = (DemoPresentation) dialog;
+                    int displayId = presentation.getDisplay().getDisplayId();
+                    LogUtils.d(TAG, "Presentation on display #" + displayId + " was dismissed.");
+                    mActivePresentations.delete(displayId);
+                    mDisplayListAdapter.notifyDataSetChanged();
+                }
+            };
     private CheckBox mShowAllDisplaysCheckbox;
+    /**
+     * Listens for displays to be added, changed or removed.
+     * We use it to update the list and show a new {@link Presentation} when a
+     * display is connected.
+     * <p/>
+     * Note that we don't bother dismissing the {@link Presentation} when a
+     * display is removed, although we could.  The presentation API takes care
+     * of doing that automatically for us.
+     */
+    private final DisplayManager.DisplayListener mDisplayListener =
+            new DisplayManager.DisplayListener() {
+                @Override
+                public void onDisplayAdded(int displayId) {
+                    LogUtils.d(TAG, "Display #" + displayId + " added.");
+                    mDisplayListAdapter.updateContents();
+                }
+
+                @Override
+                public void onDisplayChanged(int displayId) {
+                    LogUtils.d(TAG, "Display #" + displayId + " changed.");
+                    mDisplayListAdapter.updateContents();
+                }
+
+                @Override
+                public void onDisplayRemoved(int displayId) {
+                    LogUtils.d(TAG, "Display #" + displayId + " removed.");
+                    mDisplayListAdapter.updateContents();
+                }
+            };
     private ListView mListView;
     private int mNextImageNumber;
-
     // List of presentation contents indexed by displayId.
     // This state persists so that we can restore the old presentation
     // contents when the activity is paused or resumed.
     private SparseArray<PresentationContents> mSavedPresentationContents;
-
-    // List of all currently visible presentations indexed by display id.
-    private final SparseArray<DemoPresentation> mActivePresentations =
-            new SparseArray<DemoPresentation>();
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
@@ -172,7 +210,7 @@ public class PresentationActivity extends Activity
         mDisplayManager.unregisterDisplayListener(mDisplayListener);
 
         // Dismiss all of our presentations but remember their contents.
-        Log.d(TAG, "Activity is being paused.  Dismissing all active presentation.");
+        LogUtils.d(TAG, "Activity is being paused.  Dismissing all active presentation.");
         for (int i = 0; i < mActivePresentations.size(); i++) {
             DemoPresentation presentation = mActivePresentations.valueAt(i);
             int displayId = mActivePresentations.keyAt(i);
@@ -198,7 +236,7 @@ public class PresentationActivity extends Activity
             return;
         }
 
-        Log.d(TAG, "Showing presentation photo #" + contents.photo
+        LogUtils.d(TAG, "Showing presentation photo #" + contents.photo
                 + " on display #" + displayId + ".");
 
         DemoPresentation presentation = new DemoPresentation(this, display, contents);
@@ -217,7 +255,7 @@ public class PresentationActivity extends Activity
             return;
         }
 
-        Log.d(TAG, "Dismissing presentation on display #" + displayId + ".");
+        LogUtils.d(TAG, "Dismissing presentation on display #" + displayId + ".");
 
         presentation.dismiss();
         mActivePresentations.delete(displayId);
@@ -276,49 +314,48 @@ public class PresentationActivity extends Activity
     }
 
     /**
-     * Listens for displays to be added, changed or removed.
-     * We use it to update the list and show a new {@link Presentation} when a
-     * display is connected.
-     *
-     * Note that we don't bother dismissing the {@link Presentation} when a
-     * display is removed, although we could.  The presentation API takes care
-     * of doing that automatically for us.
+     * Information about the content we want to show in a presentation.
      */
-    private final DisplayManager.DisplayListener mDisplayListener =
-            new DisplayManager.DisplayListener() {
-        @Override
-        public void onDisplayAdded(int displayId) {
-            Log.d(TAG, "Display #" + displayId + " added.");
-            mDisplayListAdapter.updateContents();
+    private final static class PresentationContents implements Parcelable {
+        public static final Creator<PresentationContents> CREATOR =
+                new Creator<PresentationContents>() {
+                    @Override
+                    public PresentationContents createFromParcel(Parcel in) {
+                        return new PresentationContents(in);
+                    }
+
+                    @Override
+                    public PresentationContents[] newArray(int size) {
+                        return new PresentationContents[size];
+                    }
+                };
+        final int photo;
+        final int[] colors;
+
+        public PresentationContents(int photo) {
+            this.photo = photo;
+            colors = new int[]{
+                    ((int) (Math.random() * Integer.MAX_VALUE)) | 0xFF000000,
+                    ((int) (Math.random() * Integer.MAX_VALUE)) | 0xFF000000};
+        }
+
+        private PresentationContents(Parcel in) {
+            photo = in.readInt();
+            colors = new int[]{in.readInt(), in.readInt()};
         }
 
         @Override
-        public void onDisplayChanged(int displayId) {
-            Log.d(TAG, "Display #" + displayId + " changed.");
-            mDisplayListAdapter.updateContents();
+        public int describeContents() {
+            return 0;
         }
 
         @Override
-        public void onDisplayRemoved(int displayId) {
-            Log.d(TAG, "Display #" + displayId + " removed.");
-            mDisplayListAdapter.updateContents();
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(photo);
+            dest.writeInt(colors[0]);
+            dest.writeInt(colors[1]);
         }
-    };
-
-    /**
-     * Listens for when presentations are dismissed.
-     */
-    private final DialogInterface.OnDismissListener mOnDismissListener =
-            new DialogInterface.OnDismissListener() {
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            DemoPresentation presentation = (DemoPresentation)dialog;
-            int displayId = presentation.getDisplay().getDisplayId();
-            Log.d(TAG, "Presentation on display #" + displayId + " was dismissed.");
-            mActivePresentations.delete(displayId);
-            mDisplayListAdapter.notifyDataSetChanged();
-        }
-    };
+    }
 
     /**
      * List adapter.
@@ -373,9 +410,9 @@ public class PresentationActivity extends Activity
             Display[] displays = mDisplayManager.getDisplays(displayCategory);
             addAll(displays);
 
-            Log.d(TAG, "There are currently " + displays.length + " displays connected.");
+            LogUtils.d(TAG, "There are currently " + displays.length + " displays connected.");
             for (Display display : displays) {
-                Log.d(TAG, "  " + display);
+                LogUtils.d(TAG, "  " + display);
             }
         }
 
@@ -436,51 +473,6 @@ public class PresentationActivity extends Activity
             drawable.setGradientRadius(Math.max(p.x, p.y) / 2);
             drawable.setColors(mContents.colors);
             findViewById(android.R.id.content).setBackground(drawable);
-        }
-    }
-
-    /**
-     * Information about the content we want to show in a presentation.
-     */
-    private final static class PresentationContents implements Parcelable {
-        final int photo;
-        final int[] colors;
-
-        public static final Creator<PresentationContents> CREATOR =
-                new Creator<PresentationContents>() {
-            @Override
-            public PresentationContents createFromParcel(Parcel in) {
-                return new PresentationContents(in);
-            }
-
-            @Override
-            public PresentationContents[] newArray(int size) {
-                return new PresentationContents[size];
-            }
-        };
-
-        public PresentationContents(int photo) {
-            this.photo = photo;
-            colors = new int[] {
-                    ((int) (Math.random() * Integer.MAX_VALUE)) | 0xFF000000,
-                    ((int) (Math.random() * Integer.MAX_VALUE)) | 0xFF000000 };
-        }
-
-        private PresentationContents(Parcel in) {
-            photo = in.readInt();
-            colors = new int[] { in.readInt(), in.readInt() };
-        }
-
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(photo);
-            dest.writeInt(colors[0]);
-            dest.writeInt(colors[1]);
         }
     }
 }

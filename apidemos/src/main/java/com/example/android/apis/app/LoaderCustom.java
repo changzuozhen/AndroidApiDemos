@@ -16,15 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
-import java.io.File;
-import java.text.Collator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.ListFragment;
@@ -43,7 +34,6 @@ import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -54,13 +44,35 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
+import java.io.File;
+import java.text.Collator;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Demonstration of the implementation of a custom Loader.
  */
 public class LoaderCustom extends Activity {
+
+    /**
+     * Perform alphabetical comparison of application entry objects.
+     */
+    public static final Comparator<AppEntry> ALPHA_COMPARATOR = new Comparator<AppEntry>() {
+        private final Collator sCollator = Collator.getInstance();
+
+        @Override
+        public int compare(AppEntry object1, AppEntry object2) {
+            return sCollator.compare(object1.getLabel(), object2.getLabel());
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,11 +87,17 @@ public class LoaderCustom extends Activity {
         }
     }
 
-
     /**
      * This class holds the per-item data in our Loader.
      */
     public static class AppEntry {
+        private final AppListLoader mLoader;
+        private final ApplicationInfo mInfo;
+        private final File mApkFile;
+        private String mLabel;
+        private Drawable mIcon;
+        private boolean mMounted;
+
         public AppEntry(AppListLoader loader, ApplicationInfo info) {
             mLoader = loader;
             mInfo = info;
@@ -134,25 +152,7 @@ public class LoaderCustom extends Activity {
                 }
             }
         }
-
-        private final AppListLoader mLoader;
-        private final ApplicationInfo mInfo;
-        private final File mApkFile;
-        private String mLabel;
-        private Drawable mIcon;
-        private boolean mMounted;
     }
-
-    /**
-     * Perform alphabetical comparison of application entry objects.
-     */
-    public static final Comparator<AppEntry> ALPHA_COMPARATOR = new Comparator<AppEntry>() {
-        private final Collator sCollator = Collator.getInstance();
-        @Override
-        public int compare(AppEntry object1, AppEntry object2) {
-            return sCollator.compare(object1.getLabel(), object2.getLabel());
-        }
-    };
 
     /**
      * Helper for determining if the configuration has changed in an interesting
@@ -453,7 +453,7 @@ public class LoaderCustom extends Activity {
 
         @Override public void onListItemClick(ListView l, View v, int position, long id) {
             // Insert desired behavior here.
-            Log.i("LoaderCustom", "Item clicked: " + id);
+            LogUtils.i("LoaderCustom", "Item clicked: " + id);
         }
 
         @Override public Loader<List<AppEntry>> onCreateLoader(int id, Bundle args) {

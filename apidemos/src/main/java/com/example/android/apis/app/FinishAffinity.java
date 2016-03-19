@@ -16,10 +16,7 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -27,8 +24,22 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.android.apis.R;
+
 public class FinishAffinity extends Activity {
     int mNesting;
+    private OnClickListener mNestListener = new OnClickListener() {
+        public void onClick(View v) {
+            Intent intent = new Intent(FinishAffinity.this, FinishAffinity.class);
+            intent.putExtra("nesting", mNesting + 1);
+            startActivity(intent);
+        }
+    };
+    private OnClickListener mFinishListener = new OnClickListener() {
+        public void onClick(View v) {
+            finishAffinity();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,18 +56,4 @@ public class FinishAffinity extends Activity {
         button = (Button)findViewById(R.id.finish);
         button.setOnClickListener(mFinishListener);
     }
-
-    private OnClickListener mNestListener = new OnClickListener() {
-        public void onClick(View v) {
-            Intent intent = new Intent(FinishAffinity.this, FinishAffinity.class);
-            intent.putExtra("nesting", mNesting+1);
-            startActivity(intent);
-        }
-    };
-
-    private OnClickListener mFinishListener = new OnClickListener() {
-        public void onClick(View v) {
-            finishAffinity();
-        }
-    };
 }

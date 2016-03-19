@@ -18,12 +18,13 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import android.animation.*;
-import android.view.animation.AccelerateInterpolator;
-import com.example.android.apis.R;
 
-import java.util.ArrayList;
-
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -34,9 +35,14 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.example.android.apis.R;
+
+import java.util.ArrayList;
 
 /**
  * This application demonstrates the seeking capability of ValueAnimator. The SeekBar in the

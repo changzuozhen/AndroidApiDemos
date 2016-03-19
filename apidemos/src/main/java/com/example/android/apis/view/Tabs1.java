@@ -18,9 +18,9 @@ package com.example.android.apis.view;
 
 import android.app.TabActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import android.view.LayoutInflater;
 
 import com.example.android.apis.R;
 

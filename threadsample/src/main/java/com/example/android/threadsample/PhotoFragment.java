@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,7 +134,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDestroyView() {
         // Logs the destroy operation
-        Log.d(LOG_TAG, "onDestroyView");
+        LogUtils.d(LOG_TAG, "onDestroyView");
         
         // If the View object still exists, delete references to avoid memory leaks
         if (mPhotoView != null) {
@@ -155,7 +154,7 @@ public class PhotoFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onDetach() {
         // Logs the detach
-        Log.d(LOG_TAG, "onDetach");
+        LogUtils.d(LOG_TAG, "onDetach");
         
         // Removes the reference to the URL
         mURLString = null;

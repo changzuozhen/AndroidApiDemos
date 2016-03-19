@@ -16,8 +16,6 @@
 
 package com.example.android.apis.accessibility;
 
-import com.example.android.apis.R;
-
 import android.accessibilityservice.AccessibilityService;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Service;
@@ -30,9 +28,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.accessibility.AccessibilityEvent;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.List;
 
@@ -139,6 +139,11 @@ public class ClockBackService extends AccessibilityService {
 
     /** Mapping from integers to vibration patterns for haptic feedback. */
     private static final SparseArray<long[]> sVibrationPatterns = new SparseArray<long[]>();
+    /**
+     * Mapping from integers to raw sound resource ids.
+     */
+    private static SparseArray<Integer> sSoundsResourceIds = new SparseArray<Integer>();
+
     static {
         sVibrationPatterns.put(AccessibilityEvent.TYPE_VIEW_CLICKED, new long[] {
                 0L, 100L
@@ -166,8 +171,6 @@ public class ClockBackService extends AccessibilityService {
         });
     }
 
-    /** Mapping from integers to raw sound resource ids. */
-    private static SparseArray<Integer> sSoundsResourceIds = new SparseArray<Integer>();
     static {
         sSoundsResourceIds.put(AccessibilityEvent.TYPE_VIEW_CLICKED,
                 R.raw.sound_view_clicked);
@@ -194,20 +197,18 @@ public class ClockBackService extends AccessibilityService {
     private final SparseArray<String> mEarconNames = new SparseArray<String>();
 
     // Auxiliary fields.
-
+    /**
+     * Reusable instance for building utterances.
+     */
+    private final StringBuilder mUtterance = new StringBuilder();
     /**
      * Handle to this service to enable inner classes to access the {@link Context}.
      */
     Context mContext;
-
     /** The feedback this service is currently providing. */
     int mProvidedFeedbackType;
 
-    /** Reusable instance for building utterances. */
-    private final StringBuilder mUtterance = new StringBuilder();
-
     // Feedback providing services.
-
     /** The {@link TextToSpeech} used for speaking. */
     private TextToSpeech mTts;
 
@@ -219,7 +220,54 @@ public class ClockBackService extends AccessibilityService {
 
     /** Flag if the infrastructure is initialized. */
     private boolean isInfrastructureInitialized;
+    /**
+     * {@link BroadcastReceiver} for receiving updates for our context - device
+     * state.
+     */
+    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
 
+            if (AudioManager.RINGER_MODE_CHANGED_ACTION.equals(action)) {
+                int ringerMode = intent.getIntExtra(AudioManager.EXTRA_RINGER_MODE,
+                        AudioManager.RINGER_MODE_NORMAL);
+                configureForRingerMode(ringerMode);
+            } else if (Intent.ACTION_SCREEN_ON.equals(action)) {
+                provideScreenStateChangeFeedback(INDEX_SCREEN_ON);
+            } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
+                provideScreenStateChangeFeedback(INDEX_SCREEN_OFF);
+            } else {
+                LogUtils.w(LOG_TAG, "Registered for but not handling action " + action);
+            }
+        }
+
+        /**
+         * Provides feedback to announce the screen state change. Such a change
+         * is turning the screen on or off.
+         *
+         * @param feedbackIndex The index of the feedback in the statically
+         *                      mapped feedback resources.
+         */
+        private void provideScreenStateChangeFeedback(int feedbackIndex) {
+            // We take a specific action depending on the feedback we currently provide.
+            switch (mProvidedFeedbackType) {
+                case AccessibilityServiceInfo.FEEDBACK_SPOKEN:
+                    String utterance = generateScreenOnOrOffUtternace(feedbackIndex);
+                    mHandler.obtainMessage(MESSAGE_SPEAK, utterance).sendToTarget();
+                    return;
+                case AccessibilityServiceInfo.FEEDBACK_AUDIBLE:
+                    mHandler.obtainMessage(MESSAGE_PLAY_EARCON, feedbackIndex, 0).sendToTarget();
+                    return;
+                case AccessibilityServiceInfo.FEEDBACK_HAPTIC:
+                    mHandler.obtainMessage(MESSAGE_VIBRATE, feedbackIndex, 0).sendToTarget();
+                    return;
+                default:
+                    throw new IllegalStateException("Unexpected feedback type "
+                            + mProvidedFeedbackType);
+            }
+        }
+    };
     /** {@link Handler} for executing messages on the service main thread. */
     Handler mHandler = new Handler() {
         @Override
@@ -261,55 +309,6 @@ public class ClockBackService extends AccessibilityService {
                 case MESSAGE_STOP_VIBRATE:
                     mVibrator.cancel();
                     return;
-            }
-        }
-    };
-
-    /**
-     * {@link BroadcastReceiver} for receiving updates for our context - device
-     * state.
-     */
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-
-            if (AudioManager.RINGER_MODE_CHANGED_ACTION.equals(action)) {
-                int ringerMode = intent.getIntExtra(AudioManager.EXTRA_RINGER_MODE,
-                        AudioManager.RINGER_MODE_NORMAL);
-                configureForRingerMode(ringerMode);
-            } else if (Intent.ACTION_SCREEN_ON.equals(action)) {
-                provideScreenStateChangeFeedback(INDEX_SCREEN_ON);
-            } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
-                provideScreenStateChangeFeedback(INDEX_SCREEN_OFF);
-            } else {
-                Log.w(LOG_TAG, "Registered for but not handling action " + action);
-            }
-        }
-
-        /**
-         * Provides feedback to announce the screen state change. Such a change
-         * is turning the screen on or off.
-         *
-         * @param feedbackIndex The index of the feedback in the statically
-         *            mapped feedback resources.
-         */
-        private void provideScreenStateChangeFeedback(int feedbackIndex) {
-            // We take a specific action depending on the feedback we currently provide.
-            switch (mProvidedFeedbackType) {
-                case AccessibilityServiceInfo.FEEDBACK_SPOKEN:
-                    String utterance = generateScreenOnOrOffUtternace(feedbackIndex);
-                    mHandler.obtainMessage(MESSAGE_SPEAK, utterance).sendToTarget();
-                    return;
-                case AccessibilityServiceInfo.FEEDBACK_AUDIBLE:
-                    mHandler.obtainMessage(MESSAGE_PLAY_EARCON, feedbackIndex, 0).sendToTarget();
-                    return;
-                case AccessibilityServiceInfo.FEEDBACK_HAPTIC:
-                    mHandler.obtainMessage(MESSAGE_VIBRATE, feedbackIndex, 0).sendToTarget();
-                    return;
-                default:
-                    throw new IllegalStateException("Unexpected feedback type "
-                            + mProvidedFeedbackType);
             }
         }
     };
@@ -486,7 +485,7 @@ public class ClockBackService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
-        Log.i(LOG_TAG, mProvidedFeedbackType + " " + event.toString());
+        LogUtils.i(LOG_TAG, mProvidedFeedbackType + " " + event.toString());
 
         // Here we act according to the feedback type we are currently providing.
         if (mProvidedFeedbackType == AccessibilityServiceInfo.FEEDBACK_SPOKEN) {

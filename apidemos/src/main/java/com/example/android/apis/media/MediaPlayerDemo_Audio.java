@@ -19,22 +19,22 @@ package com.example.android.apis.media;
 import android.app.Activity;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 public class MediaPlayerDemo_Audio extends Activity {
 
     private static final String TAG = "MediaPlayerDemo";
-    private MediaPlayer mMediaPlayer;
     private static final String MEDIA = "media";
     private static final int LOCAL_AUDIO = 1;
     private static final int STREAM_AUDIO = 2;
     private static final int RESOURCES_AUDIO = 3;
     private static final int LOCAL_VIDEO = 4;
     private static final int STREAM_VIDEO = 5;
+    private MediaPlayer mMediaPlayer;
     private String path;
 
     private TextView tx;
@@ -84,7 +84,7 @@ public class MediaPlayerDemo_Audio extends Activity {
             tx.setText("Playing audio...");
 
         } catch (Exception e) {
-            Log.e(TAG, "error: " + e.getMessage(), e);
+            LogUtils.e(TAG, "error: " + e.getMessage(), e);
         }
 
     }

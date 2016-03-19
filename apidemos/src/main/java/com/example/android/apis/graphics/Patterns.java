@@ -17,18 +17,20 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.DrawFilter;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
+import android.graphics.Shader;
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.view.*;
+import android.view.View;
 
 public class Patterns extends GraphicsActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(new SampleView(this));
-    }
 
     private static Bitmap makeBitmap1() {
         Bitmap bm = Bitmap.createBitmap(40, 40, Bitmap.Config.RGB_565);
@@ -48,6 +50,12 @@ public class Patterns extends GraphicsActivity {
         p.setAlpha(0xCC);
         c.drawCircle(32, 32, 27, p);
         return bm;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(new SampleView(this));
     }
 
     private static class SampleView extends View {

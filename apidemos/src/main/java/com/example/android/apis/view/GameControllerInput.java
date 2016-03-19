@@ -16,28 +16,28 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.input.InputManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.SparseArray;
 import android.util.SparseIntArray;
 import android.view.InputDevice;
+import android.view.InputDevice.MotionRange;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.InputDevice.MotionRange;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,6 +62,10 @@ public class GameControllerInput extends Activity
     private GameView mGame;
     private ListView mSummaryList;
     private SummaryAdapter mSummaryAdapter;
+
+    private static boolean isJoystick(int source) {
+        return (source & InputDevice.SOURCE_CLASS_JOYSTICK) != 0;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +166,7 @@ public class GameControllerInput extends Activity
             }
             state = new InputDeviceState(device);
             mInputDeviceStates.put(deviceId, state);
-            Log.i(TAG, "Device enumerated: " + state.mDevice);
+            LogUtils.i(TAG, "Device enumerated: " + state.mDevice);
         }
         return state;
     }
@@ -171,7 +175,7 @@ public class GameControllerInput extends Activity
     @Override
     public void onInputDeviceAdded(int deviceId) {
         InputDeviceState state = getInputDeviceState(deviceId);
-        Log.i(TAG, "Device added: " + state.mDevice);
+        LogUtils.i(TAG, "Device added: " + state.mDevice);
     }
 
     // Implementation of InputManager.InputDeviceListener.onInputDeviceChanged()
@@ -181,7 +185,7 @@ public class GameControllerInput extends Activity
         if (state != null) {
             mInputDeviceStates.remove(deviceId);
             state = getInputDeviceState(deviceId);
-            Log.i(TAG, "Device changed: " + state.mDevice);
+            LogUtils.i(TAG, "Device changed: " + state.mDevice);
         }
     }
 
@@ -190,13 +194,9 @@ public class GameControllerInput extends Activity
     public void onInputDeviceRemoved(int deviceId) {
         InputDeviceState state = mInputDeviceStates.get(deviceId);
         if (state != null) {
-            Log.i(TAG, "Device removed: " + state.mDevice);
+            LogUtils.i(TAG, "Device removed: " + state.mDevice);
             mInputDeviceStates.remove(deviceId);
         }
-    }
-
-    private static boolean isJoystick(int source) {
-        return (source & InputDevice.SOURCE_CLASS_JOYSTICK) != 0;
     }
 
     /**
@@ -230,6 +230,23 @@ public class GameControllerInput extends Activity
             }
 
             mKeys = new SparseIntArray();
+        }
+
+        // Check whether this is a key we care about.
+        // In a real game, we would probably let the user configure which keys to use
+        // instead of hardcoding the keys like this.
+        private static boolean isGameKey(int keyCode) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_DPAD_UP:
+                case KeyEvent.KEYCODE_DPAD_DOWN:
+                case KeyEvent.KEYCODE_DPAD_LEFT:
+                case KeyEvent.KEYCODE_DPAD_RIGHT:
+                case KeyEvent.KEYCODE_DPAD_CENTER:
+                case KeyEvent.KEYCODE_SPACE:
+                    return true;
+                default:
+                    return KeyEvent.isGamepadButton(keyCode);
+            }
         }
 
         public InputDevice getDevice() {
@@ -266,7 +283,7 @@ public class GameControllerInput extends Activity
                 if (event.getRepeatCount() == 0) {
                     final String symbolicName = KeyEvent.keyCodeToString(keyCode);
                     mKeys.put(keyCode, 1);
-                    Log.i(TAG, mDevice.getName() + " - Key Down: " + symbolicName);
+                    LogUtils.i(TAG, mDevice.getName() + " - Key Down: " + symbolicName);
                 }
                 return true;
             }
@@ -280,7 +297,7 @@ public class GameControllerInput extends Activity
                 if (index >= 0) {
                     final String symbolicName = KeyEvent.keyCodeToString(keyCode);
                     mKeys.put(keyCode, 0);
-                    Log.i(TAG, mDevice.getName() + " - Key Up: " + symbolicName);
+                    LogUtils.i(TAG, mDevice.getName() + " - Key Up: " + symbolicName);
                 }
                 return true;
             }
@@ -308,25 +325,8 @@ public class GameControllerInput extends Activity
                 message.append(value);
                 message.append("\n");
             }
-            Log.i(TAG, message.toString());
+            LogUtils.i(TAG, message.toString());
             return true;
-        }
-
-        // Check whether this is a key we care about.
-        // In a real game, we would probably let the user configure which keys to use
-        // instead of hardcoding the keys like this.
-        private static boolean isGameKey(int keyCode) {
-            switch (keyCode) {
-                case KeyEvent.KEYCODE_DPAD_UP:
-                case KeyEvent.KEYCODE_DPAD_DOWN:
-                case KeyEvent.KEYCODE_DPAD_LEFT:
-                case KeyEvent.KEYCODE_DPAD_RIGHT:
-                case KeyEvent.KEYCODE_DPAD_CENTER:
-                case KeyEvent.KEYCODE_SPACE:
-                    return true;
-                default:
-                    return KeyEvent.isGamepadButton(keyCode);
-            }
         }
     }
 

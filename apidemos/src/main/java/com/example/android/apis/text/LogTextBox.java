@@ -16,12 +16,12 @@
 
 package com.example.android.apis.text;
 
-import android.widget.TextView;
 import android.content.Context;
-import android.text.method.ScrollingMovementMethod;
-import android.text.method.MovementMethod;
 import android.text.Editable;
+import android.text.method.MovementMethod;
+import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
 /**
  * This is a TextView that is Editable and by default scrollable,

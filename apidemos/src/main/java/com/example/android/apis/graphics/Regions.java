@@ -17,7 +17,12 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Region;
+import android.graphics.RegionIterator;
 import android.os.Bundle;
 import android.view.View;
 
@@ -44,6 +49,15 @@ public class Regions extends GraphicsActivity {
 
             mRect1.set(10, 10, 100, 80);
             mRect2.set(50, 50, 130, 110);
+        }
+
+        private static void drawCentered(Canvas c, Rect r, Paint p) {
+            float inset = p.getStrokeWidth() * 0.5f;
+            if (inset == 0) {   // catch hairlines
+                inset = 0.5f;
+            }
+            c.drawRect(r.left + inset, r.top + inset,
+                    r.right - inset, r.bottom - inset, p);
         }
 
         private void drawOriginalRects(Canvas canvas, int alpha) {
@@ -79,15 +93,6 @@ public class Regions extends GraphicsActivity {
                 canvas.drawRect(r, mPaint);
             }
             drawOriginalRects(canvas, 0x80);
-        }
-
-        private static void drawCentered(Canvas c, Rect r, Paint p) {
-            float inset = p.getStrokeWidth() * 0.5f;
-            if (inset == 0) {   // catch hairlines
-                inset = 0.5f;
-            }
-            c.drawRect(r.left + inset, r.top + inset,
-                       r.right - inset, r.bottom - inset, p);
         }
 
         @Override

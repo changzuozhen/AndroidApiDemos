@@ -16,8 +16,6 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -28,9 +26,13 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.android.apis.R;
+
 import java.util.List;
 
 public class LayoutAnimation4 extends Activity {
+    private List<ResolveInfo> mApps;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +44,6 @@ public class LayoutAnimation4 extends Activity {
         grid.setAdapter(new AppsAdapter());
 
     }
-
-    private List<ResolveInfo> mApps;
 
     private void loadApps() {
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);

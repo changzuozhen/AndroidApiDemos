@@ -18,14 +18,14 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
-
-import android.view.View;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+
+import com.example.android.apis.R;
 
 /**
  * This application demonstrates how to use the animateLayoutChanges tag in XML to automate

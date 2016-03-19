@@ -16,10 +16,10 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.android.apis.R;
 
 /**
  * Baseline alignment includes an element within a nested horizontal

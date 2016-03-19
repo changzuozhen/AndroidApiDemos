@@ -16,14 +16,13 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-import com.example.android.apis.graphics.CubeRenderer;
-
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.SurfaceView;
-import android.view.WindowManager;
+
+import com.example.android.apis.R;
+import com.example.android.apis.graphics.CubeRenderer;
 
 /**
  * <h3>Secure Window Activity</h3>

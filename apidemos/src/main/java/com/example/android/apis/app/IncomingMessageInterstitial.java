@@ -16,14 +16,13 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.app.NotificationManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.android.apis.R;
 
 /**
  * This is an activity that provides an interstitial UI for the notification

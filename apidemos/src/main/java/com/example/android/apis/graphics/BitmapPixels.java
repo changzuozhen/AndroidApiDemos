@@ -17,9 +17,11 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
@@ -37,12 +39,36 @@ public class BitmapPixels extends GraphicsActivity {
         private Bitmap mBitmap2;
         private Bitmap mBitmap3;
 
+        public SampleView(Context context) {
+            super(context);
+            setFocusable(true);
+
+            final int N = 100;
+            int[] data8888 = new int[N];
+            short[] data565 = new short[N];
+            short[] data4444 = new short[N];
+
+            makeRamp(premultiplyColor(Color.RED), premultiplyColor(Color.GREEN),
+                    N, data8888, data565, data4444);
+
+            mBitmap1 = Bitmap.createBitmap(N, N, Bitmap.Config.ARGB_8888);
+            mBitmap2 = Bitmap.createBitmap(N, N, Bitmap.Config.RGB_565);
+            mBitmap3 = Bitmap.createBitmap(N, N, Bitmap.Config.ARGB_4444);
+
+            mBitmap1.copyPixelsFromBuffer(makeBuffer(data8888, N));
+            mBitmap2.copyPixelsFromBuffer(makeBuffer(data565, N));
+            mBitmap3.copyPixelsFromBuffer(makeBuffer(data4444, N));
+        }
+
         // access the red component from a premultiplied color
         private static int getR32(int c) { return (c >>  0) & 0xFF; }
+
         // access the red component from a premultiplied color
         private static int getG32(int c) { return (c >>  8) & 0xFF; }
+
         // access the red component from a premultiplied color
         private static int getB32(int c) { return (c >> 16) & 0xFF; }
+
         // access the red component from a premultiplied color
         private static int getA32(int c) { return (c >> 24) & 0xFF; }
 
@@ -124,27 +150,6 @@ public class BitmapPixels extends GraphicsActivity {
             }
             dst.rewind();
             return dst;
-        }
-
-        public SampleView(Context context) {
-            super(context);
-            setFocusable(true);
-
-            final int N = 100;
-            int[] data8888 = new int[N];
-            short[] data565 = new short[N];
-            short[] data4444 = new short[N];
-
-            makeRamp(premultiplyColor(Color.RED), premultiplyColor(Color.GREEN),
-                     N, data8888, data565, data4444);
-
-            mBitmap1 = Bitmap.createBitmap(N, N, Bitmap.Config.ARGB_8888);
-            mBitmap2 = Bitmap.createBitmap(N, N, Bitmap.Config.RGB_565);
-            mBitmap3 = Bitmap.createBitmap(N, N, Bitmap.Config.ARGB_4444);
-
-            mBitmap1.copyPixelsFromBuffer(makeBuffer(data8888, N));
-            mBitmap2.copyPixelsFromBuffer(makeBuffer(data565, N));
-            mBitmap3.copyPixelsFromBuffer(makeBuffer(data4444, N));
         }
 
         @Override protected void onDraw(Canvas canvas) {

@@ -17,22 +17,108 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+
+import com.tencent.commontools.LogUtils;
 
 public class SensorTest extends GraphicsActivity {
     private final String TAG = "SensorTest";
+    private final SensorEventListener mListener = new SensorEventListener() {
 
+        private final float[] mScale = new float[] { 2, 2.5f, 0.5f };   // accel
+        private float[] mPrev = new float[3];
+        private long mLastGestureTime;
+
+        public void onSensorChanged(SensorEvent event) {
+            boolean show = false;
+            float[] diff = new float[3];
+
+            for (int i = 0; i < 3; i++) {
+                diff[i] = Math.round(mScale[i] * (event.values[i] - mPrev[i]) * 0.45f);
+                if (Math.abs(diff[i]) > 0) {
+                    show = true;
+                }
+                mPrev[i] = event.values[i];
+            }
+
+            if (show) {
+                // only shows if we think the delta is big enough, in an attempt
+                // to detect "serious" moves left/right or up/down
+                LogUtils.e(TAG, "sensorChanged " + event.sensor.getName() +
+                        " (" + event.values[0] + ", " + event.values[1] + ", " +
+                        event.values[2] + ")" + " diff(" + diff[0] +
+                        " " + diff[1] + " " + diff[2] + ")");
+            }
+
+            long now = android.os.SystemClock.uptimeMillis();
+            if (now - mLastGestureTime > 1000) {
+                mLastGestureTime = 0;
+
+                float x = diff[0];
+                float y = diff[1];
+                boolean gestX = Math.abs(x) > 3;
+                boolean gestY = Math.abs(y) > 3;
+
+                if ((gestX || gestY) && !(gestX && gestY)) {
+                    if (gestX) {
+                        if (x < 0) {
+                            LogUtils.e("test", "<<<<<<<< LEFT <<<<<<<<<<<<");
+                        } else {
+                            LogUtils.e("test", ">>>>>>>>> RITE >>>>>>>>>>>");
+                        }
+                    } else {
+                        if (y < -2) {
+                            LogUtils.e("test", "<<<<<<<< UP <<<<<<<<<<<<");
+                        } else {
+                            LogUtils.e("test", ">>>>>>>>> DOWN >>>>>>>>>>>");
+                        }
+                    }
+                    mLastGestureTime = now;
+                }
+            }
+        }
+
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
     private SensorManager mSensorManager;
     private Sensor mSensor;
     private SampleView mView;
     private float[] mValues;
+    ;
+
+    @Override
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mView = new SampleView(this);
+        setContentView(mView);
+        if (false) LogUtils.d(TAG, "create " + mSensorManager);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager.registerListener(mListener, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        if (false) LogUtils.d(TAG, "resume " + mSensorManager);
+    }
+
+    @Override
+    protected void onStop() {
+        mSensorManager.unregisterListener(mListener);
+        super.onStop();
+        if (false) LogUtils.d(TAG, "stop " + mSensorManager);
+    }
 
     private static class RunAve {
         private final float[] mWeights;
@@ -73,89 +159,6 @@ public class SensorTest extends GraphicsActivity {
             }
             return sum * mWeightScale;
         }
-    };
-
-    private final SensorEventListener mListener = new SensorEventListener() {
-
-        private final float[] mScale = new float[] { 2, 2.5f, 0.5f };   // accel
-        private float[] mPrev = new float[3];
-        private long mLastGestureTime;
-
-        public void onSensorChanged(SensorEvent event) {
-            boolean show = false;
-            float[] diff = new float[3];
-
-            for (int i = 0; i < 3; i++) {
-                diff[i] = Math.round(mScale[i] * (event.values[i] - mPrev[i]) * 0.45f);
-                if (Math.abs(diff[i]) > 0) {
-                    show = true;
-                }
-                mPrev[i] = event.values[i];
-            }
-
-            if (show) {
-                // only shows if we think the delta is big enough, in an attempt
-                // to detect "serious" moves left/right or up/down
-                Log.e(TAG, "sensorChanged " + event.sensor.getName() +
-                        " (" + event.values[0] + ", " + event.values[1] + ", " +
-                        event.values[2] + ")" + " diff(" + diff[0] +
-                        " " + diff[1] + " " + diff[2] + ")");
-            }
-
-            long now = android.os.SystemClock.uptimeMillis();
-            if (now - mLastGestureTime > 1000) {
-                mLastGestureTime = 0;
-
-                float x = diff[0];
-                float y = diff[1];
-                boolean gestX = Math.abs(x) > 3;
-                boolean gestY = Math.abs(y) > 3;
-
-                if ((gestX || gestY) && !(gestX && gestY)) {
-                    if (gestX) {
-                        if (x < 0) {
-                            Log.e("test", "<<<<<<<< LEFT <<<<<<<<<<<<");
-                        } else {
-                            Log.e("test", ">>>>>>>>> RITE >>>>>>>>>>>");
-                        }
-                    } else {
-                        if (y < -2) {
-                            Log.e("test", "<<<<<<<< UP <<<<<<<<<<<<");
-                        } else {
-                            Log.e("test", ">>>>>>>>> DOWN >>>>>>>>>>>");
-                        }
-                    }
-                    mLastGestureTime = now;
-                }
-            }
-        }
-
-        public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        }
-    };
-
-    @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        mSensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mView = new SampleView(this);
-        setContentView(mView);
-        if (false) Log.d(TAG, "create " + mSensorManager);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mSensorManager.registerListener(mListener, mSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        if (false) Log.d(TAG, "resume " + mSensorManager);
-    }
-
-    @Override
-    protected void onStop() {
-        mSensorManager.unregisterListener(mListener);
-        super.onStop();
-        if (false) Log.d(TAG, "stop " + mSensorManager);
     }
 
     private class SampleView extends View {
@@ -199,14 +202,14 @@ public class SensorTest extends GraphicsActivity {
         @Override
         protected void onAttachedToWindow() {
             mAnimate = true;
-            if (false) Log.d(TAG, "onAttachedToWindow. mAnimate="+mAnimate);
+            if (false) LogUtils.d(TAG, "onAttachedToWindow. mAnimate=" + mAnimate);
             super.onAttachedToWindow();
         }
 
         @Override
         protected void onDetachedFromWindow() {
             mAnimate = false;
-            if (false) Log.d(TAG, "onAttachedToWindow. mAnimate="+mAnimate);
+            if (false) LogUtils.d(TAG, "onAttachedToWindow. mAnimate=" + mAnimate);
             super.onDetachedFromWindow();
         }
     }

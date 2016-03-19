@@ -18,17 +18,23 @@ package com.example.android.apis.view;
 
 import android.app.Activity;
 import android.database.Cursor;
-import android.provider.ContactsContract.Contacts;
 import android.os.Bundle;
+import android.provider.ContactsContract.Contacts;
 import android.widget.Gallery;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SpinnerAdapter;
 
-// Need the following import to get access to the app resources, since this
-// class is in a sub-package.
 import com.example.android.apis.R;
 
+// Need the following import to get access to the app resources, since this
+// class is in a sub-package.
+
 public class Gallery2 extends Activity {
+
+    private static final String[] CONTACT_PROJECTION = new String[]{
+            Contacts._ID,
+            Contacts.DISPLAY_NAME
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,9 +59,4 @@ public class Gallery2 extends Activity {
         Gallery g = (Gallery) findViewById(R.id.gallery);
         g.setAdapter(adapter);
     }
-
-    private static final String[] CONTACT_PROJECTION = new String[] {
-        Contacts._ID,
-        Contacts.DISPLAY_NAME
-    };
 }

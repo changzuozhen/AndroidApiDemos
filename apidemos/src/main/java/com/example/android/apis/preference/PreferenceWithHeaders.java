@@ -16,14 +16,16 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.widget.Button;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.List;
 
@@ -82,7 +84,7 @@ public class PreferenceWithHeaders extends PreferenceActivity {
             super.onCreate(savedInstanceState);
 
             // Can retrieve arguments from preference XML.
-            Log.i("args", "Arguments: " + getArguments());
+            LogUtils.i("args", "Arguments: " + getArguments());
             
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.fragmented_preferences_inner);
@@ -92,13 +94,15 @@ public class PreferenceWithHeaders extends PreferenceActivity {
     /**
      * This fragment shows the preferences for the second header.
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class Prefs2Fragment extends PreferenceFragment {
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             // Can retrieve arguments from headers XML.
-            Log.i("args", "Arguments: " + getArguments());
+            LogUtils.i("args", "Arguments: " + getArguments());
             
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.preference_dependencies);

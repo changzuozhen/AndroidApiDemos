@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -29,15 +27,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RemoteViews;
 
+import com.example.android.apis.R;
+
 /**
  * Demonstrates adding notifications to the status bar
  */
 public class StatusBarNotifications extends Activity {
 
-    private NotificationManager mNotificationManager;
-
     // Use our layout id for a unique identifier
     private static int MOOD_NOTIFICATIONS = R.layout.status_bar_notifications;
+    private NotificationManager mNotificationManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

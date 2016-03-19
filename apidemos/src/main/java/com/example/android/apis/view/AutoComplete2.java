@@ -16,12 +16,12 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+
+import com.example.android.apis.R;
 
 
 public class AutoComplete2 extends Activity {

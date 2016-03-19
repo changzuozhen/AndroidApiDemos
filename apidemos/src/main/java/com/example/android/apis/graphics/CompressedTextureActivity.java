@@ -16,6 +16,15 @@
 
 package com.example.android.apis.graphics;
 
+import android.app.Activity;
+import android.opengl.ETC1Util;
+import android.opengl.GLES10;
+import android.opengl.GLSurfaceView;
+import android.os.Bundle;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -25,15 +34,6 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import javax.microedition.khronos.opengles.GL10;
-
-import android.app.Activity;
-import android.opengl.ETC1Util;
-import android.opengl.GLES10;
-import android.opengl.GLSurfaceView;
-import android.os.Bundle;
-import android.util.Log;
-
-import com.example.android.apis.R;
 
 /**
  * Demonstrate how to use ETC1 format compressed textures.
@@ -54,6 +54,7 @@ public class CompressedTextureActivity extends Activity {
      * whether or not to use the i/o stream APIs.
      */
     private final static boolean USE_STREAM_IO = false;
+    private GLSurfaceView mGLView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +89,13 @@ public class CompressedTextureActivity extends Activity {
      */
     private class CompressedTextureLoader implements StaticTriangleRenderer.TextureLoader {
         public void load(GL10 gl) {
-            Log.w(TAG, "ETC1 texture support: " + ETC1Util.isETC1Supported());
+            LogUtils.w(TAG, "ETC1 texture support: " + ETC1Util.isETC1Supported());
             InputStream input = getResources().openRawResource(R.raw.androids);
             try {
                 ETC1Util.loadTexture(GLES10.GL_TEXTURE_2D, 0, 0,
                         GLES10.GL_RGB, GLES10.GL_UNSIGNED_SHORT_5_6_5, input);
             } catch (IOException e) {
-                Log.w(TAG, "Could not load texture: " + e);
+                LogUtils.w(TAG, "Could not load texture: " + e);
             } finally {
                 try {
                     input.close();
@@ -123,7 +124,7 @@ public class CompressedTextureActivity extends Activity {
                     ETC1Util.loadTexture(GLES10.GL_TEXTURE_2D, 0, 0,
                             GLES10.GL_RGB, GLES10.GL_UNSIGNED_SHORT_5_6_5, bis);
                 } catch (IOException e) {
-                    Log.w(TAG, "Could not load texture: " + e);
+                    LogUtils.w(TAG, "Could not load texture: " + e);
                 }
             } else {
                 ETC1Util.loadTexture(GLES10.GL_TEXTURE_2D, 0, 0,
@@ -153,5 +154,4 @@ public class CompressedTextureActivity extends Activity {
             return image;
         }
     }
-    private GLSurfaceView mGLView;
 }

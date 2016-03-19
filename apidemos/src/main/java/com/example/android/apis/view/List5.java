@@ -18,12 +18,13 @@ package com.example.android.apis.view;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
+
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -33,6 +34,39 @@ import android.widget.TextView;
  */
 public class List5 extends ListActivity {
 
+    private String[] mStrings = {
+            "----------",
+            "----------",
+            "Abbaye de Belloc",
+            "Abbaye du Mont des Cats",
+            "Abertam",
+            "----------",
+            "Abondance",
+            "----------",
+            "Ackawi",
+            "Acorn",
+            "Adelost",
+            "Affidelice au Chablis",
+            "Afuega'l Pitu",
+            "Airag",
+            "----------",
+            "Airedale",
+            "Aisy Cendre",
+            "----------",
+            "Allgauer Emmentaler",
+            "Alverca",
+            "Ambert",
+            "American Cheese",
+            "Ami du Chambertin",
+            "----------",
+            "----------",
+            "Anejo Enchilado",
+            "Anneau du Vic-Bilh",
+            "Anthoriro",
+            "----------",
+            "----------"
+    };
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +75,8 @@ public class List5 extends ListActivity {
     }
 
     private class MyListAdapter extends BaseAdapter {
+        private Context mContext;
+
         public MyListAdapter(Context context) {
             mContext = context;
         }
@@ -78,41 +114,6 @@ public class List5 extends ListActivity {
             tv.setText(mStrings[position]);
             return tv;
         }
-
-        private Context mContext;
     }
-    
-    private String[] mStrings = {
-            "----------",
-            "----------",
-            "Abbaye de Belloc",
-            "Abbaye du Mont des Cats",
-            "Abertam",
-            "----------",
-            "Abondance",
-            "----------",
-            "Ackawi",
-            "Acorn",
-            "Adelost",
-            "Affidelice au Chablis",
-            "Afuega'l Pitu",
-            "Airag",
-            "----------",
-            "Airedale",
-            "Aisy Cendre",
-            "----------",
-            "Allgauer Emmentaler",
-            "Alverca",
-            "Ambert",
-            "American Cheese",
-            "Ami du Chambertin",
-            "----------",
-            "----------",
-            "Anejo Enchilado",
-            "Anneau du Vic-Bilh",
-            "Anthoriro",
-            "----------",
-            "----------"
-    };
 
 }

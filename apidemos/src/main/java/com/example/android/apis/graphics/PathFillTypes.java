@@ -21,7 +21,10 @@ package com.example.android.apis.graphics;
 //import com.example.android.apis.R;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.view.View;
 

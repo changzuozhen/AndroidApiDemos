@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,7 +25,6 @@ import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -37,6 +34,9 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,7 +148,7 @@ public class VoiceRecognition extends Activity implements OnClickListener {
     }
 
     private void refreshVoiceSettings() {
-        Log.i(TAG, "Sending broadcast");
+        LogUtils.i(TAG, "Sending broadcast");
         sendOrderedBroadcast(RecognizerIntent.getVoiceDetailsIntent(this), null,
                 new SupportedLanguageBroadcastReceiver(), null, Activity.RESULT_OK, null, null);
     }
@@ -178,7 +178,7 @@ public class VoiceRecognition extends Activity implements OnClickListener {
 
         @Override
         public void onReceive(Context context, final Intent intent) {
-            Log.i(TAG, "Receiving broadcast " + intent);
+            LogUtils.i(TAG, "Receiving broadcast " + intent);
 
             final Bundle extra = getResultExtras(false);
 

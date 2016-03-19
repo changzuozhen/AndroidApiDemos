@@ -18,21 +18,22 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import android.animation.AnimatorListenerAdapter;
+
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import com.example.android.apis.R;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SeekBar;
+
+import com.example.android.apis.R;
 
 /**
  * This application demonstrates the seeking capability of ValueAnimator. The SeekBar in the
@@ -42,8 +43,6 @@ import android.widget.SeekBar;
 public class ListFlipper extends Activity {
 
     private static final int DURATION = 1500;
-    private SeekBar mSeekBar;
-
     private static final String[] LIST_STRINGS_EN = new String[] {
             "One",
             "Two",
@@ -60,9 +59,11 @@ public class ListFlipper extends Activity {
             "Le Five",
             "Six"
     };
-
     ListView mEnglishList;
     ListView mFrenchList;
+    private SeekBar mSeekBar;
+    private Interpolator accelerator = new AccelerateInterpolator();
+    private Interpolator decelerator = new DecelerateInterpolator();
 
     /** Called when the activity is first created. */
     @Override
@@ -92,8 +93,6 @@ public class ListFlipper extends Activity {
         });
     }
 
-    private Interpolator accelerator = new AccelerateInterpolator();
-    private Interpolator decelerator = new DecelerateInterpolator();
     private void flipit() {
         final ListView visibleList;
         final ListView invisibleList;

@@ -25,7 +25,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
-import android.util.Log;
 import android.util.SparseArray;
 
 /**
@@ -42,12 +41,12 @@ public class DataProvider extends ContentProvider {
 
     // Indicates an invalid content URI
     public static final int INVALID_URI = -1;
-
+    // Identifies log statements issued by this component
+    public static final String LOG_TAG = "DataProvider";
     // Constants for building SQLite tables during initialization
     private static final String TEXT_TYPE = "TEXT";
     private static final String PRIMARY_KEY_TYPE = "INTEGER PRIMARY KEY";
     private static final String INTEGER_TYPE = "INTEGER";
-
     // Defines an SQLite statement that builds the Picasa picture URL table
     private static final String CREATE_PICTUREURL_TABLE_SQL = "CREATE TABLE" + " " +
             DataProviderContract.PICTUREURL_TABLE_NAME + " " +
@@ -58,7 +57,6 @@ public class DataProvider extends ContentProvider {
             DataProviderContract.IMAGE_THUMBNAME_COLUMN + " " + TEXT_TYPE + " ," +
             DataProviderContract.IMAGE_PICTURENAME_COLUMN + " " + TEXT_TYPE +
             ")";
-
     // Defines an SQLite statement that builds the URL modification date table
     private static final String CREATE_DATE_TABLE_SQL = "CREATE TABLE" + " " +
             DataProviderContract.DATE_TABLE_NAME + " " +
@@ -66,16 +64,8 @@ public class DataProvider extends ContentProvider {
             DataProviderContract.ROW_ID + " " + PRIMARY_KEY_TYPE + " ," +
             DataProviderContract.DATA_DATE_COLUMN + " " + INTEGER_TYPE +
             ")";
-
-    // Identifies log statements issued by this component
-    public static final String LOG_TAG = "DataProvider";
-
-    // Defines an helper object for the backing database
-    private SQLiteOpenHelper mHelper;
-
     // Defines a helper object that matches content URIs to table-specific parameters
     private static final UriMatcher sUriMatcher;
-
     // Stores the MIME types served by this provider
     private static final SparseArray<String> sMimeTypes;
 
@@ -85,7 +75,7 @@ public class DataProvider extends ContentProvider {
      * - MimeType array that returns the custom MIME type of a table
      */
     static {
-        
+
         // Creates an object that associates content URIs with numeric codes
         sUriMatcher = new UriMatcher(0);
 
@@ -107,7 +97,7 @@ public class DataProvider extends ContentProvider {
             DataProviderContract.AUTHORITY,
             DataProviderContract.DATE_TABLE_NAME,
             URL_DATE_QUERY);
-        
+
         // Specifies a custom MIME type for the picture URL table
         sMimeTypes.put(
                 IMAGE_URL_QUERY,
@@ -123,97 +113,14 @@ public class DataProvider extends ContentProvider {
                 DataProviderContract.DATE_TABLE_NAME);
     }
 
+    // Defines an helper object for the backing database
+    private SQLiteOpenHelper mHelper;
+
     // Closes the SQLite database helper class, to avoid memory leaks
     public void close() {
         mHelper.close();
     }
     
-    /**
-     * Defines a helper class that opens the SQLite database for this provider when a request is
-     * received. If the database doesn't yet exist, the helper creates it.
-     */
-    private class DataProviderHelper extends SQLiteOpenHelper {
-        /**
-         * Instantiates a new SQLite database using the supplied database name and version
-         *
-         * @param context The current context
-         */
-        DataProviderHelper(Context context) {
-            super(context,
-                    DataProviderContract.DATABASE_NAME,
-                    null,
-                    DataProviderContract.DATABASE_VERSION);
-        }
-
-
-        /**
-         * Executes the queries to drop all of the tables from the database.
-         *
-         * @param db A handle to the provider's backing database.
-         */
-        private void dropTables(SQLiteDatabase db) {
-
-            // If the table doesn't exist, don't throw an error
-            db.execSQL("DROP TABLE IF EXISTS " + DataProviderContract.PICTUREURL_TABLE_NAME);
-            db.execSQL("DROP TABLE IF EXISTS " + DataProviderContract.DATE_TABLE_NAME);
-        }
-
-        /**
-         * Does setup of the database. The system automatically invokes this method when
-         * SQLiteDatabase.getWriteableDatabase() or SQLiteDatabase.getReadableDatabase() are
-         * invoked and no db instance is available.
-         *
-         * @param db the database instance in which to create the tables.
-         */
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            // Creates the tables in the backing database for this provider
-            db.execSQL(CREATE_PICTUREURL_TABLE_SQL);
-            db.execSQL(CREATE_DATE_TABLE_SQL);
-
-        }
-
-        /**
-         * Handles upgrading the database from a previous version. Drops the old tables and creates
-         * new ones.
-         *
-         * @param db The database to upgrade
-         * @param version1 The old database version
-         * @param version2 The new database version
-         */
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
-            Log.w(DataProviderHelper.class.getName(),
-                    "Upgrading database from version " + version1 + " to "
-                            + version2 + ", which will destroy all the existing data");
-
-            // Drops all the existing tables in the database
-            dropTables(db);
-
-            // Invokes the onCreate callback to build new tables
-            onCreate(db);
-        }
-        /**
-         * Handles downgrading the database from a new to a previous version. Drops the old tables
-         * and creates new ones.
-         * @param db The database object to downgrade
-         * @param version1 The old database version
-         * @param version2 The new database version
-         */
-        @Override
-        public void onDowngrade(SQLiteDatabase db, int version1, int version2) {
-            Log.w(DataProviderHelper.class.getName(),
-                "Downgrading database from version " + version1 + " to "
-                        + version2 + ", which will destroy all the existing data");
-    
-            // Drops all the existing tables in the database
-            dropTables(db);
-    
-            // Invokes the onCreate callback to build new tables
-            onCreate(db);
-            
-        }
-    }
     /**
      * Initializes the content provider. Notice that this method simply creates a
      * the SQLiteOpenHelper instance and returns. You should do most of the initialization of a
@@ -227,6 +134,7 @@ public class DataProvider extends ContentProvider {
 
         return true;
     }
+
     /**
      * Returns the result of querying the chosen table.
      * @see android.content.ContentProvider#query(Uri, String[], String, String[], String)
@@ -294,6 +202,7 @@ public class DataProvider extends ContentProvider {
 
         return sMimeTypes.get(sUriMatcher.match(uri));
     }
+
     /**
      *
      * Insert a single row into a table
@@ -336,6 +245,7 @@ public class DataProvider extends ContentProvider {
 
         return null;
     }
+
     /**
      * Implements bulk row insertion using
      * {@link SQLiteDatabase#insert(String, String, ContentValues) SQLiteDatabase.insert()}
@@ -412,6 +322,7 @@ public class DataProvider extends ContentProvider {
         return -1;
 
     }
+
     /**
      * Returns an UnsupportedOperationException if delete is called
      * @see android.content.ContentProvider#delete(Uri, String, String[])
@@ -478,5 +389,94 @@ public class DataProvider extends ContentProvider {
         }
 
         return -1;
+    }
+
+    /**
+     * Defines a helper class that opens the SQLite database for this provider when a request is
+     * received. If the database doesn't yet exist, the helper creates it.
+     */
+    private class DataProviderHelper extends SQLiteOpenHelper {
+        /**
+         * Instantiates a new SQLite database using the supplied database name and version
+         *
+         * @param context The current context
+         */
+        DataProviderHelper(Context context) {
+            super(context,
+                    DataProviderContract.DATABASE_NAME,
+                    null,
+                    DataProviderContract.DATABASE_VERSION);
+        }
+
+
+        /**
+         * Executes the queries to drop all of the tables from the database.
+         *
+         * @param db A handle to the provider's backing database.
+         */
+        private void dropTables(SQLiteDatabase db) {
+
+            // If the table doesn't exist, don't throw an error
+            db.execSQL("DROP TABLE IF EXISTS " + DataProviderContract.PICTUREURL_TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + DataProviderContract.DATE_TABLE_NAME);
+        }
+
+        /**
+         * Does setup of the database. The system automatically invokes this method when
+         * SQLiteDatabase.getWriteableDatabase() or SQLiteDatabase.getReadableDatabase() are
+         * invoked and no db instance is available.
+         *
+         * @param db the database instance in which to create the tables.
+         */
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            // Creates the tables in the backing database for this provider
+            db.execSQL(CREATE_PICTUREURL_TABLE_SQL);
+            db.execSQL(CREATE_DATE_TABLE_SQL);
+
+        }
+
+        /**
+         * Handles upgrading the database from a previous version. Drops the old tables and creates
+         * new ones.
+         *
+         * @param db       The database to upgrade
+         * @param version1 The old database version
+         * @param version2 The new database version
+         */
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int version1, int version2) {
+            LogUtils.w(DataProviderHelper.class.getName(),
+                    "Upgrading database from version " + version1 + " to "
+                            + version2 + ", which will destroy all the existing data");
+
+            // Drops all the existing tables in the database
+            dropTables(db);
+
+            // Invokes the onCreate callback to build new tables
+            onCreate(db);
+        }
+
+        /**
+         * Handles downgrading the database from a new to a previous version. Drops the old tables
+         * and creates new ones.
+         *
+         * @param db       The database object to downgrade
+         * @param version1 The old database version
+         * @param version2 The new database version
+         */
+        @Override
+        public void onDowngrade(SQLiteDatabase db, int version1, int version2) {
+            LogUtils.w(DataProviderHelper.class.getName(),
+                    "Downgrading database from version " + version1 + " to "
+                            + version2 + ", which will destroy all the existing data");
+
+            // Drops all the existing tables in the database
+            dropTables(db);
+
+            // Invokes the onCreate callback to build new tables
+            onCreate(db);
+
+        }
     }
 }

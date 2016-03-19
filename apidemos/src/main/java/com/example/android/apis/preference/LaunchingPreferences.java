@@ -16,8 +16,6 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,8 +25,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * Demonstrates launching a PreferenceActivity and grabbing a value it saved.

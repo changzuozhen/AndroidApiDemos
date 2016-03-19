@@ -16,12 +16,19 @@
 
 package com.example.android.apis.graphics;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Shader;
 import android.os.Bundle;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.example.android.apis.R;
 
 public class Vertices extends GraphicsActivity {
 
@@ -39,11 +46,6 @@ public class Vertices extends GraphicsActivity {
 
         private final Matrix mMatrix = new Matrix();
         private final Matrix mInverse = new Matrix();
-
-        private static void setXY(float[] array, int index, float x, float y) {
-            array[index*2 + 0] = x;
-            array[index*2 + 1] = y;
-        }
 
         public SampleView(Context context) {
             super(context);
@@ -73,6 +75,11 @@ public class Vertices extends GraphicsActivity {
             mMatrix.setScale(0.8f, 0.8f);
             mMatrix.preTranslate(20, 20);
             mMatrix.invert(mInverse);
+        }
+
+        private static void setXY(float[] array, int index, float x, float y) {
+            array[index * 2 + 0] = x;
+            array[index * 2 + 1] = y;
         }
 
         @Override protected void onDraw(Canvas canvas) {

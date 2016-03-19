@@ -16,6 +16,18 @@
 
 package com.example.android.apis.graphics.spritetext;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Paint;
+import android.opengl.GLSurfaceView;
+import android.opengl.GLU;
+import android.opengl.GLUtils;
+import android.os.SystemClock;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -26,20 +38,28 @@ import java.nio.ShortBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
-import android.opengl.GLSurfaceView;
-import android.opengl.GLU;
-import android.opengl.GLUtils;
-import android.os.SystemClock;
-import android.util.Log;
-
-import com.example.android.apis.R;
-
 public class SpriteTextRenderer implements GLSurfaceView.Renderer{
 
+    private final static int SAMPLE_PERIOD_FRAMES = 12;
+    private final static float SAMPLE_FACTOR = 1.0f / SAMPLE_PERIOD_FRAMES;
+    private int mWidth;
+    private int mHeight;
+    private Context mContext;
+    private Triangle mTriangle;
+    private int mTextureID;
+    private int mFrames;
+    private int mMsPerFrame;
+    private long mStartTime;
+    private LabelMaker mLabels;
+    private Paint mLabelPaint;
+    private int mLabelA;
+    private int mLabelB;
+    private int mLabelC;
+    private int mLabelMsPF;
+    private Projector mProjector;
+    private NumericSprite mNumericSprite;
+    private float[] mScratch = new float[8];
+    private long mLastTime;
     public SpriteTextRenderer(Context context) {
         mContext = context;
         mTriangle = new Triangle();
@@ -176,7 +196,7 @@ public class SpriteTextRenderer implements GLSurfaceView.Renderer{
             long time = SystemClock.uptimeMillis();
             if (mLastTime != 0) {
                 long delta = time - mLastTime;
-                Log.w("time", Long.toString(delta));
+                LogUtils.w("time", Long.toString(delta));
             }
             mLastTime = time;
         }
@@ -255,30 +275,21 @@ public class SpriteTextRenderer implements GLSurfaceView.Renderer{
         gl.glFrustumf(-ratio, ratio, -1, 1, 1, 10);
         mProjector.getCurrentProjection(gl);
     }
-
-    private int mWidth;
-    private int mHeight;
-    private Context mContext;
-    private Triangle mTriangle;
-    private int mTextureID;
-    private int mFrames;
-    private int mMsPerFrame;
-    private final static int SAMPLE_PERIOD_FRAMES = 12;
-    private final static float SAMPLE_FACTOR = 1.0f / SAMPLE_PERIOD_FRAMES;
-    private long mStartTime;
-    private LabelMaker mLabels;
-    private Paint mLabelPaint;
-    private int mLabelA;
-    private int mLabelB;
-    private int mLabelC;
-    private int mLabelMsPF;
-    private Projector mProjector;
-    private NumericSprite mNumericSprite;
-    private float[] mScratch = new float[8];
-    private long mLastTime;
 }
 
 class Triangle {
+    private final static int VERTS = 3;
+    // A unit-sided equalateral triangle centered on the origin.
+    private final static float[] sCoords = {
+            // X, Y, Z
+            -0.5f, -0.25f, 0,
+            0.5f, -0.25f, 0,
+            0.0f, 0.559016994f, 0
+    };
+    private FloatBuffer mFVertexBuffer;
+    private FloatBuffer mTexBuffer;
+    private ShortBuffer mIndexBuffer;
+
     public Triangle() {
 
         // Buffers to be passed to gl*Pointer() functions
@@ -338,17 +349,4 @@ class Triangle {
     public float getY(int vertex) {
         return sCoords[3*vertex+1];
     }
-
-    private final static int VERTS = 3;
-
-    private FloatBuffer mFVertexBuffer;
-    private FloatBuffer mTexBuffer;
-    private ShortBuffer mIndexBuffer;
-    // A unit-sided equalateral triangle centered on the origin.
-    private final static float[] sCoords = {
-            // X, Y, Z
-            -0.5f, -0.25f, 0,
-             0.5f, -0.25f, 0,
-             0.0f,  0.559016994f, 0
-    };
 }

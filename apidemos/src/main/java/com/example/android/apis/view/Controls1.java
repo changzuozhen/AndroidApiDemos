@@ -18,7 +18,6 @@ package com.example.android.apis.view;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -26,12 +25,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
+import com.example.android.apis.R;
+
 
 /**
  * A gallery of basic controls: Button, EditText, RadioButton, Checkbox,
  * Spinner. This example uses the light theme.
  */
 public class Controls1 extends Activity {
+
+    private static final String[] mStrings = {
+            "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,4 @@ public class Controls1 extends Activity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         s1.setAdapter(adapter);
     }
-
-    private static final String[] mStrings = {
-        "Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"
-    };
 }

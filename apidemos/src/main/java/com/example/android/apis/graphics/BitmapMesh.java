@@ -16,13 +16,17 @@
 
 package com.example.android.apis.graphics;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Matrix;
 import android.os.Bundle;
-import android.view.*;
 import android.util.FloatMath;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.example.android.apis.R;
 
 public class BitmapMesh extends GraphicsActivity {
 
@@ -43,11 +47,8 @@ public class BitmapMesh extends GraphicsActivity {
 
         private final Matrix mMatrix = new Matrix();
         private final Matrix mInverse = new Matrix();
-
-        private static void setXY(float[] array, int index, float x, float y) {
-            array[index*2 + 0] = x;
-            array[index*2 + 1] = y;
-        }
+        private int mLastWarpX = -9999; // don't match a touch coordinate
+        private int mLastWarpY;
 
         public SampleView(Context context) {
             super(context);
@@ -74,6 +75,11 @@ public class BitmapMesh extends GraphicsActivity {
             mMatrix.invert(mInverse);
         }
 
+        private static void setXY(float[] array, int index, float x, float y) {
+            array[index * 2 + 0] = x;
+            array[index * 2 + 1] = y;
+        }
+
         @Override protected void onDraw(Canvas canvas) {
             canvas.drawColor(0xFFCCCCCC);
 
@@ -96,7 +102,7 @@ public class BitmapMesh extends GraphicsActivity {
                 float pull = K / (dd + 0.000001f);
 
                 pull /= (d + 0.000001f);
-             //   android.util.Log.d("skia", "index " + i + " dist=" + d + " pull=" + pull);
+                //   LogUtils.d("skia", "index " + i + " dist=" + d + " pull=" + pull);
 
                 if (pull >= 1) {
                     dst[i+0] = cx;
@@ -107,9 +113,6 @@ public class BitmapMesh extends GraphicsActivity {
                 }
             }
         }
-
-        private int mLastWarpX = -9999; // don't match a touch coordinate
-        private int mLastWarpY;
 
         @Override public boolean onTouchEvent(MotionEvent event) {
             float[] pt = { event.getX(), event.getY() };

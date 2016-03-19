@@ -19,7 +19,6 @@ package com.example.android.apis.view;
 import android.app.Activity;
 import android.os.Bundle;
 
-
 import com.example.android.apis.R;
 
 

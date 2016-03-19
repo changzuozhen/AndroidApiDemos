@@ -16,12 +16,12 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.ListView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import com.example.android.apis.R;
 
 /**
  * Demonstrates how the layout_weight attribute can shrink an element too big

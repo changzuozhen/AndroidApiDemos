@@ -17,7 +17,16 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ComposePathEffect;
+import android.graphics.CornerPathEffect;
+import android.graphics.DashPathEffect;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PathDashPathEffect;
+import android.graphics.PathEffect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,20 +46,6 @@ public class PathEffects extends GraphicsActivity {
         private int[] mColors;
         private float mPhase;
 
-        private static PathEffect makeDash(float phase) {
-            return new DashPathEffect(new float[] { 15, 5, 8, 5 }, phase);
-        }
-
-        private static void makeEffects(PathEffect[] e, float phase) {
-            e[0] = null;     // no effect
-            e[1] = new CornerPathEffect(10);
-            e[2] = new DashPathEffect(new float[] {10, 5, 5, 5}, phase);
-            e[3] = new PathDashPathEffect(makePathDash(), 12, phase,
-                                          PathDashPathEffect.Style.ROTATE);
-            e[4] = new ComposePathEffect(e[2], e[1]);
-            e[5] = new ComposePathEffect(e[3], e[1]);
-        }
-
         public SampleView(Context context) {
             super(context);
             setFocusable(true);
@@ -67,6 +62,40 @@ public class PathEffects extends GraphicsActivity {
             mColors = new int[] { Color.BLACK, Color.RED, Color.BLUE,
                                   Color.GREEN, Color.MAGENTA, Color.BLACK
                                 };
+        }
+
+        private static PathEffect makeDash(float phase) {
+            return new DashPathEffect(new float[]{15, 5, 8, 5}, phase);
+        }
+
+        private static void makeEffects(PathEffect[] e, float phase) {
+            e[0] = null;     // no effect
+            e[1] = new CornerPathEffect(10);
+            e[2] = new DashPathEffect(new float[]{10, 5, 5, 5}, phase);
+            e[3] = new PathDashPathEffect(makePathDash(), 12, phase,
+                    PathDashPathEffect.Style.ROTATE);
+            e[4] = new ComposePathEffect(e[2], e[1]);
+            e[5] = new ComposePathEffect(e[3], e[1]);
+        }
+
+        private static Path makeFollowPath() {
+            Path p = new Path();
+            p.moveTo(0, 0);
+            for (int i = 1; i <= 15; i++) {
+                p.lineTo(i * 20, (float) Math.random() * 35);
+            }
+            return p;
+        }
+
+        private static Path makePathDash() {
+            Path p = new Path();
+            p.moveTo(4, 0);
+            p.lineTo(0, -4);
+            p.lineTo(8, -4);
+            p.lineTo(12, 0);
+            p.lineTo(8, 4);
+            p.lineTo(0, 4);
+            return p;
         }
 
         @Override protected void onDraw(Canvas canvas) {
@@ -95,26 +124,6 @@ public class PathEffects extends GraphicsActivity {
                     return true;
             }
             return super.onKeyDown(keyCode, event);
-        }
-
-        private static Path makeFollowPath() {
-            Path p = new Path();
-            p.moveTo(0, 0);
-            for (int i = 1; i <= 15; i++) {
-                p.lineTo(i*20, (float)Math.random() * 35);
-            }
-            return p;
-        }
-
-        private static Path makePathDash() {
-            Path p = new Path();
-            p.moveTo(4, 0);
-            p.lineTo(0, -4);
-            p.lineTo(8, -4);
-            p.lineTo(12, 0);
-            p.lineTo(8, 4);
-            p.lineTo(0, 4);
-            return p;
         }
     }
 }

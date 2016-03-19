@@ -20,7 +20,8 @@ import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
+
+import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,7 @@ public class ExampleBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("ExmampleBroadcastReceiver", "intent=" + intent);
+        LogUtils.d("ExmampleBroadcastReceiver", "intent=" + intent);
 
         // For our example, we'll also update all of the widgets when the timezone
         // changes, or the user or network sets the time.

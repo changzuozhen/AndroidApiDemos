@@ -18,9 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
-
-import java.io.IOException;
 
 import android.app.Activity;
 import android.app.WallpaperManager;
@@ -32,6 +29,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import com.example.android.apis.R;
+
+import java.io.IOException;
 
 /**
  * <h3>SetWallpaper Activity</h3>

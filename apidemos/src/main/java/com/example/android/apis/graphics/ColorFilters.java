@@ -16,14 +16,20 @@
 
 package com.example.android.apis.graphics;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.*;
-import android.graphics.drawable.*;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.View;
+
+import com.example.android.apis.R;
 
 public class ColorFilters extends GraphicsActivity {
 
@@ -44,16 +50,6 @@ public class ColorFilters extends GraphicsActivity {
         private int[] mColors;
         private PorterDuff.Mode[] mModes;
         private int mModeIndex;
-
-        private static void addToTheRight(Drawable curr, Drawable prev) {
-            Rect r = prev.getBounds();
-            int x = r.right + 12;
-            int center = (r.top + r.bottom) >> 1;
-            int h = curr.getIntrinsicHeight();
-            int y = center - (h >> 1);
-
-            curr.setBounds(x, y, x + curr.getIntrinsicWidth(), y + h);
-        }
 
         public SampleView(Activity activity) {
             super(activity);
@@ -107,6 +103,16 @@ public class ColorFilters extends GraphicsActivity {
             mModeIndex = 0;
 
             updateTitle();
+        }
+
+        private static void addToTheRight(Drawable curr, Drawable prev) {
+            Rect r = prev.getBounds();
+            int x = r.right + 12;
+            int center = (r.top + r.bottom) >> 1;
+            int h = curr.getIntrinsicHeight();
+            int y = center - (h >> 1);
+
+            curr.setBounds(x, y, x + curr.getIntrinsicWidth(), y + h);
         }
 
         private void swapPaintColors() {

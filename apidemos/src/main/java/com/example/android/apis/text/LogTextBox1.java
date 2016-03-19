@@ -16,12 +16,12 @@
 
 package com.example.android.apis.text;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.android.apis.R;
 
 /**
  * Using a LogTextBox to display a scrollable text area

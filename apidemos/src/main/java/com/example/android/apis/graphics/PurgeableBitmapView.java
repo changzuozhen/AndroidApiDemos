@@ -19,10 +19,10 @@ package com.example.android.apis.graphics;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.BitmapFactory.Options;
 import android.view.View;
 
 import java.io.ByteArrayOutputStream;
@@ -36,19 +36,18 @@ import java.io.ByteArrayOutputStream;
  * The number is used to indicate the number of Bitmaps that has been decoded.
  */
 public class PurgeableBitmapView extends View {
-    private final byte[] bitstream;
-
-    private Bitmap mBitmap;
-    private final int mArraySize = 200;
-    private final Bitmap[] mBitmapArray = new Bitmap [mArraySize];
-    private final Options mOptions = new Options();
     private static final int WIDTH = 150;
     private static final int HEIGHT = 450;
     private static final int STRIDE = 320;   // must be >= WIDTH
-    private int mDecodingCount = 0;
+    private static int delay = 100;
+    private final byte[] bitstream;
+    private final int mArraySize = 200;
+    private final Bitmap[] mBitmapArray = new Bitmap [mArraySize];
+    private final Options mOptions = new Options();
     private final Paint mPaint = new Paint();
     private final int textSize = 32;
-    private static int delay = 100;
+    private Bitmap mBitmap;
+    private int mDecodingCount = 0;
 
     public PurgeableBitmapView(Context context, boolean isPurgeable) {
         super(context);

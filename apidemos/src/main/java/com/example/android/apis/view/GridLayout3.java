@@ -21,12 +21,23 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridLayout;
+import android.widget.TextView;
 
-import android.widget.*;
-
-import static android.text.InputType.*;
-import static android.widget.GridLayout.*;
+import static android.text.InputType.TYPE_CLASS_TEXT;
+import static android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+import static android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD;
+import static android.widget.GridLayout.ALIGN_BOUNDS;
+import static android.widget.GridLayout.BASELINE;
+import static android.widget.GridLayout.CENTER;
+import static android.widget.GridLayout.FILL;
+import static android.widget.GridLayout.LEFT;
 import static android.widget.GridLayout.LayoutParams;
+import static android.widget.GridLayout.RIGHT;
+import static android.widget.GridLayout.Spec;
+import static android.widget.GridLayout.spec;
 
 /**
  * A form, showing use of the GridLayout API. Here we demonstrate use of the row/column order

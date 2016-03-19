@@ -16,16 +16,16 @@
 
 package com.example.android.apis.accessibility;
 
-import com.example.android.apis.R;
-
 import android.accessibilityservice.AccessibilityService;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityRecord;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.Locale;
 
@@ -67,7 +67,7 @@ public class TaskBackService extends AccessibilityService implements OnInitListe
     @Override
     public void onAccessibilityEvent(AccessibilityEvent event) {
         if (!mTextToSpeechInitialized) {
-            Log.e(LOG_TAG, "Text-To-Speech engine not ready.  Bailing out.");
+            LogUtils.e(LOG_TAG, "Text-To-Speech engine not ready.  Bailing out.");
             return;
         }
 
@@ -137,7 +137,7 @@ public class TaskBackService extends AccessibilityService implements OnInitListe
 
         // Announce the utterance.
         mTts.speak(utterance.toString(), TextToSpeech.QUEUE_FLUSH, null);
-        Log.d(LOG_TAG, utterance.toString());
+        LogUtils.d(LOG_TAG, utterance.toString());
     }
 
     private AccessibilityNodeInfo getListItemNodeInfo(AccessibilityNodeInfo source) {

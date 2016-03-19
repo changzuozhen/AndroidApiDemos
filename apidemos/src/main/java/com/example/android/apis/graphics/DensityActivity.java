@@ -18,6 +18,7 @@ package com.example.android.apis.graphics;
 
 //Need the following import to get access to the app resources, since this
 //class is in a sub-package.
+
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -27,7 +28,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -35,6 +35,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 /**
  * This activity demonstrates various ways density can cause the scaling of
@@ -174,7 +175,7 @@ public class DensityActivity extends Activity {
         final Drawable d = getResources().getDrawable(resource);
         view.setBackgroundDrawable(d);
 
-        Log.i("foo", "9-patch #" + Integer.toHexString(resource)
+        LogUtils.i("foo", "9-patch #" + Integer.toHexString(resource)
                 + " w=" + d.getIntrinsicWidth() + " h=" + d.getIntrinsicHeight());
         view.setLayoutParams(new LinearLayout.LayoutParams(
                 d.getIntrinsicWidth()*2, d.getIntrinsicHeight()*2));

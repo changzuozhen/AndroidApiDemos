@@ -16,16 +16,20 @@
 
 package com.example.android.apis.graphics;
 
+import android.opengl.GLSurfaceView;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-import android.opengl.GLSurfaceView;
 
 /**
  * Render a pair of tumbling cubes.
  */
 
 public class CubeRenderer implements GLSurfaceView.Renderer {
+    private boolean mTranslucentBackground;
+    private Cube mCube;
+    private float mAngle;
+
     public CubeRenderer(boolean useTranslucentBackground) {
         mTranslucentBackground = useTranslucentBackground;
         mCube = new Cube();
@@ -55,7 +59,7 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
 
         mCube.draw(gl);
 
-        gl.glRotatef(mAngle*2.0f, 0, 1, 1);
+        gl.glRotatef(mAngle * 2.0f, 0, 1, 1);
         gl.glTranslatef(0.5f, 0.5f, 0.5f);
 
         mCube.draw(gl);
@@ -102,7 +106,4 @@ public class CubeRenderer implements GLSurfaceView.Renderer {
          gl.glShadeModel(GL10.GL_SMOOTH);
          gl.glEnable(GL10.GL_DEPTH_TEST);
     }
-    private boolean mTranslucentBackground;
-    private Cube mCube;
-    private float mAngle;
 }

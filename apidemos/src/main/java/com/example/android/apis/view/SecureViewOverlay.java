@@ -16,12 +16,12 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.android.apis.R;
 
 /**
  * This view is part of the {@link SecureView} demonstration activity.

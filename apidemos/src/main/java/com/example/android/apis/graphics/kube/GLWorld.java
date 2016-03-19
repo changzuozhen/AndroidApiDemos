@@ -20,20 +20,32 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
-import java.util.Iterator;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.microedition.khronos.opengles.GL10;
 
 public class GLWorld {
 
+	int count = 0;
+	private ArrayList<GLShape> mShapeList = new ArrayList<GLShape>();
+	private ArrayList<GLVertex> mVertexList = new ArrayList<GLVertex>();
+	private int mIndexCount = 0;
+	private IntBuffer mVertexBuffer;
+	private IntBuffer mColorBuffer;
+	private ShortBuffer mIndexBuffer;
+
+	static public float toFloat(int x) {
+		return x / 65536.0f;
+	}
+
 	public void addShape(GLShape shape) {
 		mShapeList.add(shape);
 		mIndexCount += shape.getIndexCount();
 	}
-	
-	public void generate() {		
-	    ByteBuffer bb = ByteBuffer.allocateDirect(mVertexList.size()*4*4);
+
+	public void generate() {
+		ByteBuffer bb = ByteBuffer.allocateDirect(mVertexList.size()*4*4);
 	    bb.order(ByteOrder.nativeOrder());
 		mColorBuffer = bb.asIntBuffer();
 
@@ -57,18 +69,17 @@ public class GLWorld {
 			shape.putIndices(mIndexBuffer);
 		}
 	}
-	
+
 	public GLVertex addVertex(float x, float y, float z) {
 		GLVertex vertex = new GLVertex(x, y, z, mVertexList.size());
 		mVertexList.add(vertex);
 		return vertex;
 	}
-	
+
 	public void transformVertex(GLVertex vertex, M4 transform) {
 		vertex.update(mVertexBuffer, transform);
 	}
 
-	int count = 0;
     public void draw(GL10 gl)
     {
 		mColorBuffer.position(0);
@@ -82,17 +93,4 @@ public class GLWorld {
         gl.glDrawElements(GL10.GL_TRIANGLES, mIndexCount, GL10.GL_UNSIGNED_SHORT, mIndexBuffer);
         count++;
     }
-   
-    static public float toFloat(int x) {
-    	return x/65536.0f;
-    }
-
-	private ArrayList<GLShape>	mShapeList = new ArrayList<GLShape>();	
-	private ArrayList<GLVertex>	mVertexList = new ArrayList<GLVertex>();
-	
-	private int mIndexCount = 0;
-
-    private IntBuffer   mVertexBuffer;
-    private IntBuffer   mColorBuffer;
-    private ShortBuffer mIndexBuffer;
 }

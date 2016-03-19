@@ -1,25 +1,20 @@
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.app.admin.DevicePolicyManager;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+
+import com.example.android.apis.R;
 
 /**
  * Demonstrates how the various soft input modes impact window resizing.
  */
 public class SoftInputModes extends Activity {
-    Spinner mResizeMode;
     final CharSequence[] mResizeModeLabels = new CharSequence[] {
             "Unspecified", "Resize", "Pan", "Nothing"
     };
@@ -29,6 +24,7 @@ public class SoftInputModes extends Activity {
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN,
             WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING,
     };
+    Spinner mResizeMode;
     
     /**
      * Initialization of the Activity after it is first created.  Here we use

@@ -19,13 +19,13 @@ package com.example.android.apis.app;
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * Simple example of using persistent preferences to retain a screen's state.
@@ -65,6 +65,8 @@ import android.widget.TextView;
  */
 public class PersistentState extends Activity
 {
+    private EditText mSaved;
+
     /**
      * Initialization of the Activity after it is first created.  Here we use
      * {@link android.app.Activity#setContentView setContentView()} to set up
@@ -96,7 +98,7 @@ public class PersistentState extends Activity
     protected void onResume() {
         super.onResume();
 
-        SharedPreferences prefs = getPreferences(0); 
+        SharedPreferences prefs = getPreferences(0);
         String restoredText = prefs.getString("text", null);
         if (restoredText != null) {
             mSaved.setText(restoredText, TextView.BufferType.EDITABLE);
@@ -123,6 +125,4 @@ public class PersistentState extends Activity
         editor.putInt("selection-end", mSaved.getSelectionEnd());
         editor.commit();
     }
-
-    private EditText mSaved;
 }

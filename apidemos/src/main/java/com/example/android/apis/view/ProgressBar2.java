@@ -16,11 +16,11 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
+
+import com.example.android.apis.R;
 
 
 /**

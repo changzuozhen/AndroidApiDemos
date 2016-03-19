@@ -18,7 +18,6 @@ package com.example.android.apis.view;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -28,8 +27,35 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Chronometer;
 
+import com.example.android.apis.R;
+
 public class ChronometerDemo extends Activity {
     Chronometer mChronometer;
+    View.OnClickListener mStartListener = new OnClickListener() {
+        public void onClick(View v) {
+            mChronometer.start();
+        }
+    };
+    View.OnClickListener mStopListener = new OnClickListener() {
+        public void onClick(View v) {
+            mChronometer.stop();
+        }
+    };
+    View.OnClickListener mResetListener = new OnClickListener() {
+        public void onClick(View v) {
+            mChronometer.setBase(SystemClock.elapsedRealtime());
+        }
+    };
+    View.OnClickListener mSetFormatListener = new OnClickListener() {
+        public void onClick(View v) {
+            mChronometer.setFormat("Formatted time (%s)");
+        }
+    };
+    View.OnClickListener mClearFormatListener = new OnClickListener() {
+        public void onClick(View v) {
+            mChronometer.setFormat(null);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,34 +83,4 @@ public class ChronometerDemo extends Activity {
         button = (Button) findViewById(R.id.clear_format);
         button.setOnClickListener(mClearFormatListener);
     }
-
-    View.OnClickListener mStartListener = new OnClickListener() {
-        public void onClick(View v) {
-            mChronometer.start();
-        }
-    };
-
-    View.OnClickListener mStopListener = new OnClickListener() {
-        public void onClick(View v) {
-            mChronometer.stop();
-        }
-    };
-
-    View.OnClickListener mResetListener = new OnClickListener() {
-        public void onClick(View v) {
-            mChronometer.setBase(SystemClock.elapsedRealtime());
-        }
-    };
-
-    View.OnClickListener mSetFormatListener = new OnClickListener() {
-        public void onClick(View v) {
-            mChronometer.setFormat("Formatted time (%s)");
-        }
-    };
-
-    View.OnClickListener mClearFormatListener = new OnClickListener() {
-        public void onClick(View v) {
-            mChronometer.setFormat(null);
-        }
-    };
 }

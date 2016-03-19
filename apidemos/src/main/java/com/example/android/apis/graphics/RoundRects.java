@@ -17,10 +17,13 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
-import android.graphics.drawable.*;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 
 public class RoundRects extends GraphicsActivity {
 

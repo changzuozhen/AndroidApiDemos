@@ -16,14 +16,14 @@
 
 package com.example.android.apis.graphics;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.app.Activity;
 import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.MotionEvent;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
 
 /**
  * Wrapper activity demonstrating the use of {@link GLSurfaceView}, a view
@@ -33,6 +33,8 @@ import android.view.MotionEvent;
  * + How to redraw in response to user input.
  */
 public class TouchRotateActivity extends Activity {
+    private GLSurfaceView mGLSurfaceView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,8 +62,6 @@ public class TouchRotateActivity extends Activity {
         super.onPause();
         mGLSurfaceView.onPause();
     }
-
-    private GLSurfaceView mGLSurfaceView;
 }
 
 /**
@@ -70,6 +70,11 @@ public class TouchRotateActivity extends Activity {
  */
 class TouchSurfaceView extends GLSurfaceView {
 
+    private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
+    private final float TRACKBALL_SCALE_FACTOR = 36.0f;
+    private CubeRenderer mRenderer;
+    private float mPreviousX;
+    private float mPreviousY;
     public TouchSurfaceView(Context context) {
         super(context);
         mRenderer = new CubeRenderer();
@@ -104,6 +109,10 @@ class TouchSurfaceView extends GLSurfaceView {
      * Render a cube.
      */
     private class CubeRenderer implements GLSurfaceView.Renderer {
+        public float mAngleX;
+        public float mAngleY;
+        private Cube mCube;
+
         public CubeRenderer() {
             mCube = new Cube();
         }
@@ -169,16 +178,7 @@ class TouchSurfaceView extends GLSurfaceView {
              gl.glShadeModel(GL10.GL_SMOOTH);
              gl.glEnable(GL10.GL_DEPTH_TEST);
         }
-        private Cube mCube;
-        public float mAngleX;
-        public float mAngleY;
     }
-
-    private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
-    private final float TRACKBALL_SCALE_FACTOR = 36.0f;
-    private CubeRenderer mRenderer;
-    private float mPreviousX;
-    private float mPreviousY;
 }
 
 

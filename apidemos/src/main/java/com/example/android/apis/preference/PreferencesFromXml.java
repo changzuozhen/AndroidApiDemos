@@ -16,10 +16,10 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+
+import com.example.android.apis.R;
 
 public class PreferencesFromXml extends PreferenceActivity {
 

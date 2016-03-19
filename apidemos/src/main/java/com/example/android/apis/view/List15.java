@@ -15,8 +15,6 @@
  */
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -27,10 +25,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.android.apis.R;
+
 /**
  * This demo illustrates the use of CHOICE_MODE_MULTIPLE_MODAL, a.k.a. selection mode on ListView.
  */
 public class List15 extends ListActivity {
+    private String[] mStrings = Cheeses.sCheeseStrings;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +48,7 @@ public class List15 extends ListActivity {
         super.onPostCreate(savedInstanceState);
         getActionBar().setSubtitle("Long press to start selection");
     }
-    
+
     private class ModeCallback implements ListView.MultiChoiceModeListener {
 
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
@@ -99,6 +101,4 @@ public class List15 extends ListActivity {
             }
         }
     }
-
-    private String[] mStrings = Cheeses.sCheeseStrings;
 }

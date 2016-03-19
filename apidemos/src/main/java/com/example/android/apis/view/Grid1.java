@@ -26,16 +26,18 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.android.apis.R;
+
 import java.util.List;
 
 //Need the following import to get access to the app resources, since this
 //class is in a sub-package.
-import com.example.android.apis.R;
 
 
 public class Grid1 extends Activity {
 
     GridView mGrid;
+    private List<ResolveInfo> mApps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,6 @@ public class Grid1 extends Activity {
         mGrid = (GridView) findViewById(R.id.myGrid);
         mGrid.setAdapter(new AppsAdapter());
     }
-
-    private List<ResolveInfo> mApps;
 
     private void loadApps() {
         Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);

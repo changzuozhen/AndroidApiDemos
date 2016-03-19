@@ -18,14 +18,15 @@ package com.example.android.apis.view;
 
 //Need the following import to get access to the app resources, since this
 //class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
+
+import com.example.android.apis.R;
 
 
 /**
@@ -33,19 +34,16 @@ import android.widget.LinearLayout;
  */
 public class LinearLayout8 extends Activity {
 
-    private LinearLayout mLinearLayout;
-
     // Menu item Ids
     public static final int VERTICAL_ID = Menu.FIRST;
     public static final int HORIZONTAL_ID = Menu.FIRST + 1;
-
     public static final int TOP_ID = Menu.FIRST + 2;
     public static final int MIDDLE_ID = Menu.FIRST + 3;
     public static final int BOTTOM_ID = Menu.FIRST + 4;
-
     public static final int LEFT_ID = Menu.FIRST + 5;
     public static final int CENTER_ID = Menu.FIRST + 6;
     public static final int RIGHT_ID = Menu.FIRST + 7;
+    private LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

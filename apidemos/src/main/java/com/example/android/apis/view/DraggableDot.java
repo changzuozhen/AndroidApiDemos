@@ -16,69 +16,42 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
+import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.os.Build;
 import android.os.SystemClock;
 import android.text.TextPaint;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.DragEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
 public class DraggableDot extends View {
     static final String TAG = "DraggableDot";
-
-    private boolean mDragInProgress;
-    private boolean mHovering;
-    private boolean mAcceptsDrag;
-    TextView mReportView;
-
-    private Paint mPaint;
-    private TextPaint mLegendPaint;
-    private Paint mGlow;
+    static final int ANR_NONE = 0;
+    static final int ANR_SHADOW = 1;
+    static final int ANR_DROP = 2;
     private static final int NUM_GLOW_STEPS = 10;
     private static final int GREEN_STEP = 0x0000FF00 / NUM_GLOW_STEPS;
     private static final int WHITE_STEP = 0x00FFFFFF / NUM_GLOW_STEPS;
     private static final int ALPHA_STEP = 0xFF000000 / NUM_GLOW_STEPS;
-
+    TextView mReportView;
     int mRadius;
     int mAnrType;
     CharSequence mLegend;
-
-    static final int ANR_NONE = 0;
-    static final int ANR_SHADOW = 1;
-    static final int ANR_DROP = 2;
-
-    void sleepSixSeconds() {
-        // hang forever; good for producing ANRs
-        long start = SystemClock.uptimeMillis();
-        do {
-            try { Thread.sleep(1000); } catch (InterruptedException e) {}
-        } while (SystemClock.uptimeMillis() < start + 6000);
-    }
-
-    // Shadow builder that can ANR if desired
-    class ANRShadowBuilder extends DragShadowBuilder {
-        boolean mDoAnr;
-
-        public ANRShadowBuilder(View view, boolean doAnr) {
-            super(view);
-            mDoAnr = doAnr;
-        }
-
-        @Override
-        public void onDrawShadow(Canvas canvas) {
-            if (mDoAnr) {
-                sleepSixSeconds();
-            }
-            super.onDrawShadow(canvas);
-        }
-    }
+    private boolean mDragInProgress;
+    private boolean mHovering;
+    private boolean mAcceptsDrag;
+    private Paint mPaint;
+    private TextPaint mLegendPaint;
+    private Paint mGlow;
 
     public DraggableDot(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -125,10 +98,11 @@ public class DraggableDot extends View {
             }
         }
 
-        Log.i(TAG, "DraggableDot @ " + this + " : radius=" + mRadius + " legend='" + mLegend
+        LogUtils.i(TAG, "DraggableDot @ " + this + " : radius=" + mRadius + " legend='" + mLegend
                 + "' anr=" + mAnrType);
 
         setOnLongClickListener(new View.OnLongClickListener() {
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             public boolean onLongClick(View v) {
                 ClipData data = ClipData.newPlainText("dot", "Dot : " + v.toString());
                 v.startDrag(data, new ANRShadowBuilder(v, mAnrType == ANR_SHADOW),
@@ -136,6 +110,17 @@ public class DraggableDot extends View {
                 return true;
             }
         });
+    }
+
+    void sleepSixSeconds() {
+        // hang forever; good for producing ANRs
+        long start = SystemClock.uptimeMillis();
+        do {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        } while (SystemClock.uptimeMillis() < start + 6000);
     }
 
     void setReportView(TextView view) {
@@ -182,13 +167,14 @@ public class DraggableDot extends View {
     /**
      * Drag and drop
      */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public boolean onDragEvent(DragEvent event) {
         boolean result = false;
         switch (event.getAction()) {
         case DragEvent.ACTION_DRAG_STARTED: {
             // claim to accept any dragged content
-            Log.i(TAG, "Drag started, event=" + event);
+            LogUtils.i(TAG, "Drag started, event=" + event);
             // cache whether we accept the drag to return for LOCATION events
             mDragInProgress = true;
             mAcceptsDrag = result = true;
@@ -199,7 +185,7 @@ public class DraggableDot extends View {
         } break;
 
         case DragEvent.ACTION_DRAG_ENDED: {
-            Log.i(TAG, "Drag ended.");
+            LogUtils.i(TAG, "Drag ended.");
             if (mAcceptsDrag) {
                 invalidate();
             }
@@ -209,12 +195,12 @@ public class DraggableDot extends View {
 
         case DragEvent.ACTION_DRAG_LOCATION: {
             // we returned true to DRAG_STARTED, so return true here
-            Log.i(TAG, "... seeing drag locations ...");
+            LogUtils.i(TAG, "... seeing drag locations ...");
             result = mAcceptsDrag;
         } break;
 
         case DragEvent.ACTION_DROP: {
-            Log.i(TAG, "Got a drop! dot=" + this + " event=" + event);
+            LogUtils.i(TAG, "Got a drop! dot=" + this + " event=" + event);
             if (mAnrType == ANR_DROP) {
                 sleepSixSeconds();
             }
@@ -223,19 +209,19 @@ public class DraggableDot extends View {
         } break;
 
         case DragEvent.ACTION_DRAG_ENTERED: {
-            Log.i(TAG, "Entered dot @ " + this);
+            LogUtils.i(TAG, "Entered dot @ " + this);
             mHovering = true;
             invalidate();
         } break;
 
         case DragEvent.ACTION_DRAG_EXITED: {
-            Log.i(TAG, "Exited dot @ " + this);
+            LogUtils.i(TAG, "Exited dot @ " + this);
             mHovering = false;
             invalidate();
         } break;
 
         default:
-            Log.i(TAG, "other drag event: " + event);
+            LogUtils.i(TAG, "other drag event: " + event);
             result = mAcceptsDrag;
             break;
         }
@@ -243,12 +229,13 @@ public class DraggableDot extends View {
         return result;
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private void processDrop(DragEvent event) {
         final ClipData data = event.getClipData();
         final int N = data.getItemCount();
         for (int i = 0; i < N; i++) {
             ClipData.Item item = data.getItemAt(i);
-            Log.i(TAG, "Dropped item " + i + " : " + item);
+            LogUtils.i(TAG, "Dropped item " + i + " : " + item);
             if (mReportView != null) {
                 String text = item.coerceToText(getContext()).toString();
                 if (event.getLocalState() == (Object) this) {
@@ -256,6 +243,25 @@ public class DraggableDot extends View {
                 }
                 mReportView.setText(text);
             }
+        }
+    }
+
+    // Shadow builder that can ANR if desired
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    class ANRShadowBuilder extends DragShadowBuilder {
+        boolean mDoAnr;
+
+        public ANRShadowBuilder(View view, boolean doAnr) {
+            super(view);
+            mDoAnr = doAnr;
+        }
+
+        @Override
+        public void onDrawShadow(Canvas canvas) {
+            if (mDoAnr) {
+                sleepSixSeconds();
+            }
+            super.onDrawShadow(canvas);
         }
     }
 }

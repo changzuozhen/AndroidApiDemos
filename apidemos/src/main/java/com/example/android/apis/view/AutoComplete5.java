@@ -16,14 +16,14 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
 import android.widget.AutoCompleteTextView;
+
+import com.example.android.apis.R;
 
 public class AutoComplete5 extends Activity {
     @Override

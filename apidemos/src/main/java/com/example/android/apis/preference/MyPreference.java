@@ -16,8 +16,6 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Parcel;
@@ -26,6 +24,8 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * This is an example of a custom preference type. The preference counts the
@@ -135,6 +135,16 @@ public class MyPreference extends Preference {
      * It is important to always call through to super methods.
      */
     private static class SavedState extends BaseSavedState {
+        public static final Parcelable.Creator<SavedState> CREATOR =
+                new Parcelable.Creator<SavedState>() {
+                    public SavedState createFromParcel(Parcel in) {
+                        return new SavedState(in);
+                    }
+
+                    public SavedState[] newArray(int size) {
+                        return new SavedState[size];
+                    }
+                };
         int clickCounter;
 
         public SavedState(Parcel source) {
@@ -144,6 +154,10 @@ public class MyPreference extends Preference {
             clickCounter = source.readInt();
         }
 
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
         @Override
         public void writeToParcel(Parcel dest, int flags) {
             super.writeToParcel(dest, flags);
@@ -151,21 +165,6 @@ public class MyPreference extends Preference {
             // Save the click counter
             dest.writeInt(clickCounter);
         }
-
-        public SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 
 }

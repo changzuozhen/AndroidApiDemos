@@ -16,18 +16,18 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.AbsListView;
+
+import com.example.android.apis.R;
 
 import java.util.ArrayList;
 
@@ -85,7 +85,8 @@ public class List8 extends ListActivity {
                 R.drawable.sample_thumb_6, R.drawable.sample_thumb_7};
 
         private ArrayList<Integer> mPhotos = new ArrayList<Integer>();
-        
+        private Context mContext;
+
         public PhotoAdapter(Context c) {
             mContext = c;
         }
@@ -114,8 +115,6 @@ public class List8 extends ListActivity {
             i.setBackgroundResource(R.drawable.picture_frame);
             return i;
         }
-
-        private Context mContext;
 
         public void clearPhotos() {
             mPhotos.clear();

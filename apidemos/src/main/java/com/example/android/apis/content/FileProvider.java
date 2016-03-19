@@ -16,20 +16,21 @@
 
 package com.example.android.apis.content;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.content.ContentProvider;
-import android.content.ContentValues;
 import android.content.ContentProvider.PipeDataWriter;
+import android.content.ContentValues;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
-import android.util.Log;
+
+import com.tencent.commontools.LogUtils;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * A very simple content provider that can serve arbitrary asset files from
@@ -100,7 +101,7 @@ public class FileProvider extends ContentProvider
                 fout.write(buffer, 0, n);
             }
         } catch (IOException e) {
-            Log.i("InstallApk", "Failed transferring", e);
+            LogUtils.i("InstallApk", "Failed transferring", e);
         } finally {
             try {
                 args.close();

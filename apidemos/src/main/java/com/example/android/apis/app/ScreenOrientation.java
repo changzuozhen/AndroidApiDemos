@@ -16,21 +16,18 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.app.admin.DevicePolicyManager;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
+
+import com.example.android.apis.R;
 
 public class ScreenOrientation extends Activity {
-    Spinner mOrientation;
-
     // Orientation spinner choices
     // This list must match the list found in samples/ApiDemos/res/values/arrays.xml
     final static int mOrientationValues[] = new int[] {
@@ -47,6 +44,7 @@ public class ScreenOrientation extends Activity {
         ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT,
         ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR,
     };
+    Spinner mOrientation;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {

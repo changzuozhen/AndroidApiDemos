@@ -1,7 +1,5 @@
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.app.PendingIntent.CanceledException;
@@ -9,15 +7,37 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 /**
  * Example of various Intent flags to modify the activity stack.
  */
 public class IntentActivityFlags extends Activity {
+    private OnClickListener mFlagActivityClearTaskListener = new OnClickListener() {
+        public void onClick(View v) {
+            startActivities(buildIntentsToViewsLists());
+        }
+    };
+    private OnClickListener mFlagActivityClearTaskPIListener = new OnClickListener() {
+        public void onClick(View v) {
+            Context context = IntentActivityFlags.this;
+
+            PendingIntent pi = PendingIntent.getActivities(context, 0,
+                    buildIntentsToViewsLists(), PendingIntent.FLAG_UPDATE_CURRENT);
+
+            try {
+                pi.send();
+            } catch (CanceledException e) {
+                LogUtils.w("IntentActivityFlags", "Failed sending PendingIntent", e);
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,26 +81,4 @@ public class IntentActivityFlags extends Activity {
         intents[2] = intent;
         return intents;
     }
-
-
-    private OnClickListener mFlagActivityClearTaskListener = new OnClickListener() {
-        public void onClick(View v) {
-            startActivities(buildIntentsToViewsLists());
-        }
-    };
-
-    private OnClickListener mFlagActivityClearTaskPIListener = new OnClickListener() {
-        public void onClick(View v) {
-            Context context = IntentActivityFlags.this;
-
-            PendingIntent pi = PendingIntent.getActivities(context, 0,
-                    buildIntentsToViewsLists(), PendingIntent.FLAG_UPDATE_CURRENT);
-
-            try {
-                pi.send();
-            } catch (CanceledException e) {
-                Log.w("IntentActivityFlags", "Failed sending PendingIntent", e);
-            }
-        }
-    };
 }

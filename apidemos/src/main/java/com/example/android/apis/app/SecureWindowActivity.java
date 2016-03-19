@@ -16,11 +16,11 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.WindowManager;
+
+import com.example.android.apis.R;
 
 /**
  * <h3>Secure Window Activity</h3>

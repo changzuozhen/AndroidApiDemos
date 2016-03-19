@@ -16,16 +16,6 @@
 
 package com.example.android.apis.graphics;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.nio.ShortBuffer;
-
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL10;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -36,7 +26,21 @@ import android.os.SystemClock;
 
 import com.example.android.apis.R;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL10;
+
 public class TriangleRenderer implements GLSurfaceView.Renderer{
+
+    private Context mContext;
+    private Triangle mTriangle;
+    private int mTextureID;
 
     public TriangleRenderer(Context context) {
         mContext = context;
@@ -166,13 +170,13 @@ public class TriangleRenderer implements GLSurfaceView.Renderer{
         gl.glFrustumf(-ratio, ratio, -1, 1, 3, 7);
 
     }
-
-    private Context mContext;
-    private Triangle mTriangle;
-    private int mTextureID;
 }
 
 class Triangle {
+    private final static int VERTS = 3;
+    private FloatBuffer mFVertexBuffer;
+    private FloatBuffer mTexBuffer;
+    private ShortBuffer mIndexBuffer;
     public Triangle() {
 
         // Buffers to be passed to gl*Pointer() functions
@@ -232,10 +236,4 @@ class Triangle {
         gl.glDrawElements(GL10.GL_TRIANGLE_STRIP, VERTS,
                 GL10.GL_UNSIGNED_SHORT, mIndexBuffer);
     }
-
-    private final static int VERTS = 3;
-
-    private FloatBuffer mFVertexBuffer;
-    private FloatBuffer mTexBuffer;
-    private ShortBuffer mIndexBuffer;
 }

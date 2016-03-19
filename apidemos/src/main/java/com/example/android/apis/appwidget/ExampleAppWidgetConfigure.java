@@ -25,11 +25,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.example.android.apis.R;
+
 import java.util.ArrayList;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 /**
  * The configuration screen for the ExampleAppWidgetProvider widget sample.
@@ -43,44 +44,6 @@ public class ExampleAppWidgetConfigure extends Activity {
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     EditText mAppWidgetPrefix;
-
-    public ExampleAppWidgetConfigure() {
-        super();
-    }
-
-    @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if they press the back button.
-        setResult(RESULT_CANCELED);
-
-        // Set the view layout resource to use.
-        setContentView(R.layout.appwidget_configure);
-
-        // Find the EditText
-        mAppWidgetPrefix = (EditText)findViewById(R.id.appwidget_prefix);
-
-        // Bind the action for the save button.
-        findViewById(R.id.save_button).setOnClickListener(mOnClickListener);
-
-        // Find the widget id from the intent. 
-        Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
-        if (extras != null) {
-            mAppWidgetId = extras.getInt(
-                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        }
-
-        // If they gave us an intent without the widget id, just bail.
-        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            finish();
-        }
-
-        mAppWidgetPrefix.setText(loadTitlePref(ExampleAppWidgetConfigure.this, mAppWidgetId));
-    }
-
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
             final Context context = ExampleAppWidgetConfigure.this;
@@ -102,6 +65,10 @@ public class ExampleAppWidgetConfigure extends Activity {
             finish();
         }
     };
+
+    public ExampleAppWidgetConfigure() {
+        super();
+    }
 
     // Write the prefix to the SharedPreferences object for this widget
     static void saveTitlePref(Context context, int appWidgetId, String text) {
@@ -127,6 +94,39 @@ public class ExampleAppWidgetConfigure extends Activity {
 
     static void loadAllTitlePrefs(Context context, ArrayList<Integer> appWidgetIds,
             ArrayList<String> texts) {
+    }
+
+    @Override
+    public void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+
+        // Set the result to CANCELED.  This will cause the widget host to cancel
+        // out of the widget placement if they press the back button.
+        setResult(RESULT_CANCELED);
+
+        // Set the view layout resource to use.
+        setContentView(R.layout.appwidget_configure);
+
+        // Find the EditText
+        mAppWidgetPrefix = (EditText) findViewById(R.id.appwidget_prefix);
+
+        // Bind the action for the save button.
+        findViewById(R.id.save_button).setOnClickListener(mOnClickListener);
+
+        // Find the widget id from the intent.
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+            mAppWidgetId = extras.getInt(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+        }
+
+        // If they gave us an intent without the widget id, just bail.
+        if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+            finish();
+        }
+
+        mAppWidgetPrefix.setText(loadTitlePref(ExampleAppWidgetConfigure.this, mAppWidgetId));
     }
 }
 

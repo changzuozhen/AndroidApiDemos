@@ -18,16 +18,17 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.android.apis.R;
 
 /**
  * <h3>Dialog Activity</h3>
@@ -36,6 +37,25 @@ import android.widget.LinearLayout;
  * a pop-up dialog.</p>
  */
 public class DialogActivity extends Activity {
+    private OnClickListener mAddContentListener = new OnClickListener() {
+        public void onClick(View v) {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.inner_content);
+            ImageView iv = new ImageView(DialogActivity.this);
+            iv.setImageDrawable(getResources().getDrawable(R.drawable.icon48x48_1));
+            iv.setPadding(4, 4, 4, 4);
+            layout.addView(iv);
+        }
+    };
+    private OnClickListener mRemoveContentListener = new OnClickListener() {
+        public void onClick(View v) {
+            LinearLayout layout = (LinearLayout) findViewById(R.id.inner_content);
+            int num = layout.getChildCount();
+            if (num > 0) {
+                layout.removeViewAt(num - 1);
+            }
+        }
+    };
+
     /**
      * Initialization of the Activity after it is first created.  Must at least
      * call {@link android.app.Activity#setContentView setContentView()} to
@@ -63,24 +83,4 @@ public class DialogActivity extends Activity {
         button = (Button)findViewById(R.id.remove);
         button.setOnClickListener(mRemoveContentListener);
     }
-
-    private OnClickListener mAddContentListener = new OnClickListener() {
-        public void onClick(View v) {
-            LinearLayout layout = (LinearLayout)findViewById(R.id.inner_content);
-            ImageView iv = new ImageView(DialogActivity.this);
-            iv.setImageDrawable(getResources().getDrawable(R.drawable.icon48x48_1));
-            iv.setPadding(4, 4, 4, 4);
-            layout.addView(iv);
-        }
-    };
-
-    private OnClickListener mRemoveContentListener = new OnClickListener() {
-        public void onClick(View v) {
-            LinearLayout layout = (LinearLayout)findViewById(R.id.inner_content);
-            int num = layout.getChildCount();
-            if (num > 0) {
-                layout.removeViewAt(num-1);
-            }
-        }
-    };
 }

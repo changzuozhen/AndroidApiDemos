@@ -17,10 +17,17 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+
+import com.tencent.commontools.LogUtils;
 
 public class Sweep extends GraphicsActivity {
 
@@ -72,7 +79,7 @@ public class Sweep extends GraphicsActivity {
                     canvas.drawCircle(x, y, 80, paint);
                 }
                 now = System.currentTimeMillis() - now;
-                android.util.Log.d("skia", "sweep ms = " + (now/20.));
+                LogUtils.d("skia", "sweep ms = " + (now / 20.));
             }
             else {
                 canvas.drawCircle(x, y, 80, paint);

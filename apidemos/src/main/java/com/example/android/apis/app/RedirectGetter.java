@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -25,6 +23,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * Sub-activity that is executed by the redirection example when input is needed
@@ -34,6 +34,19 @@ public class RedirectGetter extends Activity
 {
     private String mTextPref;
     private TextView mText;
+    private OnClickListener mApplyListener = new OnClickListener() {
+        public void onClick(View v) {
+            SharedPreferences preferences = getSharedPreferences("RedirectData", 0);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString("text", mText.getText().toString());
+
+            if (editor.commit()) {
+                setResult(RESULT_OK);
+            }
+
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,20 +81,4 @@ public class RedirectGetter extends Activity
             mText.setText("");
         }
     }
-
-    private OnClickListener mApplyListener = new OnClickListener()
-    {
-        public void onClick(View v)
-        {
-            SharedPreferences preferences = getSharedPreferences("RedirectData", 0);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putString("text", mText.getText().toString());
-
-            if (editor.commit()) {
-                setResult(RESULT_OK);
-            }
-
-            finish();
-        }
-    };
 }

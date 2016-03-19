@@ -16,8 +16,7 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
+import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.admin.DeviceAdminReceiver;
@@ -26,6 +25,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -38,8 +38,10 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceScreen;
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.List;
 
@@ -104,6 +106,32 @@ public class DeviceAdminSample extends PreferenceActivity {
     DevicePolicyManager mDPM;
     ComponentName mDeviceAdminSample;
 
+    /**
+     * Simple converter used for long expiration times reported in mSec.
+     */
+    private static String timeToDaysMinutesSeconds(Context context, long time) {
+        long days = time / MS_PER_DAY;
+        long hours = (time / MS_PER_HOUR) % 24;
+        long minutes = (time / MS_PER_MINUTE) % 60;
+        return context.getString(R.string.status_days_hours_minutes, days, hours, minutes);
+    }
+
+    /**
+     * If the "user" is a monkey, post an alert and notify the caller.  This prevents automated
+     * test frameworks from stumbling into annoying or dangerous operations.
+     */
+    private static boolean alertIfMonkey(Context context, int stringId) {
+        if (ActivityManager.isUserAMonkey()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage(stringId);
+            builder.setPositiveButton(R.string.monkey_ok, null);
+            builder.show();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -135,7 +163,7 @@ public class DeviceAdminSample extends PreferenceActivity {
      *   2.  Provides support for the "set password" button(s) shared by multiple fragments.
      */
     public static class AdminSampleFragment extends PreferenceFragment
-            implements OnPreferenceChangeListener, OnPreferenceClickListener{
+            implements OnPreferenceChangeListener, OnPreferenceClickListener {
 
         // Useful instance variables
         protected DeviceAdminSample mActivity;
@@ -210,7 +238,7 @@ public class DeviceAdminSample extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             if (mResetPassword != null && preference == mResetPassword) {
-                doResetPassword((String)newValue);
+                doResetPassword((String) newValue);
                 return true;
             }
             return false;
@@ -260,10 +288,10 @@ public class DeviceAdminSample extends PreferenceActivity {
             mDisableCameraCheckbox = (CheckBoxPreference) findPreference(KEY_DISABLE_CAMERA);
             mDisableCameraCheckbox.setOnPreferenceChangeListener(this);
             mDisableKeyguardWidgetsCheckbox =
-                (CheckBoxPreference) findPreference(KEY_DISABLE_KEYGUARD_WIDGETS);
+                    (CheckBoxPreference) findPreference(KEY_DISABLE_KEYGUARD_WIDGETS);
             mDisableKeyguardWidgetsCheckbox.setOnPreferenceChangeListener(this);
             mDisableKeyguardSecureCameraCheckbox =
-                (CheckBoxPreference) findPreference(KEY_DISABLE_KEYGUARD_SECURE_CAMERA);
+                    (CheckBoxPreference) findPreference(KEY_DISABLE_KEYGUARD_SECURE_CAMERA);
             mDisableKeyguardSecureCameraCheckbox.setOnPreferenceChangeListener(this);
         }
 
@@ -339,12 +367,14 @@ public class DeviceAdminSample extends PreferenceActivity {
             mDisableKeyguardWidgetsCheckbox.setSummary(keyguardWidgetSummary);
 
             String keyguardSecureCameraSummary = getString(
-                (disabled & DevicePolicyManager.KEYGUARD_DISABLE_SECURE_CAMERA) != 0 ?
-                R.string.keyguard_secure_camera_disabled : R.string.keyguard_secure_camera_enabled);
+                    (disabled & DevicePolicyManager.KEYGUARD_DISABLE_SECURE_CAMERA) != 0 ?
+                            R.string.keyguard_secure_camera_disabled : R.string.keyguard_secure_camera_enabled);
             mDisableKeyguardSecureCameraCheckbox.setSummary(keyguardSecureCameraSummary);
         }
 
-        /** Updates the device capabilities area (dis/enabling) as the admin is (de)activated */
+        /**
+         * Updates the device capabilities area (dis/enabling) as the admin is (de)activated
+         */
         private void enableDeviceCapabilitiesArea(boolean enabled) {
             mDisableCameraCheckbox.setEnabled(enabled);
             mDisableKeyguardWidgetsCheckbox.setEnabled(enabled);
@@ -360,24 +390,24 @@ public class DeviceAdminSample extends PreferenceActivity {
 
         // Password quality values
         // This list must match the list found in samples/ApiDemos/res/values/arrays.xml
-        final static int[] mPasswordQualityValues = new int[] {
-            DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED,
-            DevicePolicyManager.PASSWORD_QUALITY_SOMETHING,
-            DevicePolicyManager.PASSWORD_QUALITY_NUMERIC,
-            DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC,
-            DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC,
-            DevicePolicyManager.PASSWORD_QUALITY_COMPLEX
+        final static int[] mPasswordQualityValues = new int[]{
+                DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED,
+                DevicePolicyManager.PASSWORD_QUALITY_SOMETHING,
+                DevicePolicyManager.PASSWORD_QUALITY_NUMERIC,
+                DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC,
+                DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC,
+                DevicePolicyManager.PASSWORD_QUALITY_COMPLEX
         };
 
         // Password quality values (as strings, for the ListPreference entryValues)
         // This list must match the list found in samples/ApiDemos/res/values/arrays.xml
-        final static String[] mPasswordQualityValueStrings = new String[] {
-            String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED),
-            String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_SOMETHING),
-            String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_NUMERIC),
-            String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC),
-            String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC),
-            String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_COMPLEX)
+        final static String[] mPasswordQualityValueStrings = new String[]{
+                String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED),
+                String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_SOMETHING),
+                String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_NUMERIC),
+                String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC),
+                String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC),
+                String.valueOf(DevicePolicyManager.PASSWORD_QUALITY_COMPLEX)
         };
 
         // UI elements
@@ -498,10 +528,10 @@ public class DeviceAdminSample extends PreferenceActivity {
         }
 
         private String qualityValueToString(int quality) {
-            for (int i=  0; i < mPasswordQualityValues.length; i++) {
+            for (int i = 0; i < mPasswordQualityValues.length; i++) {
                 if (mPasswordQualityValues[i] == quality) {
                     String[] qualities =
-                        mActivity.getResources().getStringArray(R.array.password_qualities);
+                            mActivity.getResources().getStringArray(R.array.password_qualities);
                     return qualities[i];
                 }
             }
@@ -702,7 +732,7 @@ public class DeviceAdminSample extends PreferenceActivity {
             if (super.onPreferenceChange(preference, newValue)) {
                 return true;
             }
-            String valueString = (String)newValue;
+            String valueString = (String) newValue;
             if (TextUtils.isEmpty(valueString)) {
                 return false;
             }
@@ -756,29 +786,29 @@ public class DeviceAdminSample extends PreferenceActivity {
             builder.setMessage(R.string.wipe_warning_first);
             builder.setPositiveButton(R.string.wipe_warning_first_ok,
                     new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-                    if (wipeAllData) {
-                        builder.setMessage(R.string.wipe_warning_second_full);
-                    } else {
-                        builder.setMessage(R.string.wipe_warning_second);
-                    }
-                    builder.setPositiveButton(R.string.wipe_warning_second_ok,
-                            new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            boolean stillActive = mActivity.isActiveAdmin();
-                            if (stillActive) {
-                                mDPM.wipeData(wipeAllData
-                                        ? DevicePolicyManager.WIPE_EXTERNAL_STORAGE : 0);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+                            if (wipeAllData) {
+                                builder.setMessage(R.string.wipe_warning_second_full);
+                            } else {
+                                builder.setMessage(R.string.wipe_warning_second);
                             }
+                            builder.setPositiveButton(R.string.wipe_warning_second_ok,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            boolean stillActive = mActivity.isActiveAdmin();
+                                            if (stillActive) {
+                                                mDPM.wipeData(wipeAllData
+                                                        ? DevicePolicyManager.WIPE_EXTERNAL_STORAGE : 0);
+                                            }
+                                        }
+                                    });
+                            builder.setNegativeButton(R.string.wipe_warning_second_no, null);
+                            builder.show();
                         }
                     });
-                    builder.setNegativeButton(R.string.wipe_warning_second_no, null);
-                    builder.show();
-                }
-            });
             builder.setNegativeButton(R.string.wipe_warning_first_no, null);
             builder.show();
         }
@@ -892,38 +922,13 @@ public class DeviceAdminSample extends PreferenceActivity {
     }
 
     /**
-     * Simple converter used for long expiration times reported in mSec.
-     */
-    private static String timeToDaysMinutesSeconds(Context context, long time) {
-        long days = time / MS_PER_DAY;
-        long hours = (time / MS_PER_HOUR) % 24;
-        long minutes = (time / MS_PER_MINUTE) % 60;
-        return context.getString(R.string.status_days_hours_minutes, days, hours, minutes);
-    }
-
-    /**
-     * If the "user" is a monkey, post an alert and notify the caller.  This prevents automated
-     * test frameworks from stumbling into annoying or dangerous operations.
-     */
-    private static boolean alertIfMonkey(Context context, int stringId) {
-        if (ActivityManager.isUserAMonkey()) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage(stringId);
-            builder.setPositiveButton(R.string.monkey_ok, null);
-            builder.show();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Sample implementation of a DeviceAdminReceiver.  Your controller must provide one,
      * although you may or may not implement all of the methods shown here.
      *
      * All callbacks are on the UI thread and your implementations should not engage in any
      * blocking operations, including disk I/O.
      */
+    @TargetApi(Build.VERSION_CODES.FROYO)
     public static class DeviceAdminSampleReceiver extends DeviceAdminReceiver {
         void showToast(Context context, String msg) {
             String status = context.getString(R.string.admin_receiver_status, msg);
@@ -960,6 +965,7 @@ public class DeviceAdminSample extends PreferenceActivity {
             showToast(context, context.getString(R.string.admin_receiver_status_pw_succeeded));
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         @Override
         public void onPasswordExpiring(Context context, Intent intent) {
             DevicePolicyManager dpm = (DevicePolicyManager) context.getSystemService(
@@ -971,7 +977,7 @@ public class DeviceAdminSample extends PreferenceActivity {
             String message = context.getString(expired ?
                     R.string.expiration_status_past : R.string.expiration_status_future);
             showToast(context, message);
-            Log.v(TAG, message);
+            LogUtils.v(TAG, message);
         }
     }
 }

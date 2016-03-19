@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,17 +23,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ReorderFour extends Activity {
-    @Override
-    protected void onCreate(Bundle savedState) {
-        super.onCreate(savedState);
-        
-        setContentView(R.layout.reorder_four);
-        
-        Button twoButton = (Button) findViewById(R.id.reorder_second_to_front);
-        twoButton.setOnClickListener(mClickListener);
-    }
+import com.example.android.apis.R;
 
+public class ReorderFour extends Activity {
     private final OnClickListener mClickListener = new OnClickListener() {
         public void onClick(View v) {
             Intent intent = new Intent(ReorderFour.this, ReorderTwo.class);
@@ -43,4 +33,14 @@ public class ReorderFour extends Activity {
             startActivity(intent);
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
+
+        setContentView(R.layout.reorder_four);
+
+        Button twoButton = (Button) findViewById(R.id.reorder_second_to_front);
+        twoButton.setOnClickListener(mClickListener);
+    }
 }

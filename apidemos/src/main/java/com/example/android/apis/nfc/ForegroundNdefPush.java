@@ -16,14 +16,14 @@
 
 package com.example.android.apis.nfc;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * An example of how to use the NFC foreground NDEF push APIs.

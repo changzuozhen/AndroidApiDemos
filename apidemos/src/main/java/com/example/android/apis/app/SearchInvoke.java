@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
@@ -28,26 +26,27 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
+
+import com.example.android.apis.R;
 
 public class SearchInvoke extends Activity
 {  
-        // UI elements
-    Button mStartSearch;
-    Spinner mMenuMode;
-    EditText mQueryPrefill;
-    EditText mQueryAppData;
-    
         // Menu mode spinner choices
         // This list must match the list found in samples/ApiDemos/res/values/arrays.xml
     final static int MENUMODE_SEARCH_KEY = 0;
     final static int MENUMODE_MENU_ITEM = 1;
     final static int MENUMODE_TYPE_TO_SEARCH = 2;
     final static int MENUMODE_DISABLED = 3;
+    // UI elements
+    Button mStartSearch;
+    Spinner mMenuMode;
+    EditText mQueryPrefill;
+    EditText mQueryAppData;
     
     /** 
      * Called with the activity is first created.

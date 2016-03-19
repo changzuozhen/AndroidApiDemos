@@ -19,8 +19,8 @@ package com.example.android.apis.view;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Paint.Style;
+import android.graphics.Path;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.os.Vibrator;
@@ -44,22 +44,18 @@ import java.util.Random;
  * @see GameControllerInput
  */
 public class GameView extends View {
+    private static final int DPAD_STATE_LEFT = 1 << 0;
+    private static final int DPAD_STATE_RIGHT = 1 << 1;
+    private static final int DPAD_STATE_UP = 1 << 2;
+    private static final int DPAD_STATE_DOWN = 1 << 3;
     private final long ANIMATION_TIME_STEP = 1000 / 60;
     private final int MAX_OBSTACLES = 12;
-
     private final Random mRandom;
-    private Ship mShip;
     private final List<Bullet> mBullets;
     private final List<Obstacle> mObstacles;
-
+    private Ship mShip;
     private long mLastStepTime;
     private InputDevice mLastInputDevice;
-
-    private static final int DPAD_STATE_LEFT  = 1 << 0;
-    private static final int DPAD_STATE_RIGHT = 1 << 1;
-    private static final int DPAD_STATE_UP    = 1 << 2;
-    private static final int DPAD_STATE_DOWN  = 1 << 3;
-
     private int mDPadState;
 
     private float mShipSize;
@@ -104,6 +100,44 @@ public class GameView extends View {
         mMaxObstacleSize = baseSize * 12;
         mMinObstacleSpeed = baseSpeed;
         mMaxObstacleSpeed = baseSpeed * 3;
+    }
+
+    private static boolean isFireKey(int keyCode) {
+        return KeyEvent.isGamepadButton(keyCode)
+                || keyCode == KeyEvent.KEYCODE_DPAD_CENTER
+                || keyCode == KeyEvent.KEYCODE_SPACE;
+    }
+
+    private static float getCenteredAxis(MotionEvent event, InputDevice device,
+                                         int axis, int historyPos) {
+        final InputDevice.MotionRange range = device.getMotionRange(axis, event.getSource());
+        if (range != null) {
+            final float flat = range.getFlat();
+            final float value = historyPos < 0 ? event.getAxisValue(axis)
+                    : event.getHistoricalAxisValue(axis, historyPos);
+
+            // Ignore axis values that are within the 'flat' region of the joystick axis center.
+            // A joystick at rest does not always report an absolute position of (0,0).
+            if (Math.abs(value) > flat) {
+                return value;
+            }
+        }
+        return 0;
+    }
+
+    static float pythag(float x, float y) {
+        return (float) Math.sqrt(x * x + y * y);
+    }
+
+    static int blend(float alpha, int from, int to) {
+        return from + (int) ((to - from) * alpha);
+    }
+
+    static void setPaintARGBBlend(Paint paint, float alpha,
+                                  int a1, int r1, int g1, int b1,
+                                  int a2, int r2, int g2, int b2) {
+        paint.setARGB(blend(alpha, a1, a2), blend(alpha, r1, r2),
+                blend(alpha, g1, g2), blend(alpha, b1, b2));
     }
 
     @Override
@@ -197,12 +231,6 @@ public class GameView extends View {
         return super.onKeyUp(keyCode, event);
     }
 
-    private static boolean isFireKey(int keyCode) {
-        return KeyEvent.isGamepadButton(keyCode)
-                || keyCode == KeyEvent.KEYCODE_DPAD_CENTER
-                || keyCode == KeyEvent.KEYCODE_SPACE;
-    }
-
     @Override
     public boolean onGenericMotionEvent(MotionEvent event) {
         ensureInitialized();
@@ -265,23 +293,6 @@ public class GameView extends View {
         // Set the ship heading.
         mShip.setHeading(x, y);
         step(historyPos < 0 ? event.getEventTime() : event.getHistoricalEventTime(historyPos));
-    }
-
-    private static float getCenteredAxis(MotionEvent event, InputDevice device,
-            int axis, int historyPos) {
-        final InputDevice.MotionRange range = device.getMotionRange(axis, event.getSource());
-        if (range != null) {
-            final float flat = range.getFlat();
-            final float value = historyPos < 0 ? event.getAxisValue(axis)
-                    : event.getHistoricalAxisValue(axis, historyPos);
-
-            // Ignore axis values that are within the 'flat' region of the joystick axis center.
-            // A joystick at rest does not always report an absolute position of (0,0).
-            if (Math.abs(value) > flat) {
-                return value;
-            }
-        }
-        return 0;
     }
 
     @Override
@@ -482,21 +493,6 @@ public class GameView extends View {
         }
     }
 
-    static float pythag(float x, float y) {
-        return (float) Math.sqrt(x * x + y * y);
-    }
-
-    static int blend(float alpha, int from, int to) {
-        return from + (int) ((to - from) * alpha);
-    }
-
-    static void setPaintARGBBlend(Paint paint, float alpha,
-            int a1, int r1, int g1, int b1,
-            int a2, int r2, int g2, int b2) {
-        paint.setARGB(blend(alpha, a1, a2), blend(alpha, r1, r2),
-                blend(alpha, g1, g2), blend(alpha, b1, b2));
-    }
-
     private abstract class Sprite {
         protected float mPositionX;
         protected float mPositionY;
@@ -589,13 +585,12 @@ public class GameView extends View {
     private class Ship extends Sprite {
         private static final float CORNER_ANGLE = (float) Math.PI * 2 / 3;
         private static final float TO_DEGREES = (float) (180.0 / Math.PI);
-
+        private final Paint mPaint;
+        private final Path mPath;
         private float mHeadingX;
         private float mHeadingY;
         private float mHeadingAngle;
         private float mHeadingMagnitude;
-        private final Paint mPaint;
-        private final Path mPath;
 
 
         public Ship() {

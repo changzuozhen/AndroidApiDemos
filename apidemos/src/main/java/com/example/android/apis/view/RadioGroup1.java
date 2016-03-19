@@ -16,16 +16,16 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.RadioGroup;
 import android.widget.Button;
-import android.widget.RadioButton;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 
 public class RadioGroup1 extends Activity implements RadioGroup.OnCheckedChangeListener,

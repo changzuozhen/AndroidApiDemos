@@ -16,10 +16,10 @@
 
 package com.example.android.apis.content;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.example.android.apis.R;
 
 public class ResourcesSmallestWidth extends Activity {
     @Override

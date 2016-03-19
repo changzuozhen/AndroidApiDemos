@@ -3,7 +3,6 @@ package com.qin.scrollerview;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -12,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
+
+import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 
@@ -56,9 +57,9 @@ public class MultiViewGroup extends ViewGroup {
     public void startMove() {
         if (curScreen > 1) curScreen = -1;
         curScreen++;
-        Log.i(TAG, "----startMove---- curScreen " + curScreen);
+        LogUtils.i(TAG, "----startMove---- curScreen " + curScreen);
 
-        Log.i(TAG, "----width  " + getWidth());
+        LogUtils.i(TAG, "----width  " + getWidth());
         //采用Scroller类控制滑动过程
         mScroller.startScroll((curScreen - 1) * getWidth(), 0,
                 getWidth(), 0, 1000);
@@ -71,7 +72,7 @@ public class MultiViewGroup extends ViewGroup {
     //停止滑屏
     public void stopMove() {
 
-        Log.v(TAG, "----stopMove ----");
+        LogUtils.v(TAG, "----stopMove ----");
 
         if (mScroller != null) {
             //如果动画还没结束，我们就按下了结束的按钮，那我们就结束该动画，即马上滑动指定位置
@@ -80,13 +81,13 @@ public class MultiViewGroup extends ViewGroup {
                 int scrollCurX = mScroller.getCurrX();
                 //判断是否达到下一屏的中间位置，如果达到就抵达下一屏，否则保持在原屏幕
                 //int moveX = scrollCurX - mScroller.getStartX()   ;
-                // Log.i(TAG, "----mScroller.is not finished ---- shouldNext" + shouldNext);
+                // LogUtils.i(TAG, "----mScroller.is not finished ---- shouldNext" + shouldNext);
                 //boolean shouldNext = moveX >= getWidth() / 2 ;
                 int descScreen = (scrollCurX + getWidth() / 2) / getWidth();
 
-                Log.i(TAG, "----mScroller.is not finished ---- shouldNext" + descScreen);
+                LogUtils.i(TAG, "----mScroller.is not finished ---- shouldNext" + descScreen);
 
-                Log.i(TAG, "----mScroller.is not finished ---- scrollCurX " + scrollCurX);
+                LogUtils.i(TAG, "----mScroller.is not finished ---- scrollCurX " + scrollCurX);
                 mScroller.abortAnimation();
 
                 //停止了动画，我们马上滑倒目标位置
@@ -96,7 +97,7 @@ public class MultiViewGroup extends ViewGroup {
                 curScreen = descScreen;
             }
         } else
-            Log.i(TAG, "----OK mScroller.is  finished ---- ");
+            LogUtils.i(TAG, "----OK mScroller.is  finished ---- ");
     }
 
     @Override
@@ -111,25 +112,25 @@ public class MultiViewGroup extends ViewGroup {
     @Override
     public void computeScroll() {
         // TODO Auto-generated method stub
-//        Log.e(TAG, "computeScroll");
+//        LogUtils.e(TAG, "computeScroll");
         // 如果返回true，表示动画还没有结束
         // 因为前面startScroll，所以只有在startScroll完成时 才会为false
         if (mScroller.computeScrollOffset()) {
-            Log.v(TAG, "computeScroll x:" + mScroller.getCurrX());
+            LogUtils.v(TAG, "computeScroll x:" + mScroller.getCurrX());
             // 产生了动画效果 每次滚动一点
             scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
 
             //刷新View 否则效果可能有误差
             postInvalidate();
         } else
-            Log.i(TAG, "computeScroll have done the scoller -----");
+            LogUtils.i(TAG, "computeScroll have done the scoller -----");
     }
 
     // 这个感觉没什么作用 不管true还是false 都是会执行onTouchEvent的 因为子view里面onTouchEvent返回false了
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         // TODO Auto-generated method stub
-        Log.e(TAG, "onInterceptTouchEvent-slop:" + mTouchSlop);
+        LogUtils.e(TAG, "onInterceptTouchEvent-slop:" + mTouchSlop);
 
         final int action = ev.getAction();
         //表示已经开始滑动了，不需要走该Action_MOVE方法了(第一次时可能调用)。
@@ -142,7 +143,7 @@ public class MultiViewGroup extends ViewGroup {
 
         switch (action) {
             case MotionEvent.ACTION_MOVE:
-                Log.e(TAG, "onInterceptTouchEvent move");
+                LogUtils.e(TAG, "onInterceptTouchEvent move");
                 final int xDiff = (int) Math.abs(mLastionMotionX - x);
                 //超过了最小滑动距离
                 if (xDiff > mTouchSlop) {
@@ -151,33 +152,33 @@ public class MultiViewGroup extends ViewGroup {
                 break;
 
             case MotionEvent.ACTION_DOWN:
-                Log.e(TAG, "onInterceptTouchEvent down");
+                LogUtils.e(TAG, "onInterceptTouchEvent down");
                 mLastionMotionX = x;
                 mLastMotionY = y;
-                Log.e(TAG, mScroller.isFinished() + "");
+                LogUtils.e(TAG, mScroller.isFinished() + "");
                 mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST : TOUCH_STATE_SCROLLING;
 
                 break;
 
             case MotionEvent.ACTION_CANCEL:
             case MotionEvent.ACTION_UP:
-                Log.e(TAG, "onInterceptTouchEvent up or cancel");
+                LogUtils.e(TAG, "onInterceptTouchEvent up or cancel");
                 mTouchState = TOUCH_STATE_REST;
                 break;
         }
-        Log.e(TAG, mTouchState + "====" + TOUCH_STATE_REST);
+        LogUtils.e(TAG, mTouchState + "====" + TOUCH_STATE_REST);
         return mTouchState != TOUCH_STATE_REST;
     }
 
     public boolean onTouchEvent(MotionEvent event) {
 
-        Log.i(TAG, "--- onTouchEvent--> ");
+        LogUtils.i(TAG, "--- onTouchEvent--> ");
 
         // TODO Auto-generated method stub
-        Log.e(TAG, "onTouchEvent start");
+        LogUtils.e(TAG, "onTouchEvent start");
         if (mVelocityTracker == null) {
 
-            Log.e(TAG, "onTouchEvent start-------** VelocityTracker.obtain");
+            LogUtils.e(TAG, "onTouchEvent start-------** VelocityTracker.obtain");
 
             mVelocityTracker = VelocityTracker.obtain();
         }
@@ -206,7 +207,7 @@ public class MultiViewGroup extends ViewGroup {
                 int detaX = (int) (mLastionMotionX - x);
                 scrollBy(detaX, 0);
 
-                Log.e(TAG, "--- MotionEvent.ACTION_MOVE--> detaX is " + detaX);
+                LogUtils.e(TAG, "--- MotionEvent.ACTION_MOVE--> detaX is " + detaX);
                 mLastionMotionX = x;
 
                 break;
@@ -217,17 +218,17 @@ public class MultiViewGroup extends ViewGroup {
 
                 int velocityX = (int) velocityTracker.getXVelocity();
 
-                Log.e(TAG, "---velocityX---" + velocityX);
+                LogUtils.e(TAG, "---velocityX---" + velocityX);
 
                 //滑动速率达到了一个标准(快速向右滑屏，返回上一个屏幕) 马上进行切屏处理
                 if (velocityX > SNAP_VELOCITY && curScreen > 0) {
                     // Fling enough to move left
-                    Log.e(TAG, "snap left");
+                    LogUtils.e(TAG, "snap left");
                     snapToScreen(curScreen - 1);
                 }
                 //快速向左滑屏，返回下一个屏幕)
                 else if (velocityX < -SNAP_VELOCITY && curScreen < (getChildCount() - 1)) {
-                    Log.e(TAG, "snap right");
+                    LogUtils.e(TAG, "snap right");
                     snapToScreen(curScreen + 1);
                 }
                 //以上为快速移动的 ，强制切换屏幕
@@ -258,7 +259,7 @@ public class MultiViewGroup extends ViewGroup {
         int scrollX = getScrollX();
         int scrollY = getScrollY();
 
-        Log.e(TAG, "### onTouchEvent snapToDestination ### scrollX is " + scrollX);
+        LogUtils.e(TAG, "### onTouchEvent snapToDestination ### scrollX is " + scrollX);
 
         //判断是否超过下一屏的中间位置，如果达到就抵达下一屏，否则保持在原屏幕
         //直接使用这个公式判断是哪一个屏幕 前后或者自己
@@ -268,7 +269,7 @@ public class MultiViewGroup extends ViewGroup {
         int destScreen = (getScrollX() + getWidth() / 2) / getWidth();
 
 
-        Log.e(TAG, "### onTouchEvent  ACTION_UP### dx destScreen " + destScreen);
+        LogUtils.e(TAG, "### onTouchEvent  ACTION_UP### dx destScreen " + destScreen);
 
         snapToScreen(destScreen);
     }
@@ -287,7 +288,7 @@ public class MultiViewGroup extends ViewGroup {
 
         int dx = curScreen * getWidth() - getScrollX();
 
-        Log.e(TAG, "### onTouchEvent  ACTION_UP### dx is " + dx);
+        LogUtils.e(TAG, "### onTouchEvent  ACTION_UP### dx is " + dx);
 
         mScroller.startScroll(getScrollX(), 0, dx, 0, Math.abs(dx) * 2);
 
@@ -321,7 +322,7 @@ public class MultiViewGroup extends ViewGroup {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        Log.i(TAG, "--- start onMeasure --");
+        LogUtils.i(TAG, "--- start onMeasure --");
 
         // 设置该ViewGroup的大小
         int width = MeasureSpec.getSize(widthMeasureSpec);
@@ -329,7 +330,7 @@ public class MultiViewGroup extends ViewGroup {
         setMeasuredDimension(width, height);
 
         int childCount = getChildCount();
-        Log.i(TAG, "--- onMeasure childCount is -->" + childCount);
+        LogUtils.i(TAG, "--- onMeasure childCount is -->" + childCount);
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);
             // 设置每个子视图的大小 ， 即全屏
@@ -341,11 +342,11 @@ public class MultiViewGroup extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         // TODO Auto-generated method stub
-        Log.i(TAG, "--- start onLayout --");
+        LogUtils.i(TAG, "--- start onLayout --");
         int startLeft = 0; // 每个子视图的起始布局坐标
         int startTop = 0; // 间距设置为10px 相当于 android：marginTop= "10px"
         int childCount = getChildCount();
-        Log.i(TAG, "--- onLayout childCount is -->" + childCount);
+        LogUtils.i(TAG, "--- onLayout childCount is -->" + childCount);
 
         for (int i = 0; i < childCount; i++) {
             View child = getChildAt(i);

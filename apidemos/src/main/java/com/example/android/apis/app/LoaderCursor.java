@@ -27,15 +27,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract.Contacts;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.SimpleCursorAdapter;
+
+import com.tencent.commontools.LogUtils;
 
 /**
  * Demonstration of the use of a CursorLoader to load and display contacts
@@ -60,9 +61,17 @@ public class LoaderCursor extends Activity {
     public static class CursorLoaderListFragment extends ListFragment
             implements OnQueryTextListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+        // These are the Contacts rows that we will retrieve.
+        static final String[] CONTACTS_SUMMARY_PROJECTION = new String[]{
+                Contacts._ID,
+                Contacts.DISPLAY_NAME,
+                Contacts.CONTACT_STATUS,
+                Contacts.CONTACT_PRESENCE,
+                Contacts.PHOTO_ID,
+                Contacts.LOOKUP_KEY,
+        };
         // This is the Adapter being used to display the list's data.
         SimpleCursorAdapter mAdapter;
-
         // If non-null, this is the current filter the user has provided.
         String mCurFilter;
 
@@ -127,18 +136,8 @@ public class LoaderCursor extends Activity {
 
         @Override public void onListItemClick(ListView l, View v, int position, long id) {
             // Insert desired behavior here.
-            Log.i("FragmentComplexList", "Item clicked: " + id);
+            LogUtils.i("FragmentComplexList", "Item clicked: " + id);
         }
-
-        // These are the Contacts rows that we will retrieve.
-        static final String[] CONTACTS_SUMMARY_PROJECTION = new String[] {
-            Contacts._ID,
-            Contacts.DISPLAY_NAME,
-            Contacts.CONTACT_STATUS,
-            Contacts.CONTACT_PRESENCE,
-            Contacts.PHOTO_ID,
-            Contacts.LOOKUP_KEY,
-        };
 
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             // This is called when a new Loader needs to be created.  This

@@ -18,7 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,12 +26,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.example.android.apis.R;
+
 
 /**
  * Entry into our redirection example, describing what will happen.
  */
 public class RedirectEnter extends Activity
 {
+    private OnClickListener mGoListener = new OnClickListener() {
+        public void onClick(View v) {
+            // Here we start up the main entry point of our redirection
+            // example.
+            Intent intent = new Intent(RedirectEnter.this, RedirectMain.class);
+            startActivity(intent);
+        }
+    };
+
     @Override
 	protected void onCreate(Bundle savedInstanceState)
     {
@@ -44,16 +54,5 @@ public class RedirectEnter extends Activity
         Button goButton = (Button)findViewById(R.id.go);
         goButton.setOnClickListener(mGoListener);
     }
-
-    private OnClickListener mGoListener = new OnClickListener()
-    {
-        public void onClick(View v)
-        {
-            // Here we start up the main entry point of our redirection
-            // example.
-            Intent intent = new Intent(RedirectEnter.this, RedirectMain.class);
-            startActivity(intent);
-        }
-    };
 }
 

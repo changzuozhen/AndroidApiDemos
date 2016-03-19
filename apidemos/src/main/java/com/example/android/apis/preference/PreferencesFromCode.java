@@ -16,8 +16,6 @@
 
 package com.example.android.apis.preference;
 
-import com.example.android.apis.R;
-
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
@@ -29,6 +27,8 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
+
+import com.example.android.apis.R;
 
 public class PreferencesFromCode extends PreferenceActivity {
 

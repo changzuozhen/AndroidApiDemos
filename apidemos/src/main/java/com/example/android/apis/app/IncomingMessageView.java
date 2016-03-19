@@ -16,12 +16,12 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * This activity is run as the click activity for {@link IncomingMessage}.

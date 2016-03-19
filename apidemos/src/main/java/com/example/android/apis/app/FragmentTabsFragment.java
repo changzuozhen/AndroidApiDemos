@@ -15,10 +15,6 @@
  */
 package com.example.android.apis.app;
 
-import java.util.ArrayList;
-
-import com.example.android.apis.R;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -28,6 +24,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+
+import com.example.android.apis.R;
+
+import java.util.ArrayList;
 
 /**
  * Sample fragment that contains tabs of other fragments.
@@ -94,35 +94,6 @@ public class FragmentTabsFragment extends Fragment {
         private TabInfo mLastTab;
         private boolean mInitialized;
         private String mCurrentTabTag;
-
-        static final class TabInfo {
-            private final String tag;
-            private final Class<?> clss;
-            private final Bundle args;
-            private Fragment fragment;
-
-            TabInfo(String _tag, Class<?> _class, Bundle _args) {
-                tag = _tag;
-                clss = _class;
-                args = _args;
-            }
-        }
-
-        static class DummyTabFactory implements TabHost.TabContentFactory {
-            private final Context mContext;
-
-            public DummyTabFactory(Context context) {
-                mContext = context;
-            }
-
-            @Override
-            public View createTabContent(String tag) {
-                View v = new View(mContext);
-                v.setMinimumWidth(0);
-                v.setMinimumHeight(0);
-                return v;
-            }
-        }
 
         public TabManager(Context context, FragmentManager manager, int containerId) {
             mContext = context;
@@ -245,6 +216,35 @@ public class FragmentTabsFragment extends Fragment {
                 mLastTab = newTab;
             }
             return ft;
+        }
+
+        static final class TabInfo {
+            private final String tag;
+            private final Class<?> clss;
+            private final Bundle args;
+            private Fragment fragment;
+
+            TabInfo(String _tag, Class<?> _class, Bundle _args) {
+                tag = _tag;
+                clss = _class;
+                args = _args;
+            }
+        }
+
+        static class DummyTabFactory implements TabHost.TabContentFactory {
+            private final Context mContext;
+
+            public DummyTabFactory(Context context) {
+                mContext = context;
+            }
+
+            @Override
+            public View createTabContent(String tag) {
+                View v = new View(mContext);
+                v.setMinimumWidth(0);
+                v.setMinimumHeight(0);
+                return v;
+            }
         }
     }
 }

@@ -16,13 +16,13 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.widget.Button;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.android.apis.R;
 
 /**
  * When you push the button on this Activity, it creates a {@link Toast} object and

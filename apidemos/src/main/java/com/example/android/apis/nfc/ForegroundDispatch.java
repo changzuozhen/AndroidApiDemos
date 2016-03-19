@@ -16,8 +16,6 @@
 
 package com.example.android.apis.nfc;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -26,8 +24,10 @@ import android.content.IntentFilter.MalformedMimeTypeException;
 import android.nfc.NfcAdapter;
 import android.nfc.tech.NfcF;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 /**
  * An example of how to use the NFC foreground dispatch APIs. This will intercept any MIME data
@@ -81,7 +81,7 @@ public class ForegroundDispatch extends Activity {
 
     @Override
     public void onNewIntent(Intent intent) {
-        Log.i("Foreground dispatch", "Discovered tag with intent: " + intent);
+        LogUtils.i("Foreground dispatch", "Discovered tag with intent: " + intent);
         mText.setText("Discovered tag " + ++mCount + " with intent: " + intent);
     }
 

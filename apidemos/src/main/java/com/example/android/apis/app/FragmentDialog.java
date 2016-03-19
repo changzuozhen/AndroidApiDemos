@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -30,8 +28,33 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.android.apis.R;
+
 public class FragmentDialog extends Activity {
     int mStackLevel = 0;
+
+    static String getNameForNum(int num) {
+        switch ((num - 1) % 6) {
+            case 1:
+                return "STYLE_NO_TITLE";
+            case 2:
+                return "STYLE_NO_FRAME";
+            case 3:
+                return "STYLE_NO_INPUT (this window can't receive input, so "
+                        + "you will need to press the bottom show button)";
+            case 4:
+                return "STYLE_NORMAL with dark fullscreen theme";
+            case 5:
+                return "STYLE_NORMAL with light theme";
+            case 6:
+                return "STYLE_NO_TITLE with light theme";
+            case 7:
+                return "STYLE_NO_FRAME with light theme";
+            case 8:
+                return "STYLE_NORMAL with light fullscreen theme";
+        }
+        return "STYLE_NORMAL";
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +86,6 @@ public class FragmentDialog extends Activity {
         outState.putInt("level", mStackLevel);
     }
 
-
     void showDialog() {
         mStackLevel++;
 
@@ -81,23 +103,6 @@ public class FragmentDialog extends Activity {
         DialogFragment newFragment = MyDialogFragment.newInstance(mStackLevel);
         newFragment.show(ft, "dialog");
     }
-
-
-    static String getNameForNum(int num) {
-        switch ((num-1)%6) {
-            case 1: return "STYLE_NO_TITLE";
-            case 2: return "STYLE_NO_FRAME";
-            case 3: return "STYLE_NO_INPUT (this window can't receive input, so "
-                    + "you will need to press the bottom show button)";
-            case 4: return "STYLE_NORMAL with dark fullscreen theme";
-            case 5: return "STYLE_NORMAL with light theme";
-            case 6: return "STYLE_NO_TITLE with light theme";
-            case 7: return "STYLE_NO_FRAME with light theme";
-            case 8: return "STYLE_NORMAL with light fullscreen theme";
-        }
-        return "STYLE_NORMAL";
-    }
-
 
     public static class MyDialogFragment extends DialogFragment {
         int mNum;

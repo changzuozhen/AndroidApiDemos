@@ -16,15 +16,15 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.Shakespeare;
-
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.example.android.apis.Shakespeare;
+import com.tencent.commontools.LogUtils;
 
 /**
  * Demonstration of using ListFragment to show a list of items
@@ -54,7 +54,7 @@ public class FragmentListArray extends Activity {
 
         @Override
         public void onListItemClick(ListView l, View v, int position, long id) {
-            Log.i("FragmentList", "Item clicked: " + id);
+            LogUtils.i("FragmentList", "Item clicked: " + id);
         }
     }
 }

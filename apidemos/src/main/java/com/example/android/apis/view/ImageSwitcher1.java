@@ -16,8 +16,6 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -33,9 +31,22 @@ import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
+import com.example.android.apis.R;
+
 
 public class ImageSwitcher1 extends Activity implements
         AdapterView.OnItemSelectedListener, ViewSwitcher.ViewFactory {
+
+    private ImageSwitcher mSwitcher;
+    private Integer[] mThumbIds = {
+            R.drawable.sample_thumb_0, R.drawable.sample_thumb_1,
+            R.drawable.sample_thumb_2, R.drawable.sample_thumb_3,
+            R.drawable.sample_thumb_4, R.drawable.sample_thumb_5,
+            R.drawable.sample_thumb_6, R.drawable.sample_thumb_7};
+    private Integer[] mImageIds = {
+            R.drawable.sample_0, R.drawable.sample_1, R.drawable.sample_2,
+            R.drawable.sample_3, R.drawable.sample_4, R.drawable.sample_5,
+            R.drawable.sample_6, R.drawable.sample_7};
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,9 +83,9 @@ public class ImageSwitcher1 extends Activity implements
         return i;
     }
 
-    private ImageSwitcher mSwitcher;
-
     public class ImageAdapter extends BaseAdapter {
+        private Context mContext;
+
         public ImageAdapter(Context c) {
             mContext = c;
         }
@@ -102,19 +113,6 @@ public class ImageSwitcher1 extends Activity implements
             return i;
         }
 
-        private Context mContext;
-
     }
-
-    private Integer[] mThumbIds = {
-            R.drawable.sample_thumb_0, R.drawable.sample_thumb_1,
-            R.drawable.sample_thumb_2, R.drawable.sample_thumb_3,
-            R.drawable.sample_thumb_4, R.drawable.sample_thumb_5,
-            R.drawable.sample_thumb_6, R.drawable.sample_thumb_7};
-
-    private Integer[] mImageIds = {
-            R.drawable.sample_0, R.drawable.sample_1, R.drawable.sample_2,
-            R.drawable.sample_3, R.drawable.sample_4, R.drawable.sample_5,
-            R.drawable.sample_6, R.drawable.sample_7};
 
 }

@@ -18,7 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,11 +26,26 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.example.android.apis.R;
+
 /**
  * Controller to start and stop a service. The serivce will update a status bar
  * notification every 5 seconds for a minute.
  */
 public class NotifyingController extends Activity {
+    private OnClickListener mStartListener = new OnClickListener() {
+        public void onClick(View v) {
+            startService(new Intent(NotifyingController.this,
+                    NotifyingService.class));
+        }
+    };
+    private OnClickListener mStopListener = new OnClickListener() {
+        public void onClick(View v) {
+            stopService(new Intent(NotifyingController.this,
+                    NotifyingService.class));
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,19 +57,5 @@ public class NotifyingController extends Activity {
         button = (Button) findViewById(R.id.notifyStop);
         button.setOnClickListener(mStopListener);
     }
-
-    private OnClickListener mStartListener = new OnClickListener() {
-        public void onClick(View v) {
-            startService(new Intent(NotifyingController.this, 
-                    NotifyingService.class));
-        }
-    };
-
-    private OnClickListener mStopListener = new OnClickListener() {
-        public void onClick(View v) {
-            stopService(new Intent(NotifyingController.this, 
-                    NotifyingService.class));
-        }
-    };
 }
 

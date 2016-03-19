@@ -21,7 +21,6 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.os.Handler;
@@ -60,27 +59,25 @@ import java.util.Random;
  * </p>
  */
 public class TouchPaint extends GraphicsActivity {
+    /**
+     * Colors to cycle through.
+     */
+    static final int[] COLORS = new int[]{
+            Color.WHITE, Color.RED, Color.YELLOW, Color.GREEN,
+            Color.CYAN, Color.BLUE, Color.MAGENTA,
+    };
+    /**
+     * Background color.
+     */
+    static final int BACKGROUND_COLOR = Color.BLACK;
     /** Used as a pulse to gradually fade the contents of the window. */
     private static final int MSG_FADE = 1;
-
     /** Menu ID for the command to clear the window. */
     private static final int CLEAR_ID = Menu.FIRST;
-
     /** Menu ID for the command to toggle fading. */
     private static final int FADE_ID = Menu.FIRST+1;
-
     /** How often to fade the contents of the window (in ms). */
     private static final int FADE_DELAY = 100;
-
-    /** Colors to cycle through. */
-    static final int[] COLORS = new int[] {
-        Color.WHITE, Color.RED, Color.YELLOW, Color.GREEN,
-        Color.CYAN, Color.BLUE, Color.MAGENTA,
-    };
-
-    /** Background color. */
-    static final int BACKGROUND_COLOR = Color.BLACK;
-
     /** The view responsible for drawing the window. */
     PaintView mView;
 
@@ -89,6 +86,23 @@ public class TouchPaint extends GraphicsActivity {
 
     /** The index of the current color to use. */
     int mColorIndex;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                // Upon receiving the fade pulse, we have the view perform a
+                // fade and then enqueue a new message to pulse at the desired
+                // next time.
+                case MSG_FADE: {
+                    mView.fade();
+                    scheduleFade();
+                    break;
+                }
+                default:
+                    super.handleMessage(msg);
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -196,24 +210,6 @@ public class TouchPaint extends GraphicsActivity {
         mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_FADE), FADE_DELAY);
     }
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                // Upon receiving the fade pulse, we have the view perform a
-                // fade and then enqueue a new message to pulse at the desired
-                // next time.
-                case MSG_FADE: {
-                    mView.fade();
-                    scheduleFade();
-                    break;
-                }
-                default:
-                    super.handleMessage(msg);
-            }
-        }
-    };
-
     enum PaintMode {
         Draw,
         Splat,
@@ -233,10 +229,17 @@ public class TouchPaint extends GraphicsActivity {
         private static final int SPLAT_VECTORS = 40;
 
         private final Random mRandom = new Random();
-        private Bitmap mBitmap;
-        private Canvas mCanvas;
         private final Paint mPaint;
         private final Paint mFadePaint;
+        /**
+         * Draw an oval.
+         * <p/>
+         * When the orienation is 0 radians, orients the major axis vertically,
+         * angles less than or greater than 0 radians rotate the major axis left or right.
+         */
+        private final RectF mReusableOvalRect = new RectF();
+        private Bitmap mBitmap;
+        private Canvas mCanvas;
         private float mCurX;
         private float mCurY;
         private int mOldButtonState;
@@ -448,13 +451,6 @@ public class TouchPaint extends GraphicsActivity {
             invalidate();
         }
 
-        /**
-         * Draw an oval.
-         *
-         * When the orienation is 0 radians, orients the major axis vertically,
-         * angles less than or greater than 0 radians rotate the major axis left or right.
-         */
-        private final RectF mReusableOvalRect = new RectF();
         private void drawOval(Canvas canvas, float x, float y, float major, float minor,
                 float orientation, Paint paint) {
             canvas.save(Canvas.MATRIX_SAVE_FLAG);

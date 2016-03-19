@@ -16,11 +16,8 @@
 
 package com.example.android.apis.media;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.AssetFileDescriptor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,9 +26,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.audiofx.Equalizer;
 import android.media.audiofx.Visualizer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +34,8 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import java.io.IOException;
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 public class AudioFxDemo extends Activity {
     private static final String TAG = "AudioFxDemo";
@@ -70,7 +66,7 @@ public class AudioFxDemo extends Activity {
 
         // Create the MediaPlayer
         mMediaPlayer = MediaPlayer.create(this, R.raw.test_cbr);
-        Log.d(TAG, "MediaPlayer audio session ID: " + mMediaPlayer.getAudioSessionId());
+        LogUtils.d(TAG, "MediaPlayer audio session ID: " + mMediaPlayer.getAudioSessionId());
 
         setupVisualizerFxAndUI();
         setupEqualizerFxAndUI();

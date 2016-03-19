@@ -16,12 +16,12 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.view.KeyEvent;
 import android.widget.Button;
+
+import com.example.android.apis.R;
 
 /**
  * An example of an {@link ActivityInstrumentationTestCase} of a specific activity {@link Focus2}.

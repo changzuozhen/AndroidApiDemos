@@ -16,6 +16,16 @@
 
 package com.example.android.apis.graphics;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.opengl.GLSurfaceView;
+import android.opengl.GLU;
+import android.opengl.GLUtils;
+import android.os.SystemClock;
+
+import com.example.android.apis.R;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -29,20 +39,189 @@ import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL11;
 import javax.microedition.khronos.opengles.GL11Ext;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLSurfaceView;
-import android.opengl.GLU;
-import android.opengl.GLUtils;
-import android.os.SystemClock;
-
-import com.example.android.apis.R;
-
 public class MatrixPaletteRenderer implements GLSurfaceView.Renderer{
     private Context mContext;
     private Grid mGrid;
     private int mTextureID;
+
+    public MatrixPaletteRenderer(Context context) {
+        mContext = context;
+    }
+
+    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
+        /*
+         * By default, OpenGL enables features that improve quality
+         * but reduce performance. One might want to tweak that
+         * especially on software renderer.
+         */
+        gl.glDisable(GL10.GL_DITHER);
+
+        /*
+         * Some one-time OpenGL initialization can be made here
+         * probably based on features of this particular context
+         */
+        gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,
+                GL10.GL_FASTEST);
+
+        gl.glClearColor(.5f, .5f, .5f, 1);
+        gl.glShadeModel(GL10.GL_SMOOTH);
+        gl.glEnable(GL10.GL_DEPTH_TEST);
+        gl.glEnable(GL10.GL_TEXTURE_2D);
+
+        /*
+         * Create our texture. This has to be done each time the
+         * surface is created.
+         */
+
+        int[] textures = new int[1];
+        gl.glGenTextures(1, textures, 0);
+
+        mTextureID = textures[0];
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
+
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
+                GL10.GL_NEAREST);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D,
+                GL10.GL_TEXTURE_MAG_FILTER,
+                GL10.GL_LINEAR);
+
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
+                GL10.GL_CLAMP_TO_EDGE);
+        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
+                GL10.GL_CLAMP_TO_EDGE);
+
+        gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
+                GL10.GL_REPLACE);
+
+        InputStream is = mContext.getResources()
+                .openRawResource(R.raw.robot);
+        Bitmap bitmap;
+        try {
+            bitmap = BitmapFactory.decodeStream(is);
+        } finally {
+            try {
+                is.close();
+            } catch (IOException e) {
+                // Ignore.
+            }
+        }
+
+        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
+        bitmap.recycle();
+
+        mGrid = generateWeightedGrid(gl);
+    }
+
+    public void onDrawFrame(GL10 gl) {
+        /*
+         * By default, OpenGL enables features that improve quality
+         * but reduce performance. One might want to tweak that
+         * especially on software renderer.
+         */
+        gl.glDisable(GL10.GL_DITHER);
+
+        gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
+                GL10.GL_MODULATE);
+
+        /*
+         * Usually, the first thing one might want to do is to clear
+         * the screen. The most efficient way of doing this is to use
+         * glClear().
+         */
+
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+
+        gl.glEnable(GL10.GL_DEPTH_TEST);
+
+        gl.glEnable(GL10.GL_CULL_FACE);
+
+        /*
+         * Now we're ready to draw some 3D objects
+         */
+
+        gl.glMatrixMode(GL10.GL_MODELVIEW);
+        gl.glLoadIdentity();
+
+        GLU.gluLookAt(gl, 0, 0, -5, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+
+        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
+        gl.glActiveTexture(GL10.GL_TEXTURE0);
+        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
+        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
+                GL10.GL_REPEAT);
+        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
+                GL10.GL_REPEAT);
+
+        long time = SystemClock.uptimeMillis() % 4000L;
+
+        // Rock back and forth
+        double animationUnit = ((double) time) / 4000;
+        float unitAngle = (float) Math.cos(animationUnit * 2 * Math.PI);
+        float angle = unitAngle * 135f;
+
+        gl.glEnable(GL11Ext.GL_MATRIX_PALETTE_OES);
+        gl.glMatrixMode(GL11Ext.GL_MATRIX_PALETTE_OES);
+
+        GL11Ext gl11Ext = (GL11Ext) gl;
+
+        // matrix 0: no transformation
+        gl11Ext.glCurrentPaletteMatrixOES(0);
+        gl11Ext.glLoadPaletteFromModelViewMatrixOES();
+
+
+        // matrix 1: rotate by "angle"
+        gl.glRotatef(angle, 0, 0, 1.0f);
+
+        gl11Ext.glCurrentPaletteMatrixOES(1);
+        gl11Ext.glLoadPaletteFromModelViewMatrixOES();
+
+        mGrid.draw(gl);
+
+        gl.glDisable(GL11Ext.GL_MATRIX_PALETTE_OES);
+    }
+
+    public void onSurfaceChanged(GL10 gl, int w, int h) {
+        gl.glViewport(0, 0, w, h);
+
+        /*
+        * Set our projection matrix. This doesn't have to be done
+        * each time we draw, but usually a new projection needs to
+        * be set when the viewport is resized.
+        */
+
+        float ratio = (float) w / h;
+        gl.glMatrixMode(GL10.GL_PROJECTION);
+        gl.glLoadIdentity();
+        gl.glFrustumf(-ratio, ratio, -1, 1, 3, 7);
+    }
+
+    private Grid generateWeightedGrid(GL gl) {
+        final int uSteps = 20;
+        final int vSteps = 20;
+
+        float radius = 0.25f;
+        float height = 2.0f;
+        Grid grid = new Grid(uSteps + 1, vSteps + 1);
+
+        for (int j = 0; j <= vSteps; j++) {
+            for (int i = 0; i <= uSteps; i++) {
+                double angle = Math.PI * 2 * i / uSteps;
+                float x = radius * (float) Math.cos(angle);
+                float y = height * ((float) j / vSteps - 0.5f);
+                float z = radius * (float) Math.sin(angle);
+                float u = -4.0f * (float) i / uSteps;
+                float v = -4.0f * (float) j / vSteps;
+                float w0 = (float) j / vSteps;
+                float w1 = 1.0f - w0;
+                grid.set(i, j, x, y, z, u, v, w0, w1, 0, 1);
+            }
+        }
+
+        grid.createBufferObjects(gl);
+        return grid;
+    }
 
     /** A grid is a topologically rectangular array of vertices.
      *
@@ -225,184 +404,5 @@ public class MatrixPaletteRenderer implements GLSurfaceView.Renderer{
             gl11.glBindBuffer(GL11.GL_ARRAY_BUFFER, 0);
             gl11.glBindBuffer(GL11.GL_ELEMENT_ARRAY_BUFFER, 0);
         }
-    }
-
-    public MatrixPaletteRenderer(Context context) {
-        mContext = context;
-    }
-
-    public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        /*
-         * By default, OpenGL enables features that improve quality
-         * but reduce performance. One might want to tweak that
-         * especially on software renderer.
-         */
-        gl.glDisable(GL10.GL_DITHER);
-
-        /*
-         * Some one-time OpenGL initialization can be made here
-         * probably based on features of this particular context
-         */
-        gl.glHint(GL10.GL_PERSPECTIVE_CORRECTION_HINT,
-                GL10.GL_FASTEST);
-
-        gl.glClearColor(.5f, .5f, .5f, 1);
-        gl.glShadeModel(GL10.GL_SMOOTH);
-        gl.glEnable(GL10.GL_DEPTH_TEST);
-        gl.glEnable(GL10.GL_TEXTURE_2D);
-
-        /*
-         * Create our texture. This has to be done each time the
-         * surface is created.
-         */
-
-        int[] textures = new int[1];
-        gl.glGenTextures(1, textures, 0);
-
-        mTextureID = textures[0];
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
-
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_MIN_FILTER,
-                GL10.GL_NEAREST);
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D,
-                GL10.GL_TEXTURE_MAG_FILTER,
-                GL10.GL_LINEAR);
-
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
-                GL10.GL_CLAMP_TO_EDGE);
-        gl.glTexParameterf(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
-                GL10.GL_CLAMP_TO_EDGE);
-
-        gl.glTexEnvf(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
-                GL10.GL_REPLACE);
-
-        InputStream is = mContext.getResources()
-                .openRawResource(R.raw.robot);
-        Bitmap bitmap;
-        try {
-            bitmap = BitmapFactory.decodeStream(is);
-        } finally {
-            try {
-                is.close();
-            } catch(IOException e) {
-                // Ignore.
-            }
-        }
-
-        GLUtils.texImage2D(GL10.GL_TEXTURE_2D, 0, bitmap, 0);
-        bitmap.recycle();
-
-        mGrid = generateWeightedGrid(gl);
-    }
-
-    public void onDrawFrame(GL10 gl) {
-        /*
-         * By default, OpenGL enables features that improve quality
-         * but reduce performance. One might want to tweak that
-         * especially on software renderer.
-         */
-        gl.glDisable(GL10.GL_DITHER);
-
-        gl.glTexEnvx(GL10.GL_TEXTURE_ENV, GL10.GL_TEXTURE_ENV_MODE,
-                GL10.GL_MODULATE);
-
-        /*
-         * Usually, the first thing one might want to do is to clear
-         * the screen. The most efficient way of doing this is to use
-         * glClear().
-         */
-
-        gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-
-        gl.glEnable(GL10.GL_DEPTH_TEST);
-
-        gl.glEnable(GL10.GL_CULL_FACE);
-
-        /*
-         * Now we're ready to draw some 3D objects
-         */
-
-        gl.glMatrixMode(GL10.GL_MODELVIEW);
-        gl.glLoadIdentity();
-
-        GLU.gluLookAt(gl, 0, 0, -5, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
-
-        gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
-        gl.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
-
-        gl.glActiveTexture(GL10.GL_TEXTURE0);
-        gl.glBindTexture(GL10.GL_TEXTURE_2D, mTextureID);
-        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_S,
-                GL10.GL_REPEAT);
-        gl.glTexParameterx(GL10.GL_TEXTURE_2D, GL10.GL_TEXTURE_WRAP_T,
-                GL10.GL_REPEAT);
-
-        long time = SystemClock.uptimeMillis() % 4000L;
-
-        // Rock back and forth
-        double animationUnit = ((double) time) / 4000;
-        float unitAngle = (float) Math.cos(animationUnit * 2 * Math.PI);
-        float angle = unitAngle * 135f;
-
-        gl.glEnable(GL11Ext.GL_MATRIX_PALETTE_OES);
-        gl.glMatrixMode(GL11Ext.GL_MATRIX_PALETTE_OES);
-
-        GL11Ext gl11Ext = (GL11Ext) gl;
-
-        // matrix 0: no transformation
-        gl11Ext.glCurrentPaletteMatrixOES(0);
-        gl11Ext.glLoadPaletteFromModelViewMatrixOES();
-
-
-        // matrix 1: rotate by "angle"
-        gl.glRotatef(angle, 0, 0, 1.0f);
-
-        gl11Ext.glCurrentPaletteMatrixOES(1);
-        gl11Ext.glLoadPaletteFromModelViewMatrixOES();
-
-        mGrid.draw(gl);
-
-        gl.glDisable(GL11Ext.GL_MATRIX_PALETTE_OES);
-    }
-
-    public void onSurfaceChanged(GL10 gl, int w, int h) {
-        gl.glViewport(0, 0, w, h);
-
-        /*
-        * Set our projection matrix. This doesn't have to be done
-        * each time we draw, but usually a new projection needs to
-        * be set when the viewport is resized.
-        */
-
-        float ratio = (float) w / h;
-        gl.glMatrixMode(GL10.GL_PROJECTION);
-        gl.glLoadIdentity();
-        gl.glFrustumf(-ratio, ratio, -1, 1, 3, 7);
-    }
-
-    private Grid generateWeightedGrid(GL gl) {
-        final int uSteps = 20;
-        final int vSteps = 20;
-
-        float radius = 0.25f;
-        float height = 2.0f;
-        Grid grid = new Grid(uSteps + 1, vSteps + 1);
-
-        for (int j = 0; j <= vSteps; j++) {
-            for (int i = 0; i <= uSteps; i++) {
-                double angle = Math.PI * 2 * i / uSteps;
-                float x = radius * (float) Math.cos(angle);
-                float y = height * ((float) j / vSteps - 0.5f);
-                float z = radius * (float) Math.sin(angle);
-                float u = -4.0f * (float) i / uSteps;
-                float v = -4.0f * (float) j / vSteps;
-                float w0 = (float) j / vSteps;
-                float w1 = 1.0f - w0;
-                grid.set(i, j, x, y, z, u, v, w0, w1, 0, 1);
-            }
-        }
-
-        grid.createBufferObjects(gl);
-        return grid;
     }
 }

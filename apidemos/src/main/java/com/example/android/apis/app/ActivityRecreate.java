@@ -16,16 +16,21 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
+import com.example.android.apis.R;
+
 public class ActivityRecreate extends Activity {
     int mCurTheme;
+    private OnClickListener mRecreateListener = new OnClickListener() {
+        public void onClick(View v) {
+            recreate();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +66,4 @@ public class ActivityRecreate extends Activity {
         super.onSaveInstanceState(savedInstanceState);
         savedInstanceState.putInt("theme", mCurTheme);
     }
-
-    private OnClickListener mRecreateListener = new OnClickListener() {
-        public void onClick(View v) {
-            recreate();
-        }
-    };
 }

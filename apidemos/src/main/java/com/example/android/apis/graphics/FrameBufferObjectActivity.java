@@ -16,16 +16,16 @@
 
 package com.example.android.apis.graphics;
 
-import javax.microedition.khronos.egl.EGLConfig;
-import javax.microedition.khronos.opengles.GL;
-import javax.microedition.khronos.opengles.GL10;
-import javax.microedition.khronos.opengles.GL11ExtensionPack;
-
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.opengl.GLU;
 import android.os.Bundle;
 import android.os.SystemClock;
+
+import javax.microedition.khronos.egl.EGLConfig;
+import javax.microedition.khronos.opengles.GL;
+import javax.microedition.khronos.opengles.GL10;
+import javax.microedition.khronos.opengles.GL11ExtensionPack;
 
 /**
  * Demonstrate the Frame Buffer Object OpenGL ES extension.
@@ -36,18 +36,41 @@ import android.os.SystemClock;
 public class FrameBufferObjectActivity extends Activity {
     private GLSurfaceView mGLSurfaceView;
 
-    private class Renderer implements GLSurfaceView.Renderer {
-        private boolean mContextSupportsFrameBufferObject;
-        private int mTargetTexture;
-        private int mFramebuffer;
-        private int mFramebufferWidth = 256;
-        private int mFramebufferHeight = 256;
-        private int mSurfaceWidth;
-        private int mSurfaceHeight;
+    static void checkGLError(GL gl) {
+        int error = ((GL10) gl).glGetError();
+        if (error != GL10.GL_NO_ERROR) {
+            throw new RuntimeException("GLError 0x" + Integer.toHexString(error));
+        }
+    }
 
-        private Triangle mTriangle;
-        private Cube mCube;
-        private float mAngle;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        // Create our surface view and set it as the content of our
+        // Activity
+        mGLSurfaceView = new GLSurfaceView(this);
+        mGLSurfaceView.setRenderer(new Renderer());
+        setContentView(mGLSurfaceView);
+    }
+
+    @Override
+    protected void onResume() {
+        // Ideally a game should implement onResume() and onPause()
+        // to take appropriate action when the activity looses focus
+        super.onResume();
+        mGLSurfaceView.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        // Ideally a game should implement onResume() and onPause()
+        // to take appropriate action when the activity looses focus
+        super.onPause();
+        mGLSurfaceView.onPause();
+    }
+
+    private class Renderer implements GLSurfaceView.Renderer {
         /**
          * Setting this to true will change the behavior  of this sample. It
          * will suppress the normally onscreen rendering, and it will cause the
@@ -56,6 +79,16 @@ public class FrameBufferObjectActivity extends Activity {
          * rendering algorithm.
          */
         private static final boolean DEBUG_RENDER_OFFSCREEN_ONSCREEN = false;
+        private boolean mContextSupportsFrameBufferObject;
+        private int mTargetTexture;
+        private int mFramebuffer;
+        private int mFramebufferWidth = 256;
+        private int mFramebufferHeight = 256;
+        private int mSurfaceWidth;
+        private int mSurfaceHeight;
+        private Triangle mTriangle;
+        private Cube mCube;
+        private float mAngle;
 
         public void onDrawFrame(GL10 gl) {
             checkGLError(gl);
@@ -244,39 +277,5 @@ public class FrameBufferObjectActivity extends Activity {
             // is the same as the first part of another extension name.
             return extensions.indexOf(" " + extension + " ") >= 0;
         }
-    }
-
-    static void checkGLError(GL gl) {
-        int error = ((GL10) gl).glGetError();
-        if (error != GL10.GL_NO_ERROR) {
-            throw new RuntimeException("GLError 0x" + Integer.toHexString(error));
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // Create our surface view and set it as the content of our
-        // Activity
-        mGLSurfaceView = new GLSurfaceView(this);
-        mGLSurfaceView.setRenderer(new Renderer());
-        setContentView(mGLSurfaceView);
-    }
-
-    @Override
-    protected void onResume() {
-        // Ideally a game should implement onResume() and onPause()
-        // to take appropriate action when the activity looses focus
-        super.onResume();
-        mGLSurfaceView.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        // Ideally a game should implement onResume() and onPause()
-        // to take appropriate action when the activity looses focus
-        super.onPause();
-        mGLSurfaceView.onPause();
     }
 }

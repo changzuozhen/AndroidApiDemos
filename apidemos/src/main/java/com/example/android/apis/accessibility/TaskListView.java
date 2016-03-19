@@ -16,8 +16,6 @@
 
 package com.example.android.apis.accessibility;
 
-import com.example.android.apis.R;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -28,6 +26,8 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 
 /** Acts as a go-between for all AccessibilityEvents sent from items in the ListView, providing the

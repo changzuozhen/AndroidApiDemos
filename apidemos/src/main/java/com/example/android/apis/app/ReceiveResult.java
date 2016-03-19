@@ -18,16 +18,17 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.text.Editable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 /**
  * Shows how an activity can send data to its launching activity when done.y.
@@ -69,6 +70,18 @@ App/Activity/Receive Result
 
  */
 public class ReceiveResult extends Activity {
+    // Definition of the one requestCode we use for receiving resuls.
+    static final private int GET_CODE = 0;
+    private OnClickListener mGetListener = new OnClickListener() {
+        public void onClick(View v) {
+            // Start the activity whose result we want to retrieve.  The
+            // result will come back with request code GET_CODE.
+            Intent intent = new Intent(ReceiveResult.this, SendResult.class);
+            startActivityForResult(intent, GET_CODE);
+        }
+    };
+    private TextView mResults;
+
     /**
      * Initialization of the Activity after it is first created.  Must at least
      * call {@link android.app.Activity#setContentView setContentView()} to
@@ -98,7 +111,7 @@ public class ReceiveResult extends Activity {
     /**
      * This method is called when the sending activity has finished, with the
      * result it supplied.
-     * 
+     *
      * @param requestCode The original request code as given to
      *                    startActivity().
      * @param resultCode From sending activity as per setResult().
@@ -135,19 +148,5 @@ public class ReceiveResult extends Activity {
             text.append("\n");
         }
     }
-
-    // Definition of the one requestCode we use for receiving resuls.
-    static final private int GET_CODE = 0;
-
-    private OnClickListener mGetListener = new OnClickListener() {
-        public void onClick(View v) {
-            // Start the activity whose result we want to retrieve.  The
-            // result will come back with request code GET_CODE.
-            Intent intent = new Intent(ReceiveResult.this, SendResult.class);
-            startActivityForResult(intent, GET_CODE);
-        }
-    };
-
-    private TextView mResults;
 }
 

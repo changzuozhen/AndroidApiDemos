@@ -16,14 +16,14 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SearchRecentSuggestions;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 public class SearchQueryResults extends Activity
 {  

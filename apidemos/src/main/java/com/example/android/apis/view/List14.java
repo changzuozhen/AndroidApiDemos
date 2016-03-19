@@ -18,15 +18,16 @@ package com.example.android.apis.view;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.TextView;
 import android.widget.ImageView;
-import android.graphics.BitmapFactory;
-import android.graphics.Bitmap;
+import android.widget.TextView;
+
 import com.example.android.apis.R;
 
 /**
@@ -42,6 +43,14 @@ import com.example.android.apis.R;
  * avoiding calls to findViewById() every time getView() is invoked.
  */
 public class List14 extends ListActivity {
+
+    private static final String[] DATA = Cheeses.sCheeseStrings;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setListAdapter(new EfficientAdapter(this));
+    }
 
     private static class EfficientAdapter extends BaseAdapter {
         private LayoutInflater mInflater;
@@ -130,12 +139,4 @@ public class List14 extends ListActivity {
             ImageView icon;
         }
     }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setListAdapter(new EfficientAdapter(this));
-    }
-
-    private static final String[] DATA = Cheeses.sCheeseStrings;
 }

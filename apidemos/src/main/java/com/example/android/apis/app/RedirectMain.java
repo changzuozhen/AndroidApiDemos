@@ -16,8 +16,6 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -27,12 +25,30 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.android.apis.R;
+
 /**
  * Entry into our redirection example, describing what will happen.
  */
 public class RedirectMain extends Activity {
     static final int INIT_TEXT_REQUEST = 0;
     static final int NEW_TEXT_REQUEST = 1;
+    private OnClickListener mClearListener = new OnClickListener() {
+        public void onClick(View v) {
+            // Erase the preferences and exit!
+            SharedPreferences preferences = getSharedPreferences("RedirectData", 0);
+            preferences.edit().remove("text").commit();
+            finish();
+        }
+    };
+    private OnClickListener mNewListener = new OnClickListener() {
+        public void onClick(View v) {
+            // Retrieve new text preferences.
+            Intent intent = new Intent(RedirectMain.this, RedirectGetter.class);
+            startActivityForResult(intent, NEW_TEXT_REQUEST);
+        }
+    };
+    private String mTextPref;
 
     @Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,23 +116,4 @@ public class RedirectMain extends Activity {
 
         return false;
     }
-
-    private OnClickListener mClearListener = new OnClickListener() {
-        public void onClick(View v) {
-            // Erase the preferences and exit!
-            SharedPreferences preferences = getSharedPreferences("RedirectData", 0);
-            preferences.edit().remove("text").commit();
-            finish();
-        }
-    };
-
-    private OnClickListener mNewListener = new OnClickListener() {
-        public void onClick(View v) {
-            // Retrieve new text preferences.
-            Intent intent = new Intent(RedirectMain.this, RedirectGetter.class);
-            startActivityForResult(intent, NEW_TEXT_REQUEST);
-        }
-    };
-
-    private String mTextPref;
 }

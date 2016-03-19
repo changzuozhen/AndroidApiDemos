@@ -40,13 +40,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+
+import com.tencent.commontools.LogUtils;
 
 import java.util.HashMap;
 
@@ -56,45 +57,50 @@ import java.util.HashMap;
  * the number of queries done when its data changes.
  */
 public class LoaderThrottle extends Activity {
-    // Debugging.
-    static final String TAG = "LoaderThrottle";
-
     /**
      * The authority we use to get to our sample provider.
      */
     public static final String AUTHORITY = "com.example.android.apis.app.LoaderThrottle";
+    // Debugging.
+    static final String TAG = "LoaderThrottle";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        FragmentManager fm = getFragmentManager();
+
+        // Create the list fragment and add it as our sole content.
+        if (fm.findFragmentById(android.R.id.content) == null) {
+            ThrottledLoaderListFragment list = new ThrottledLoaderListFragment();
+            fm.beginTransaction().add(android.R.id.content, list).commit();
+        }
+    }
 
     /**
      * Definition of the contract for the main table of our provider.
      */
     public static final class MainTable implements BaseColumns {
 
-        // This class cannot be instantiated
-        private MainTable() {}
-
         /**
          * The table name offered by this provider
          */
         public static final String TABLE_NAME = "main";
-
         /**
          * The content:// style URL for this table
          */
         public static final Uri CONTENT_URI =  Uri.parse("content://" + AUTHORITY + "/main");
-
         /**
          * The content URI base for a single row of data. Callers must
          * append a numeric row id to this Uri to retrieve a row
          */
         public static final Uri CONTENT_ID_URI_BASE
                 = Uri.parse("content://" + AUTHORITY + "/main/");
-
         /**
          * The MIME type of {@link #CONTENT_URI}.
          */
         public static final String CONTENT_TYPE
                 = "vnd.android.cursor.dir/vnd.example.api-demos-throttle";
-
         /**
          * The MIME type of a {@link #CONTENT_URI} sub-directory of a single row.
          */
@@ -104,12 +110,15 @@ public class LoaderThrottle extends Activity {
          * The default sort order for this table
          */
         public static final String DEFAULT_SORT_ORDER = "data COLLATE LOCALIZED ASC";
-
         /**
          * Column name for the single column holding our data.
          * <P>Type: TEXT</P>
          */
         public static final String COLUMN_NAME_DATA = "data";
+
+        // This class cannot be instantiated
+        private MainTable() {
+        }
     }
 
     /**
@@ -150,7 +159,7 @@ public class LoaderThrottle extends Activity {
        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
            // Logs that the database is being upgraded
-           Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+           LogUtils.w(TAG, "Upgrading database from version " + oldVersion + " to "
                    + newVersion + ", which will destroy all old data");
 
            // Kills the table and existing data
@@ -165,16 +174,14 @@ public class LoaderThrottle extends Activity {
      * A very simple implementation of a content provider.
      */
     public static class SimpleProvider extends ContentProvider {
-        // A projection map used to select columns from the database
-        private final HashMap<String, String> mNotesProjectionMap;
-        // Uri matcher to decode incoming URIs.
-        private final UriMatcher mUriMatcher;
-
         // The incoming URI matches the main table URI pattern
         private static final int MAIN = 1;
         // The incoming URI matches the main table row ID URI pattern
         private static final int MAIN_ID = 2;
-
+        // A projection map used to select columns from the database
+        private final HashMap<String, String> mNotesProjectionMap;
+        // Uri matcher to decode incoming URIs.
+        private final UriMatcher mUriMatcher;
         // Handle to a new DatabaseHelper.
         private DatabaseHelper mOpenHelper;
 
@@ -367,32 +374,21 @@ public class LoaderThrottle extends Activity {
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        FragmentManager fm = getFragmentManager();
-
-        // Create the list fragment and add it as our sole content.
-        if (fm.findFragmentById(android.R.id.content) == null) {
-            ThrottledLoaderListFragment list = new ThrottledLoaderListFragment();
-            fm.beginTransaction().add(android.R.id.content, list).commit();
-        }
-    }
-
     public static class ThrottledLoaderListFragment extends ListFragment
             implements LoaderManager.LoaderCallbacks<Cursor> {
 
         // Menu identifiers
         static final int POPULATE_ID = Menu.FIRST;
         static final int CLEAR_ID = Menu.FIRST+1;
-
+        // These are the rows that we will retrieve.
+        static final String[] PROJECTION = new String[]{
+                MainTable._ID,
+                MainTable.COLUMN_NAME_DATA,
+        };
         // This is the Adapter being used to display the list's data.
         SimpleCursorAdapter mAdapter;
-
         // If non-null, this is the current filter the user has provided.
         String mCurFilter;
-
         // Task we have running to populate the database.
         AsyncTask<Void, Void, Void> mPopulatingTask;
 
@@ -477,14 +473,8 @@ public class LoaderThrottle extends Activity {
 
         @Override public void onListItemClick(ListView l, View v, int position, long id) {
             // Insert desired behavior here.
-            Log.i(TAG, "Item clicked: " + id);
+            LogUtils.i(TAG, "Item clicked: " + id);
         }
-
-        // These are the rows that we will retrieve.
-        static final String[] PROJECTION = new String[] {
-            MainTable._ID,
-            MainTable.COLUMN_NAME_DATA,
-        };
 
         public Loader<Cursor> onCreateLoader(int id, Bundle args) {
             CursorLoader cl = new CursorLoader(getActivity(), MainTable.CONTENT_URI,

@@ -1,8 +1,5 @@
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-import com.example.android.apis.app.LocalServiceActivities.Binding;
-
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -20,6 +17,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.apis.R;
+
 public class MessengerServiceActivities {
     /**
      * Example of binding and unbinding to the remote service.
@@ -31,34 +30,16 @@ public class MessengerServiceActivities {
      */
     public static class Binding extends Activity {
 
+        /**
+         * Target we publish for clients to send messages to IncomingHandler.
+         */
+        final Messenger mMessenger = new Messenger(new IncomingHandler());
         /** Messenger for communicating with service. */
         Messenger mService = null;
         /** Flag indicating whether we have called bind on the service. */
         boolean mIsBound;
         /** Some text view we are using to show state information. */
         TextView mCallbackText;
-        
-        /**
-         * Handler of incoming messages from service.
-         */
-        class IncomingHandler extends Handler {
-            @Override
-            public void handleMessage(Message msg) {
-                switch (msg.what) {
-                    case MessengerService.MSG_SET_VALUE:
-                        mCallbackText.setText("Received from service: " + msg.arg1);
-                        break;
-                    default:
-                        super.handleMessage(msg);
-                }
-            }
-        }
-        
-        /**
-         * Target we publish for clients to send messages to IncomingHandler.
-         */
-        final Messenger mMessenger = new Messenger(new IncomingHandler());
-        
         /**
          * Class for interacting with the main interface of the service.
          */
@@ -80,7 +61,7 @@ public class MessengerServiceActivities {
                             MessengerService.MSG_REGISTER_CLIENT);
                     msg.replyTo = mMessenger;
                     mService.send(msg);
-                    
+
                     // Give it some value as an example.
                     msg = Message.obtain(null,
                             MessengerService.MSG_SET_VALUE, this.hashCode(), 0);
@@ -91,7 +72,7 @@ public class MessengerServiceActivities {
                     // disconnected (and then reconnected if it can be restarted)
                     // so there is no need to do anything here.
                 }
-                
+
                 // As part of the sample, tell the user what happened.
                 Toast.makeText(Binding.this, R.string.remote_service_connected,
                         Toast.LENGTH_SHORT).show();
@@ -108,17 +89,27 @@ public class MessengerServiceActivities {
                         Toast.LENGTH_SHORT).show();
             }
         };
+        private OnClickListener mBindListener = new OnClickListener() {
+            public void onClick(View v) {
+                doBindService();
+            }
+        };
+        private OnClickListener mUnbindListener = new OnClickListener() {
+            public void onClick(View v) {
+                doUnbindService();
+            }
+        };
         
         void doBindService() {
             // Establish a connection with the service.  We use an explicit
             // class name because there is no reason to be able to let other
             // applications replace our component.
-            bindService(new Intent(Binding.this, 
+            bindService(new Intent(Binding.this,
                     MessengerService.class), mConnection, Context.BIND_AUTO_CREATE);
             mIsBound = true;
             mCallbackText.setText("Binding.");
         }
-        
+
         void doUnbindService() {
             if (mIsBound) {
                 // If we have received the service, and hence registered with
@@ -134,7 +125,7 @@ public class MessengerServiceActivities {
                         // has crashed.
                     }
                 }
-                
+
                 // Detach our existing connection.
                 unbindService(mConnection);
                 mIsBound = false;
@@ -142,7 +133,6 @@ public class MessengerServiceActivities {
             }
         }
 
-        
         /**
          * Standard initialization of this activity.  Set up the UI, then wait
          * for the user to poke it before doing anything.
@@ -158,21 +148,25 @@ public class MessengerServiceActivities {
             button.setOnClickListener(mBindListener);
             button = (Button)findViewById(R.id.unbind);
             button.setOnClickListener(mUnbindListener);
-            
+
             mCallbackText = (TextView)findViewById(R.id.callback);
             mCallbackText.setText("Not attached.");
         }
 
-        private OnClickListener mBindListener = new OnClickListener() {
-            public void onClick(View v) {
-                doBindService();
+        /**
+         * Handler of incoming messages from service.
+         */
+        class IncomingHandler extends Handler {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case MessengerService.MSG_SET_VALUE:
+                        mCallbackText.setText("Received from service: " + msg.arg1);
+                        break;
+                    default:
+                        super.handleMessage(msg);
+                }
             }
-        };
-
-        private OnClickListener mUnbindListener = new OnClickListener() {
-            public void onClick(View v) {
-                doUnbindService();
-            }
-        };
+        }
     }
 }

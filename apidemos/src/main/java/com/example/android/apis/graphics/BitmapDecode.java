@@ -16,16 +16,20 @@
 
 package com.example.android.apis.graphics;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Movie;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.View;
+
 import com.example.android.apis.R;
 
-import android.content.Context;
-import android.graphics.*;
-import android.graphics.drawable.*;
-import android.os.Bundle;
-import android.view.*;
-
-import java.io.InputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 
 public class BitmapDecode extends GraphicsActivity {
 
@@ -36,30 +40,15 @@ public class BitmapDecode extends GraphicsActivity {
     }
 
     private static class SampleView extends View {
+        //Set to false to use decodeByteArray
+        private static final boolean DECODE_STREAM = true;
         private Bitmap mBitmap;
         private Bitmap mBitmap2;
         private Bitmap mBitmap3;
         private Bitmap mBitmap4;
         private Drawable mDrawable;
-
         private Movie mMovie;
         private long mMovieStart;
-
-        //Set to false to use decodeByteArray
-        private static final boolean DECODE_STREAM = true;
-
-        private static byte[] streamToBytes(InputStream is) {
-            ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
-            byte[] buffer = new byte[1024];
-            int len;
-            try {
-                while ((len = is.read(buffer)) >= 0) {
-                    os.write(buffer, 0, len);
-                }
-            } catch (java.io.IOException e) {
-            }
-            return os.toByteArray();
-        }
 
         public SampleView(Context context) {
             super(context);
@@ -108,6 +97,19 @@ public class BitmapDecode extends GraphicsActivity {
                 byte[] array = streamToBytes(is);
                 mMovie = Movie.decodeByteArray(array, 0, array.length);
             }
+        }
+
+        private static byte[] streamToBytes(InputStream is) {
+            ByteArrayOutputStream os = new ByteArrayOutputStream(1024);
+            byte[] buffer = new byte[1024];
+            int len;
+            try {
+                while ((len = is.read(buffer)) >= 0) {
+                    os.write(buffer, 0, len);
+                }
+            } catch (java.io.IOException e) {
+            }
+            return os.toByteArray();
         }
 
         @Override

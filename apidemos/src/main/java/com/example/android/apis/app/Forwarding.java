@@ -18,7 +18,6 @@ package com.example.android.apis.app;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -26,6 +25,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+
+import com.example.android.apis.R;
 
 
 /**
@@ -56,18 +57,6 @@ App/Activity/Receive Result
  */
 public class Forwarding extends Activity
 {
-    @Override
-	protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.forwarding);
-
-        // Watch for button clicks.
-        Button goButton = (Button)findViewById(R.id.go);
-        goButton.setOnClickListener(mGoListener);
-    }
-
     private OnClickListener mGoListener = new OnClickListener()
     {
         public void onClick(View v)
@@ -81,5 +70,16 @@ public class Forwarding extends Activity
             finish();
         }
     };
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.forwarding);
+
+        // Watch for button clicks.
+        Button goButton = (Button) findViewById(R.id.go);
+        goButton.setOnClickListener(mGoListener);
+    }
 }
 

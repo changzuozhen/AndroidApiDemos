@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.TextView;
+
 import com.example.android.apis.R;
 
 /**
@@ -51,6 +52,23 @@ public class MorseCode extends Activity
 {
     /** Our text view */
     private TextView mTextView;
+    /**
+     * Called when the button is pushed
+     */
+    View.OnClickListener mClickListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            // Get the text out of the view
+            String text = mTextView.getText().toString();
+
+            // convert it using the function defined above.  See the docs for
+            // android.os.Vibrator for more info about the format of this array
+            long[] pattern = MorseCodeConverter.pattern(text);
+
+            // Start the vibration
+            Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(pattern, -1);
+        }
+    };
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
@@ -74,20 +92,4 @@ public class MorseCode extends Activity
         // Save the text view so we don't have to look it up each time
         mTextView = (TextView)findViewById(R.id.text);
     }
-
-    /** Called when the button is pushed */
-    View.OnClickListener mClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            // Get the text out of the view
-            String text = mTextView.getText().toString();
-
-            // convert it using the function defined above.  See the docs for
-            // android.os.Vibrator for more info about the format of this array
-            long[] pattern = MorseCodeConverter.pattern(text);
-
-            // Start the vibration
-            Vibrator vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(pattern, -1);
-        }
-    };
 }

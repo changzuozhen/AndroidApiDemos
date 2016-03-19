@@ -29,11 +29,11 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.android.apis.DensityUtil;
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.io.InputStream;
 
@@ -131,7 +131,7 @@ public class AlphaBitmap extends GraphicsActivity {
             canvas.save();
 
             float px = DensityUtil.dip2px(getContext(), 1);
-            Log.i(TAG, "1 dip2px: " + px);
+            LogUtils.i(TAG, "1 dip2px: " + px);
             canvas.scale(px, px);
 
             canvas.drawText("画圆：", 10, 20, p);// 画文本

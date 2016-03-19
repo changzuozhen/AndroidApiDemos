@@ -16,16 +16,16 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
-import android.widget.TableLayout;
-import android.widget.Button;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+
+import com.example.android.apis.R;
 
 
 public class TableLayout8 extends Activity {

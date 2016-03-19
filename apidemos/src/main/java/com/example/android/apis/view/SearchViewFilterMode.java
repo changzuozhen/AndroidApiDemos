@@ -16,8 +16,6 @@
 
 package com.example.android.apis.view;
 
-import com.example.android.apis.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,6 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
+import com.example.android.apis.R;
+
 
 /**
  * Shows a list that can be filtered in-place with a SearchView in non-iconified mode.
@@ -33,12 +33,10 @@ import android.widget.SearchView;
 public class SearchViewFilterMode extends Activity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "SearchViewFilterMode";
-
+    private final String[] mStrings = Cheeses.sCheeseStrings;
     private SearchView mSearchView;
     private ListView mListView;
     private ArrayAdapter<String> mAdapter;
-
-    private final String[] mStrings = Cheeses.sCheeseStrings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

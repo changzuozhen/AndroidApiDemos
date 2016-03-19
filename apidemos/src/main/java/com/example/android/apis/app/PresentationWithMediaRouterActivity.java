@@ -16,9 +16,7 @@
 
 package com.example.android.apis.app;
 
-import com.example.android.apis.R;
-import com.example.android.apis.graphics.CubeRenderer;
-
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.MediaRouteActionProvider;
 import android.app.Presentation;
@@ -28,14 +26,18 @@ import android.content.res.Resources;
 import android.media.MediaRouter;
 import android.media.MediaRouter.RouteInfo;
 import android.opengl.GLSurfaceView;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.example.android.apis.R;
+import com.example.android.apis.graphics.CubeRenderer;
+import com.tencent.commontools.LogUtils;
 
 
 /**
@@ -64,6 +66,7 @@ import android.widget.TextView;
  * simultaneous presentations on different displays.
  * </p>
  */
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class PresentationWithMediaRouterActivity extends Activity {
     private final String TAG = "PresentationWithMediaRouterActivity";
 
@@ -72,6 +75,40 @@ public class PresentationWithMediaRouterActivity extends Activity {
     private GLSurfaceView mSurfaceView;
     private TextView mInfoTextView;
     private boolean mPaused;
+    /**
+     * Listens for when presentations are dismissed.
+     */
+    private final DialogInterface.OnDismissListener mOnDismissListener =
+            new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    if (dialog == mPresentation) {
+                        LogUtils.i(TAG, "Presentation was dismissed.");
+                        mPresentation = null;
+                        updateContents();
+                    }
+                }
+            };
+    private final MediaRouter.SimpleCallback mMediaRouterCallback =
+            new MediaRouter.SimpleCallback() {
+                @Override
+                public void onRouteSelected(MediaRouter router, int type, RouteInfo info) {
+                    LogUtils.d(TAG, "onRouteSelected: type=" + type + ", info=" + info);
+                    updatePresentation();
+                }
+
+                @Override
+                public void onRouteUnselected(MediaRouter router, int type, RouteInfo info) {
+                    LogUtils.d(TAG, "onRouteUnselected: type=" + type + ", info=" + info);
+                    updatePresentation();
+                }
+
+                @Override
+                public void onRoutePresentationDisplayChanged(MediaRouter router, RouteInfo info) {
+                    LogUtils.d(TAG, "onRoutePresentationDisplayChanged: info=" + info);
+                    updatePresentation();
+                }
+            };
 
     /**
      * Initialization of the Activity after it is first created.  Must at least
@@ -132,7 +169,7 @@ public class PresentationWithMediaRouterActivity extends Activity {
 
         // Dismiss the presentation when the activity is not visible.
         if (mPresentation != null) {
-            Log.i(TAG, "Dismissing presentation because the activity is no longer visible.");
+            LogUtils.i(TAG, "Dismissing presentation because the activity is no longer visible.");
             mPresentation.dismiss();
             mPresentation = null;
         }
@@ -155,6 +192,7 @@ public class PresentationWithMediaRouterActivity extends Activity {
         return true;
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void updatePresentation() {
         // Get the current route and its presentation display.
         MediaRouter.RouteInfo route = mMediaRouter.getSelectedRoute(
@@ -163,7 +201,7 @@ public class PresentationWithMediaRouterActivity extends Activity {
 
         // Dismiss the current presentation if the display has changed.
         if (mPresentation != null && mPresentation.getDisplay() != presentationDisplay) {
-            Log.i(TAG, "Dismissing presentation because the current route no longer "
+            LogUtils.i(TAG, "Dismissing presentation because the current route no longer "
                     + "has a presentation display.");
             mPresentation.dismiss();
             mPresentation = null;
@@ -171,13 +209,13 @@ public class PresentationWithMediaRouterActivity extends Activity {
 
         // Show a new presentation if needed.
         if (mPresentation == null && presentationDisplay != null) {
-            Log.i(TAG, "Showing presentation on display: " + presentationDisplay);
+            LogUtils.i(TAG, "Showing presentation on display: " + presentationDisplay);
             mPresentation = new DemoPresentation(this, presentationDisplay);
             mPresentation.setOnDismissListener(mOnDismissListener);
             try {
                 mPresentation.show();
             } catch (WindowManager.InvalidDisplayException ex) {
-                Log.w(TAG, "Couldn't show presentation!  Display was removed in "
+                LogUtils.w(TAG, "Couldn't show presentation!  Display was removed in "
                         + "the meantime.", ex);
                 mPresentation = null;
             }
@@ -213,42 +251,6 @@ public class PresentationWithMediaRouterActivity extends Activity {
             }
         }
     }
-
-    private final MediaRouter.SimpleCallback mMediaRouterCallback =
-            new MediaRouter.SimpleCallback() {
-        @Override
-        public void onRouteSelected(MediaRouter router, int type, RouteInfo info) {
-            Log.d(TAG, "onRouteSelected: type=" + type + ", info=" + info);
-            updatePresentation();
-        }
-
-        @Override
-        public void onRouteUnselected(MediaRouter router, int type, RouteInfo info) {
-            Log.d(TAG, "onRouteUnselected: type=" + type + ", info=" + info);
-            updatePresentation();
-        }
-
-        @Override
-        public void onRoutePresentationDisplayChanged(MediaRouter router, RouteInfo info) {
-            Log.d(TAG, "onRoutePresentationDisplayChanged: info=" + info);
-            updatePresentation();
-        }
-    };
-
-    /**
-     * Listens for when presentations are dismissed.
-     */
-    private final DialogInterface.OnDismissListener mOnDismissListener =
-            new DialogInterface.OnDismissListener() {
-        @Override
-        public void onDismiss(DialogInterface dialog) {
-            if (dialog == mPresentation) {
-                Log.i(TAG, "Presentation was dismissed.");
-                mPresentation = null;
-                updateContents();
-            }
-        }
-    };
 
     /**
      * The presentation to show on the secondary display.

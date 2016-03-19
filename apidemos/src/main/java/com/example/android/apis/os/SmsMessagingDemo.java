@@ -16,8 +16,6 @@
 
 package com.example.android.apis.os;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -30,26 +28,26 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
+import java.util.List;
 
 public class SmsMessagingDemo extends Activity {
+    public static final String SMS_RECIPIENT_EXTRA = "com.example.android.apis.os.SMS_RECIPIENT";
+    public static final String ACTION_SMS_SENT = "com.example.android.apis.os.SMS_SENT_ACTION";
     /** Tag string for our debug logs */
     private static final String TAG = "SmsMessagingDemo";
-
-    public static final String SMS_RECIPIENT_EXTRA = "com.example.android.apis.os.SMS_RECIPIENT";
-
-    public static final String ACTION_SMS_SENT = "com.example.android.apis.os.SMS_SENT_ACTION";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +74,7 @@ public class SmsMessagingDemo extends Activity {
 
         enableCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                Log.d(TAG, (isChecked ? "Enabling" : "Disabling") + " SMS receiver");
+                LogUtils.d(TAG, (isChecked ? "Enabling" : "Disabling") + " SMS receiver");
 
                 pm.setComponentEnabledSetting(componentName,
                         isChecked ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED

@@ -19,8 +19,8 @@ package com.example.android.apis.graphics.spritetext;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.Paint.Style;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.opengl.GLUtils;
 
@@ -48,6 +48,24 @@ import javax.microedition.khronos.opengles.GL11Ext;
  *
  */
 public class LabelMaker {
+    private static final int STATE_NEW = 0;
+    private static final int STATE_INITIALIZED = 1;
+    private static final int STATE_ADDING = 2;
+    private static final int STATE_DRAWING = 3;
+    private int mStrikeWidth;
+    private int mStrikeHeight;
+    private boolean mFullColor;
+    private Bitmap mBitmap;
+    private Canvas mCanvas;
+    private Paint mClearPaint;
+    private int mTextureID;
+    private float mTexelWidth;  // Convert texel to U
+    private float mTexelHeight; // Convert texel to V
+    private int mU;
+    private int mV;
+    private int mLineHeight;
+    private ArrayList<Label> mLabels = new ArrayList<Label>();
+    private int mState;
     /**
      * Create a label maker
      * or maximum compatibility with various OpenGL ES implementations,
@@ -368,6 +386,10 @@ public class LabelMaker {
     }
 
     private static class Label {
+        public float width;
+        public float height;
+        public float baseline;
+        public int[] mCrop;
         public Label(float width, float height, float baseLine,
                 int cropU, int cropV, int cropW, int cropH) {
             this.width = width;
@@ -380,32 +402,5 @@ public class LabelMaker {
             crop[3] = cropH;
             mCrop = crop;
         }
-
-        public float width;
-        public float height;
-        public float baseline;
-        public int[] mCrop;
     }
-
-    private int mStrikeWidth;
-    private int mStrikeHeight;
-    private boolean mFullColor;
-    private Bitmap mBitmap;
-    private Canvas mCanvas;
-    private Paint mClearPaint;
-
-    private int mTextureID;
-
-    private float mTexelWidth;  // Convert texel to U
-    private float mTexelHeight; // Convert texel to V
-    private int mU;
-    private int mV;
-    private int mLineHeight;
-    private ArrayList<Label> mLabels = new ArrayList<Label>();
-
-    private static final int STATE_NEW = 0;
-    private static final int STATE_INITIALIZED = 1;
-    private static final int STATE_ADDING = 2;
-    private static final int STATE_DRAWING = 3;
-    private int mState;
 }

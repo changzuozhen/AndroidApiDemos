@@ -26,7 +26,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -40,30 +39,23 @@ import android.view.WindowManager;
  * fragments.
  */
 public class DisplayActivity extends FragmentActivity implements OnBackStackChangedListener {
-    
-    // A handle to the main screen view
-    View mMainView;
-    
-    // An instance of the status broadcast receiver
-    DownloadStateReceiver mDownloadStateReceiver;
-    
-    // Tracks whether Fragments are displaying side-by-side
-    boolean mSideBySide;
-    
-    // Tracks whether navigation should be hidden
-    boolean mHideNavigation;
-    
-    // Tracks whether the app is in full-screen mode
-    boolean mFullScreen;
-    
-    // Tracks the number of Fragments on the back stack
-    int mPreviousStackCount;
-    
-    // Instantiates a new broadcast receiver for handling Fragment state
-    private FragmentDisplayer mFragmentDisplayer = new FragmentDisplayer();
-    
+
     // Sets a tag to use in logging
     private static final String CLASS_TAG = "DisplayActivity";
+    // A handle to the main screen view
+    View mMainView;
+    // An instance of the status broadcast receiver
+    DownloadStateReceiver mDownloadStateReceiver;
+    // Tracks whether Fragments are displaying side-by-side
+    boolean mSideBySide;
+    // Tracks whether navigation should be hidden
+    boolean mHideNavigation;
+    // Tracks whether the app is in full-screen mode
+    boolean mFullScreen;
+    // Tracks the number of Fragments on the back stack
+    int mPreviousStackCount;
+    // Instantiates a new broadcast receiver for handling Fragment state
+    private FragmentDisplayer mFragmentDisplayer = new FragmentDisplayer();
 
     /**
      * Sets full screen mode on the device, by setting parameters in the current
@@ -129,7 +121,7 @@ public class DisplayActivity extends FragmentActivity implements OnBackStackChan
          * probably because the user clicked Back.
          */
         boolean popping = currentStackCount < previousStackCount;
-        Log.d(CLASS_TAG, "backstackchanged: popping = " + popping);
+        LogUtils.d(CLASS_TAG, "backstackchanged: popping = " + popping);
         
         // When going backwards in the back stack, turns off full screen mode.
         if (popping) {
@@ -327,37 +319,37 @@ public class DisplayActivity extends FragmentActivity implements OnBackStackChan
                 // Logs "started" state
                 case Constants.STATE_ACTION_STARTED:
                     if (Constants.LOGD) {
-                        
-                        Log.d(CLASS_TAG, "State: STARTED");
+
+                        LogUtils.d(CLASS_TAG, "State: STARTED");
                     }
                     break;
                 // Logs "connecting to network" state
                 case Constants.STATE_ACTION_CONNECTING:
                     if (Constants.LOGD) {
-                        
-                        Log.d(CLASS_TAG, "State: CONNECTING");
+
+                        LogUtils.d(CLASS_TAG, "State: CONNECTING");
                     }
                     break;
                  // Logs "parsing the RSS feed" state
                  case Constants.STATE_ACTION_PARSING:
                     if (Constants.LOGD) {
-                        
-                        Log.d(CLASS_TAG, "State: PARSING");
+
+                        LogUtils.d(CLASS_TAG, "State: PARSING");
                     }
                     break;
                 // Logs "Writing the parsed data to the content provider" state
                 case Constants.STATE_ACTION_WRITING:
                     if (Constants.LOGD) {
-                        
-                        Log.d(CLASS_TAG, "State: WRITING");
+
+                        LogUtils.d(CLASS_TAG, "State: WRITING");
                     }
                     break;
                 // Starts displaying data when the RSS download is complete
                 case Constants.STATE_ACTION_COMPLETE:
                     // Logs the status
                     if (Constants.LOGD) {
-                        
-                        Log.d(CLASS_TAG, "State: COMPLETE");
+
+                        LogUtils.d(CLASS_TAG, "State: COMPLETE");
                     }
 
                     // Finds the fragment that displays thumbnails

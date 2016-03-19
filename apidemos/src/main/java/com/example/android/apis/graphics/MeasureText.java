@@ -17,17 +17,15 @@
 package com.example.android.apis.graphics;
 
 import android.content.Context;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.*;
+import android.view.View;
 
 public class MeasureText extends GraphicsActivity {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(new SampleView(this));
-    }
 
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
@@ -45,6 +43,12 @@ public class MeasureText extends GraphicsActivity {
             }
         }
         return colors;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(new SampleView(this));
     }
 
     private static class SampleView extends View {

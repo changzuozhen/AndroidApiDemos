@@ -18,12 +18,13 @@ package com.example.android.apis.view;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
-import com.example.android.apis.R;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.SeekBar;
+
+import com.example.android.apis.R;
 
 /**
  * This application demonstrates the ability to transform views in 2D and 3D, scaling them,

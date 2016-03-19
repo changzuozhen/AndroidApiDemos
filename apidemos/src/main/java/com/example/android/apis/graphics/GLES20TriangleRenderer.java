@@ -16,6 +16,18 @@
 
 package com.example.android.apis.graphics;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.opengl.GLES20;
+import android.opengl.GLSurfaceView;
+import android.opengl.GLUtils;
+import android.opengl.Matrix;
+import android.os.SystemClock;
+
+import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -25,19 +37,45 @@ import java.nio.FloatBuffer;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
-import android.opengl.GLUtils;
-import android.opengl.Matrix;
-import android.os.SystemClock;
-import android.util.Log;
-
-import com.example.android.apis.R;
-
 class GLES20TriangleRenderer implements GLSurfaceView.Renderer {
+
+    private static final int FLOAT_SIZE_BYTES = 4;
+    private static final int TRIANGLE_VERTICES_DATA_STRIDE_BYTES = 5 * FLOAT_SIZE_BYTES;
+    private static final int TRIANGLE_VERTICES_DATA_POS_OFFSET = 0;
+    private static final int TRIANGLE_VERTICES_DATA_UV_OFFSET = 3;
+    private static String TAG = "GLES20TriangleRenderer";
+    private final float[] mTriangleVerticesData = {
+            // X, Y, Z, U, V
+            -1.0f, -0.5f, 0, -0.5f, 0.0f,
+            1.0f, -0.5f, 0, 1.5f, -0.0f,
+            0.0f, 1.11803399f, 0, 0.5f, 1.61803399f};
+    private final String mVertexShader =
+            "uniform mat4 uMVPMatrix;\n" +
+                    "attribute vec4 aPosition;\n" +
+                    "attribute vec2 aTextureCoord;\n" +
+                    "varying vec2 vTextureCoord;\n" +
+                    "void main() {\n" +
+                    "  gl_Position = uMVPMatrix * aPosition;\n" +
+                    "  vTextureCoord = aTextureCoord;\n" +
+                    "}\n";
+    private final String mFragmentShader =
+            "precision mediump float;\n" +
+                    "varying vec2 vTextureCoord;\n" +
+                    "uniform sampler2D sTexture;\n" +
+                    "void main() {\n" +
+                    "  gl_FragColor = texture2D(sTexture, vTextureCoord);\n" +
+                    "}\n";
+    private FloatBuffer mTriangleVertices;
+    private float[] mMVPMatrix = new float[16];
+    private float[] mProjMatrix = new float[16];
+    private float[] mMMatrix = new float[16];
+    private float[] mVMatrix = new float[16];
+    private int mProgram;
+    private int mTextureID;
+    private int muMVPMatrixHandle;
+    private int maPositionHandle;
+    private int maTextureHandle;
+    private Context mContext;
 
     public GLES20TriangleRenderer(Context context) {
         mContext = context;
@@ -162,8 +200,8 @@ class GLES20TriangleRenderer implements GLSurfaceView.Renderer {
             int[] compiled = new int[1];
             GLES20.glGetShaderiv(shader, GLES20.GL_COMPILE_STATUS, compiled, 0);
             if (compiled[0] == 0) {
-                Log.e(TAG, "Could not compile shader " + shaderType + ":");
-                Log.e(TAG, GLES20.glGetShaderInfoLog(shader));
+                LogUtils.e(TAG, "Could not compile shader " + shaderType + ":");
+                LogUtils.e(TAG, GLES20.glGetShaderInfoLog(shader));
                 GLES20.glDeleteShader(shader);
                 shader = 0;
             }
@@ -192,8 +230,8 @@ class GLES20TriangleRenderer implements GLSurfaceView.Renderer {
             int[] linkStatus = new int[1];
             GLES20.glGetProgramiv(program, GLES20.GL_LINK_STATUS, linkStatus, 0);
             if (linkStatus[0] != GLES20.GL_TRUE) {
-                Log.e(TAG, "Could not link program: ");
-                Log.e(TAG, GLES20.glGetProgramInfoLog(program));
+                LogUtils.e(TAG, "Could not link program: ");
+                LogUtils.e(TAG, GLES20.glGetProgramInfoLog(program));
                 GLES20.glDeleteProgram(program);
                 program = 0;
             }
@@ -204,52 +242,8 @@ class GLES20TriangleRenderer implements GLSurfaceView.Renderer {
     private void checkGlError(String op) {
         int error;
         while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
-            Log.e(TAG, op + ": glError " + error);
+            LogUtils.e(TAG, op + ": glError " + error);
             throw new RuntimeException(op + ": glError " + error);
         }
     }
-
-    private static final int FLOAT_SIZE_BYTES = 4;
-    private static final int TRIANGLE_VERTICES_DATA_STRIDE_BYTES = 5 * FLOAT_SIZE_BYTES;
-    private static final int TRIANGLE_VERTICES_DATA_POS_OFFSET = 0;
-    private static final int TRIANGLE_VERTICES_DATA_UV_OFFSET = 3;
-    private final float[] mTriangleVerticesData = {
-            // X, Y, Z, U, V
-            -1.0f, -0.5f, 0, -0.5f, 0.0f,
-            1.0f, -0.5f, 0, 1.5f, -0.0f,
-            0.0f,  1.11803399f, 0, 0.5f,  1.61803399f };
-
-    private FloatBuffer mTriangleVertices;
-
-    private final String mVertexShader =
-        "uniform mat4 uMVPMatrix;\n" +
-        "attribute vec4 aPosition;\n" +
-        "attribute vec2 aTextureCoord;\n" +
-        "varying vec2 vTextureCoord;\n" +
-        "void main() {\n" +
-        "  gl_Position = uMVPMatrix * aPosition;\n" +
-        "  vTextureCoord = aTextureCoord;\n" +
-        "}\n";
-
-    private final String mFragmentShader =
-        "precision mediump float;\n" +
-        "varying vec2 vTextureCoord;\n" +
-        "uniform sampler2D sTexture;\n" +
-        "void main() {\n" +
-        "  gl_FragColor = texture2D(sTexture, vTextureCoord);\n" +
-        "}\n";
-
-    private float[] mMVPMatrix = new float[16];
-    private float[] mProjMatrix = new float[16];
-    private float[] mMMatrix = new float[16];
-    private float[] mVMatrix = new float[16];
-
-    private int mProgram;
-    private int mTextureID;
-    private int muMVPMatrixHandle;
-    private int maPositionHandle;
-    private int maTextureHandle;
-
-    private Context mContext;
-    private static String TAG = "GLES20TriangleRenderer";
 }
