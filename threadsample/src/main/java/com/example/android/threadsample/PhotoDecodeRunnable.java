@@ -19,6 +19,8 @@ package com.example.android.threadsample;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.tencent.commontools.LogUtils;
+
 /**
  * This runnable decodes a byte array containing an image.
  *

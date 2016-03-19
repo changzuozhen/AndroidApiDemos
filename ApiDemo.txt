@@ -307,3 +307,4 @@ Views/TextClock
 Views/TextSwitcher
 Views/Visibility
 Views/WebView
+andytest/AndyTestActivity

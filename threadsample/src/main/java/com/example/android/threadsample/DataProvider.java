@@ -27,6 +27,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.SparseArray;
 
+import com.tencent.commontools.LogUtils;
+
 /**
  *
  * Defines a ContentProvider that stores URLs of Picasa featured pictures

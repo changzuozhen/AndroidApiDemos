@@ -1,7 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tencent.commontools">
 
-    <application android:allowBackup="true" android:label="@string/app_nameCommonTools"
+    <application
+        android:allowBackup="true"
+        android:label="@string/app_nameCommonTools"
         android:supportsRtl="true">
 
     </application>

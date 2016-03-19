@@ -29,6 +29,8 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.tencent.commontools.LogUtils;
+
 /**
  * This activity displays Picasa's current featured images. It uses a service running
  * a background thread to download Picasa's "featured image" RSS feed.
