@@ -3441,7 +3441,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".andytest.AndyTestActivity"
+            android:name=".AndyTest.AndyTestActivity"
             android:label="AndTest/AndyTestActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
