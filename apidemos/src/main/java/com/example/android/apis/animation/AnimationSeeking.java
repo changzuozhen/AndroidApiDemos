@@ -18,8 +18,8 @@ package com.example.android.apis.animation;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.
+
 import android.animation.Animator;
-import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
@@ -40,6 +40,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 
@@ -50,12 +51,16 @@ import java.util.ArrayList;
  */
 public class AnimationSeeking extends Activity {
 
-    private static final int DURATION = 1500;
+    private static final String TAG = "AnimationSeeking";
+    private static final int DURATION = 3000;
     private SeekBar mSeekBar;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        LogUtils.d(TAG, "onCreate() called with: " + "savedInstanceState = [" + savedInstanceState + "]");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.animation_seeking);
         LinearLayout container = (LinearLayout) findViewById(R.id.container);
@@ -79,9 +84,9 @@ public class AnimationSeeking extends Activity {
             }
 
             public void onProgressChanged(SeekBar seekBar, int progress,
-                    boolean fromUser) {
+                                          boolean fromUser) {
                 // prevent seeking on app creation
-                if (animView.getHeight() != 0) {
+                if (animView.getHeight() != 0 && fromUser) {
                     animView.seek(progress);
                 }
             }
@@ -96,49 +101,54 @@ public class AnimationSeeking extends Activity {
         private static final int CYAN = 0xff80ffff;
         private static final int GREEN = 0xff80ff80;
         private static final float BALL_SIZE = 100f;
-
+        private static final String TAG = "MyAnimationView";
         public final ArrayList<ShapeHolder> balls = new ArrayList<ShapeHolder>();
-        AnimatorSet animation = null;
-        ValueAnimator bounceAnim = null;
+        //        AnimatorSet animation = null;
+        ValueAnimator bounceValueAnimator = null;
         ShapeHolder ball = null;
 
         public MyAnimationView(Context context) {
             super(context);
+            LogUtils.d(TAG, "MyAnimationView() called with: " + "context = [" + context + "]");
             ball = addBall(200, 0);
         }
 
         private void createAnimation() {
-            if (bounceAnim == null) {
-                bounceAnim = ObjectAnimator.ofFloat(ball, "y",
-                        ball.getY(), getHeight() - BALL_SIZE).setDuration(1500);
-                bounceAnim.setInterpolator(new BounceInterpolator());
-                bounceAnim.addUpdateListener(this);
+            if (bounceValueAnimator == null) {
+                LogUtils.d(TAG, "createAnimation() called with: " + "");
+                bounceValueAnimator = ObjectAnimator.ofFloat(ball, "y",
+                        ball.getY(), getHeight() - BALL_SIZE).setDuration(DURATION);
+                bounceValueAnimator.setInterpolator(new BounceInterpolator());
+                bounceValueAnimator.addUpdateListener(this);
             }
         }
 
         public void startAnimation() {
+            LogUtils.d(TAG, "startAnimation() called with: " + "");
             createAnimation();
-            bounceAnim.start();
+            bounceValueAnimator.start();
         }
 
         public void seek(long seekTime) {
+            LogUtils.d(TAG, "seek() called with: " + "seekTime = [" + seekTime + "]");
             createAnimation();
-            bounceAnim.setCurrentPlayTime(seekTime);
+            bounceValueAnimator.setCurrentPlayTime(seekTime);
         }
 
         private ShapeHolder addBall(float x, float y) {
+            LogUtils.d(TAG, "addBall() called with: " + "x = [" + x + "], y = [" + y + "]");
             OvalShape circle = new OvalShape();
             circle.resize(BALL_SIZE, BALL_SIZE);
             ShapeDrawable drawable = new ShapeDrawable(circle);
             ShapeHolder shapeHolder = new ShapeHolder(drawable);
             shapeHolder.setX(x);
             shapeHolder.setY(y);
-            int red = (int)(100 + Math.random() * 155);
-            int green = (int)(100 + Math.random() * 155);
-            int blue = (int)(100 + Math.random() * 155);
+            int red = (int) (100 + Math.random() * 155);
+            int green = (int) (100 + Math.random() * 155);
+            int blue = (int) (100 + Math.random() * 155);
             int color = 0xff000000 | red << 16 | green << 8 | blue;
             Paint paint = drawable.getPaint();
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
+            int darkColor = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue / 4;
             RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
                     50f, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);
@@ -149,30 +159,36 @@ public class AnimationSeeking extends Activity {
 
         @Override
         protected void onDraw(Canvas canvas) {
+//            LogUtils.d(TAG, "onDraw() called with: " + "ball.getX() = [" + ball.getX() + "]" + "ball.getY() = [" + ball.getY() + "]");
             canvas.translate(ball.getX(), ball.getY());
             ball.getShape().draw(canvas);
         }
 
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public void onAnimationUpdate(ValueAnimator animation) {
-            invalidate();
-            long playtime = bounceAnim.getCurrentPlayTime();
+//            LogUtils.d(TAG, "onAnimationUpdate() called with: " + "animation getCurrentPlayTime = [" + animation.getCurrentPlayTime() + "]" + "ball.getX() = [" + ball.getX() + "]" + "ball.getY() = [" + ball.getY() + "]");
+            long playtime = bounceValueAnimator.getCurrentPlayTime();
             mSeekBar.setProgress((int) playtime);
+            invalidate();
         }
 
         public void onAnimationCancel(Animator animation) {
+            LogUtils.d(TAG, "onAnimationCancel() called with: " + "animation = [" + animation + "]");
         }
 
         @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public void onAnimationEnd(Animator animation) {
-            balls.remove(((ObjectAnimator)animation).getTarget());
+            LogUtils.d(TAG, "onAnimationEnd() called with: " + "animation = [" + animation + "]");
+            balls.remove(((ObjectAnimator) animation).getTarget());
 
         }
 
         public void onAnimationRepeat(Animator animation) {
+            LogUtils.d(TAG, "onAnimationRepeat() called with: " + "animation = [" + animation + "]");
         }
 
         public void onAnimationStart(Animator animation) {
+            LogUtils.d(TAG, "onAnimationStart() called with: " + "animation = [" + animation + "]");
         }
     }
 }

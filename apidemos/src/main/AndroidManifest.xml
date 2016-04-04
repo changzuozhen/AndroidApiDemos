@@ -3441,14 +3441,34 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AndyTest.AndyTestActivity"
-            android:label="AndTest/AndyTestActivity">
+            android:name=".AndyTest.AndyTestMediaPlayerActivity"
+            android:label="AndyTest/AndyTestMediaPlayerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.SAMPLE_CODE" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".AndyTest.AndyTestActivity"
+            android:label="AndyTest/AndyTestActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <!--<activity-->
+        <!--android:name=".AndyTest.AndyTestActivity"-->
+        <!--android:label="AndyTest/AndyTestActivity">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN" />-->
+
+        <!--<category android:name="android.intent.category.SAMPLE_CODE" />-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
     </application>
 
 </manifest>

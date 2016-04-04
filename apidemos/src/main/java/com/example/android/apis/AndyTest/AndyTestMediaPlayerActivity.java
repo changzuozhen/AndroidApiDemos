@@ -11,7 +11,7 @@ import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 
-public class AndyTestActivity extends Activity implements View.OnClickListener {
+public class AndyTestMediaPlayerActivity extends Activity implements View.OnClickListener {
 
     private static final String TAG = "AndyTestMediaPlayerActivity";
     int playSong = -1;

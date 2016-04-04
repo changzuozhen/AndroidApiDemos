@@ -55,7 +55,7 @@ public class MediaPlayerDemo_Audio extends Activity {
                     /**
                      * TODO: Set the path variable to a local audio file path.
                      */
-                    path = "";
+                    path = "/storage/extsd/tencent/wecarmusic/data/cache/101555425.m4a";
                     if (path == "") {
                         // Tell the user to provide an audio file URL.
                         Toast
@@ -69,6 +69,21 @@ public class MediaPlayerDemo_Audio extends Activity {
                     }
                     mMediaPlayer = new MediaPlayer();
                     mMediaPlayer.setDataSource(path);
+
+                    mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        @Override
+                        public void onCompletion(MediaPlayer mp) {
+                            LogUtils.d(TAG, "onCompletion() called with: " + "mp = [" + mp + "]");
+                        }
+                    });
+                    mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                        @Override
+                        public boolean onError(MediaPlayer mp, int what, int extra) {
+                            LogUtils.d(TAG, "onError() called with: " + "mp = [" + mp + "], what = [" + what + "], extra = [" + extra + "]");
+                            return false;
+                        }
+                    });
+
                     mMediaPlayer.prepare();
                     mMediaPlayer.start();
                     break;
