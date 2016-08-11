@@ -16,20 +16,26 @@
 
 package com.example.android.apis.view;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 
 /**
  * Shows a list that can be filtered in-place with a SearchView in non-iconified mode.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SearchViewFilterMode extends Activity implements SearchView.OnQueryTextListener {
 
     private static final String TAG = "SearchViewFilterMode";
@@ -51,10 +57,18 @@ public class SearchViewFilterMode extends Activity implements SearchView.OnQuery
                 android.R.layout.simple_list_item_1,
                 mStrings));
         mListView.setTextFilterEnabled(true);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                LogUtils.d(TAG, "onItemClick() called with: " + "parent = [" + parent + "], view = [" + view + "], position = [" + position + "], id = [" + id + "]");
+                LogUtils.d(TAG, "onItemClick() called with: position = [" + mStrings[position] + "]");
+            }
+        });
         setupSearchView();
     }
 
     private void setupSearchView() {
+        LogUtils.d(TAG, "setupSearchView() called with: " + "");
         mSearchView.setIconifiedByDefault(false);
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setSubmitButtonEnabled(false);
@@ -62,6 +76,7 @@ public class SearchViewFilterMode extends Activity implements SearchView.OnQuery
     }
 
     public boolean onQueryTextChange(String newText) {
+        LogUtils.d(TAG, "onQueryTextChange() called with: " + "newText = [" + newText + "]");
         if (TextUtils.isEmpty(newText)) {
             mListView.clearTextFilter();
         } else {

@@ -3449,8 +3449,15 @@
                 <category android:name="android.intent.category.SAMPLE_CODE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AndyTest.AndyTestTouchEventActivity"
+            android:label="AndyTest/AndyTestTouchEventActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AndyTest.AndyTestActivity"
             android:label="AndyTest/AndyTestActivity">
@@ -3460,8 +3467,52 @@
                 <category android:name="android.intent.category.SAMPLE_CODE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".AndyTest.AndyTestActivity1"
+            android:label="AndyTest/AndyTestActivity1">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AndyTest.AndyTestActivity2"
+            android:label="AndyTest/AndyTestActivity2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AndyTest.AndyTestActivity3"
+            android:label="AndyTest/AndyTestActivity3">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AndyTest.AndyTestActivity4"
+            android:label="AndyTest/AndyTestActivity4">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AndyTest.AndyTestInterpolatorActivity"
+            android:label="AndyTest/AndyTestInterpolatorActivity"
+            android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AndyTest.AndyTestViewAnimateActivity"
             android:label="AndyTest/AndyTestViewAnimateActivity">
@@ -3472,15 +3523,36 @@
             </intent-filter>
         </activity>
 
-        <!--<activity-->
-        <!--android:name=".AndyTest.AndyTestActivity"-->
-        <!--android:label="AndyTest/AndyTestActivity">-->
-        <!--<intent-filter>-->
-        <!--<action android:name="android.intent.action.MAIN" />-->
+        <!-- <activity -->
+        <!-- android:name=".AndyTest.AndyTestActivity" -->
+        <!-- android:label="AndyTest/AndyTestActivity"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
 
-        <!--<category android:name="android.intent.category.SAMPLE_CODE" />-->
-        <!--</intent-filter>-->
-        <!--</activity>-->
+
+        <!-- <category android:name="android.intent.category.SAMPLE_CODE" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".AndyTest.AndyTestAutoCompleteTextView"
+            android:label="AndyTest/AndyTestAutoCompleteTextView"
+            android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AndyTest.AutoCompleteTextViewCustomAdapter.AndyTestAutoCompleteTextViewCustomAdapter"
+            android:label="AndyTestAutoCompleteTextViewCustomAdapter"
+            android:theme="@style/Theme.AppCompat">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

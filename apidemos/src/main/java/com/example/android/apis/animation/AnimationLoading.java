@@ -24,6 +24,7 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -33,6 +34,7 @@ import android.graphics.RadialGradient;
 import android.graphics.Shader;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -49,7 +51,9 @@ public class AnimationLoading extends Activity {
 
     private static final int DURATION = 1500;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,6 +70,7 @@ public class AnimationLoading extends Activity {
         });
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public class MyAnimationView extends View implements ValueAnimator.AnimatorUpdateListener {
 
         private static final float BALL_SIZE = 100f;
@@ -79,19 +84,22 @@ public class AnimationLoading extends Activity {
             addBall(200, 50);
             addBall(350, 50);
             addBall(500, 50, Color.GREEN);
+
+            this.setBackgroundColor(this.getResources().getColor(R.color.custom));
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         private void createAnimation() {
             Context appContext = AnimationLoading.this;
 
             if (animation == null) {
                 ObjectAnimator anim = (ObjectAnimator) AnimatorInflater.
-                        loadAnimator(appContext, R.anim.object_animator);
+                        loadAnimator(appContext, R.animator.object_animator);
                 anim.addUpdateListener(this);
                 anim.setTarget(balls.get(0));
 
                 ValueAnimator fader = (ValueAnimator) AnimatorInflater.
-                        loadAnimator(appContext, R.anim.animator);
+                        loadAnimator(appContext, R.animator.animator);
                 fader.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                     public void onAnimationUpdate(ValueAnimator animation) {
                         balls.get(1).setAlpha((Float) animation.getAnimatedValue());
@@ -100,11 +108,11 @@ public class AnimationLoading extends Activity {
 
                 AnimatorSet seq =
                         (AnimatorSet) AnimatorInflater.loadAnimator(appContext,
-                        R.anim.animator_set);
+                                R.animator.animator_set);
                 seq.setTarget(balls.get(2));
 
                 ObjectAnimator colorizer = (ObjectAnimator) AnimatorInflater.
-                        loadAnimator(appContext, R.anim.color_animator);
+                        loadAnimator(appContext, R.animator.color_animator);
                 colorizer.setTarget(balls.get(3));
 
                 animation = new AnimatorSet();
@@ -112,6 +120,7 @@ public class AnimationLoading extends Activity {
             }
         }
 
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public void startAnimation() {
             createAnimation();
             animation.start();
@@ -135,12 +144,12 @@ public class AnimationLoading extends Activity {
 
         private void addBall(float x, float y) {
             ShapeHolder shapeHolder = createBall(x, y);
-            int red = (int)(100 + Math.random() * 155);
-            int green = (int)(100 + Math.random() * 155);
-            int blue = (int)(100 + Math.random() * 155);
+            int red = (int) (100 + Math.random() * 155);
+            int green = (int) (100 + Math.random() * 155);
+            int blue = (int) (100 + Math.random() * 155);
             int color = 0xff000000 | red << 16 | green << 8 | blue;
             Paint paint = shapeHolder.getShape().getPaint();
-            int darkColor = 0xff000000 | red/4 << 16 | green/4 << 8 | blue/4;
+            int darkColor = 0xff000000 | red / 4 << 16 | green / 4 << 8 | blue / 4;
             RadialGradient gradient = new RadialGradient(37.5f, 12.5f,
                     50f, color, darkColor, Shader.TileMode.CLAMP);
             paint.setShader(gradient);
@@ -160,7 +169,7 @@ public class AnimationLoading extends Activity {
 
             invalidate();
             ShapeHolder ball = balls.get(0);
-            ball.setY((Float)animation.getAnimatedValue());
+            ball.setY((Float) animation.getAnimatedValue());
         }
     }
 }

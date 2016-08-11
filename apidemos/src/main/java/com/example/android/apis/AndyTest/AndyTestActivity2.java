@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.example.android.apis.R;
 import com.tencent.commontools.LogUtils;
 
-public class AndyTestActivity extends Activity implements View.OnClickListener {
+public class AndyTestActivity2 extends Activity implements View.OnClickListener {
 
     private static final String TAG = "AndyTestActivity";
     String bt1Str =

@@ -1,7 +1,11 @@
 apply plugin: 'com.android.application'
+//apply plugin: 'android-apt'
 android {
     compileSdkVersion 'Google Inc.:Google APIs:22'
-    buildToolsVersion '22.0.1'
+    buildToolsVersion '23.0.2'
+
+//    compileSdkVersion 21
+//    buildToolsVersion "21.1.2"
 
     defaultConfig {
         applicationId "com.example.android.apis"
@@ -25,4 +29,5 @@ android {
 dependencies {
     compile project(':commontools')
     compile 'com.android.support:appcompat-v7:22.2.1'
+//    compile 'com.android.support:appcompat-v7:24.1.1'
 }

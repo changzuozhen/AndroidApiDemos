@@ -1432,5 +1432,12 @@
     <string name="task_complete_template">Task %1$s %2$s</string>
     <string name="task_complete">is complete</string>
     <string name="task_not_complete">is not complete</string>
+    <string name="autoText">AutoCompleteTextView</string>
+    <string name="multiautoText">MultiAutoCompleteTextView</string>
+    <string name="app_name">ApiDemos</string>
+    <string name="person_name">name</string>
+    <string name="phone">phone</string>
+    <string name="email">E-mail</string>
+    <string name="call">Call</string>
 
 </resources>

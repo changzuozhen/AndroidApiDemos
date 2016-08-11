@@ -1,0 +1,101 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".AndyTest.AndyTestAutoCompleteTextView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TextView" />
+            <!-- 声明一个AutoCompleteTextView控件，设定其下拉框标题为“Famous Citi” 并且输入一个字符开始提示-->
+            <EditText
+                android:id="@+id/normal_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/solid_red"></View>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/autoText" />
+            <!-- 声明一个AutoCompleteTextView控件，设定其下拉框标题为“Famous Citi” 并且输入一个字符开始提示-->
+            <AutoCompleteTextView
+                android:id="@+id/autotext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:completionHint="歌手名"
+                android:completionThreshold="1" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="5dp"
+            android:layout_height="match_parent"
+            android:background="@color/solid_red"></View>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/multiautoText" />
+
+            <MultiAutoCompleteTextView
+                android:id="@+id/multiautotext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.android.apis.AndyTest.CustomView.AutoLineFeedLayout
+            android:id="@+id/autoll_myshare_explv_child_share"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/solid_red"></com.example.android.apis.AndyTest.CustomView.AutoLineFeedLayout>
+
+    </ScrollView>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/solid_yellow">
+
+    </View>
+</LinearLayout>

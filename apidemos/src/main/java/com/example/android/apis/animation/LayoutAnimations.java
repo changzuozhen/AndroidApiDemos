@@ -34,13 +34,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.example.android.apis.R;
+import com.tencent.commontools.LogUtils;
 
 /**
  * This application demonstrates how to use LayoutTransition to automate transition animations
  * as items are removed from or added to a container.
  */
 public class LayoutAnimations extends Activity {
-
+    private static final String TAG = "LayoutAnimations";
     ViewGroup container = null;
     Animator defaultAppearingAnim, defaultDisappearingAnim;
     Animator defaultChangingAppearingAnim, defaultChangingDisappearingAnim;
@@ -50,7 +51,9 @@ public class LayoutAnimations extends Activity {
     Animator currentChangingAppearingAnim, currentChangingDisappearingAnim;
     private int numButtons = 1;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +61,8 @@ public class LayoutAnimations extends Activity {
 
         container = new FixedGridLayout(this);
         container.setClipChildren(false);
-        ((FixedGridLayout)container).setCellHeight(90);
-        ((FixedGridLayout)container).setCellWidth(100);
+        ((FixedGridLayout) container).setCellHeight(90);
+        ((FixedGridLayout) container).setCellWidth(200);
         final LayoutTransition transitioner = new LayoutTransition();
         container.setLayoutTransition(transitioner);
         defaultAppearingAnim = transitioner.getAnimator(LayoutTransition.APPEARING);
@@ -81,8 +84,9 @@ public class LayoutAnimations extends Activity {
         Button addButton = (Button) findViewById(R.id.addNewButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                LogUtils.d(TAG, "addButton onClick() called with: " + "v = [" + v + "]");
                 Button newButton = new Button(LayoutAnimations.this);
-                newButton.setText(String.valueOf(numButtons++));
+                newButton.setText("button" + (numButtons++));
                 newButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
                         container.removeView(v);
@@ -141,8 +145,8 @@ public class LayoutAnimations extends Activity {
                         defaultChangingAppearingAnim) : null);
         transition.setAnimator(LayoutTransition.CHANGE_DISAPPEARING,
                 changingDisappearingCB.isChecked() ?
-                (customAnimCB.isChecked() ? customChangingDisappearingAnim :
-                        defaultChangingDisappearingAnim) : null);
+                        (customAnimCB.isChecked() ? customChangingDisappearingAnim :
+                                defaultChangingDisappearingAnim) : null);
     }
 
     private void createCustomAnimations(LayoutTransition transition) {
@@ -160,7 +164,7 @@ public class LayoutAnimations extends Activity {
         PropertyValuesHolder pvhScaleY =
                 PropertyValuesHolder.ofFloat("scaleY", 1f, 0f, 1f);
         customChangingAppearingAnim = ObjectAnimator.ofPropertyValuesHolder(
-                        this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhScaleX, pvhScaleY).
+                this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhScaleX, pvhScaleY).
                 setDuration(transition.getDuration(LayoutTransition.CHANGE_APPEARING));
         customChangingAppearingAnim.addListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator anim) {
@@ -177,7 +181,7 @@ public class LayoutAnimations extends Activity {
         PropertyValuesHolder pvhRotation =
                 PropertyValuesHolder.ofKeyframe("rotation", kf0, kf1, kf2);
         customChangingDisappearingAnim = ObjectAnimator.ofPropertyValuesHolder(
-                        this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhRotation).
+                this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhRotation).
                 setDuration(transition.getDuration(LayoutTransition.CHANGE_DISAPPEARING));
         customChangingDisappearingAnim.addListener(new AnimatorListenerAdapter() {
             public void onAnimationEnd(Animator anim) {

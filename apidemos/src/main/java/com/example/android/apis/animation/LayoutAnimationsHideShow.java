@@ -46,7 +46,9 @@ public class LayoutAnimationsHideShow extends Activity {
     private int numButtons = 1;
     private LayoutTransition mTransitioner;
 
-    /** Called when the activity is first created. */
+    /**
+     * Called when the activity is first created.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,20 +113,46 @@ public class LayoutAnimationsHideShow extends Activity {
 
     private void setupCustomAnimations() {
         // Changing while Adding
+/**
+ *
+ * http://blog.csdn.net/harvic880925/article/details/50985596
+ *
+ * 这里有几点注意事项：
+ 1、LayoutTransition.CHANGE_APPEARING和LayoutTransition.CHANGE_DISAPPEARING必须使用PropertyValuesHolder所构造的动画才会有效果，不然无效！也就是说使用ObjectAnimator构造的动画，在这里是不会有效果的！
+ 2、在构造PropertyValuesHolder动画时，”left”、”top”属性的变动是必写的。如果不需要变动，则直接写为：
+ [java] view plain copy 在CODE上查看代码片派生到我的代码片
+ PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left",0,0);
+ PropertyValuesHolder pvhTop = PropertyValuesHolder.ofInt("top",0,0);
+ 3、在构造PropertyValuesHolder时，所使用的ofInt,ofFloat中的参数值，第一个值和最后一个值必须相同，不然此属性所对应的的动画将被放弃，在此属性值上将不会有效果；
+ [java] view plain copy 在CODE上查看代码片派生到我的代码片
+ PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left",0,100,0);
+ 比如，这里ofInt(“left”,0,100,0)第一个值和最后一个值都是0，所以这里会有效果的，如果我们改为ofInt(“left”,0,100);那么由于首尾值不一致，则将被视为无效参数，将不会有效果！
+ 4、在构造PropertyValuesHolder时，所使用的ofInt,ofFloat中，如果所有参数值都相同，也将不会有动画效果。
+ 比如：
+ [java] view plain copy 在CODE上查看代码片派生到我的代码片
+ PropertyValuesHolder pvhLeft = PropertyValuesHolder.ofInt("left",100,100);
+ 在这条语句中，虽然首尾一致，但由于全程参数值相同，所以left属性上的这个动画会被放弃，在left属性上也不会应用上任何动画。
+ */
+
+
         PropertyValuesHolder pvhLeft =
                 PropertyValuesHolder.ofInt("left", 0, 1);
+//                PropertyValuesHolder.ofInt("left", 0, 1000, 0);
         PropertyValuesHolder pvhTop =
                 PropertyValuesHolder.ofInt("top", 0, 1);
+//                PropertyValuesHolder.ofInt("top", 0, 1000, 0);
         PropertyValuesHolder pvhRight =
                 PropertyValuesHolder.ofInt("right", 0, 1);
+//                PropertyValuesHolder.ofInt("right", 0, 1000, 0);
         PropertyValuesHolder pvhBottom =
                 PropertyValuesHolder.ofInt("bottom", 0, 1);
+//                PropertyValuesHolder.ofInt("bottom", 0, 1000, 0);
         PropertyValuesHolder pvhScaleX =
                 PropertyValuesHolder.ofFloat("scaleX", 1f, 0f, 1f);
         PropertyValuesHolder pvhScaleY =
                 PropertyValuesHolder.ofFloat("scaleY", 1f, 0f, 1f);
         final ObjectAnimator changeIn = ObjectAnimator.ofPropertyValuesHolder(
-                        this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhScaleX, pvhScaleY).
+                this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhScaleX, pvhScaleY).
                 setDuration(mTransitioner.getDuration(LayoutTransition.CHANGE_APPEARING));
         mTransitioner.setAnimator(LayoutTransition.CHANGE_APPEARING, changeIn);
         changeIn.addListener(new AnimatorListenerAdapter() {
@@ -142,7 +170,7 @@ public class LayoutAnimationsHideShow extends Activity {
         PropertyValuesHolder pvhRotation =
                 PropertyValuesHolder.ofKeyframe("rotation", kf0, kf1, kf2);
         final ObjectAnimator changeOut = ObjectAnimator.ofPropertyValuesHolder(
-                        this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhRotation).
+                this, pvhLeft, pvhTop, pvhRight, pvhBottom, pvhRotation).
                 setDuration(mTransitioner.getDuration(LayoutTransition.CHANGE_DISAPPEARING));
         mTransitioner.setAnimator(LayoutTransition.CHANGE_DISAPPEARING, changeOut);
         changeOut.addListener(new AnimatorListenerAdapter() {

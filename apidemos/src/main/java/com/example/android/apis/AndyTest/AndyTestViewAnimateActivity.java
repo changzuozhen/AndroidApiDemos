@@ -79,10 +79,12 @@ public class AndyTestViewAnimateActivity extends Activity implements View.OnClic
         }
         switch (value) {
             case 0:
+                break;
+            case 1:
                 btn2.setTag(1);
                 btn2.animate().x(5).y(300).start();
                 break;
-            case 1:
+            case 2:
                 btn2.setTag(0);
                 btn2.animate().x(0).y(btn2.getHeight()).start();
                 break;
