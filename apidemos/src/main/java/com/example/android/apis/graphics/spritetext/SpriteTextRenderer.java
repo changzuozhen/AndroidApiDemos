@@ -26,7 +26,6 @@ import android.opengl.GLUtils;
 import android.os.SystemClock;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +36,8 @@ import java.nio.ShortBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import commontools.LogUtils;
 
 public class SpriteTextRenderer implements GLSurfaceView.Renderer{
 

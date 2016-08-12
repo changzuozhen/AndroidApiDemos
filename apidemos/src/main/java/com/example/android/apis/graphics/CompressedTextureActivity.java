@@ -23,7 +23,6 @@ import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -34,6 +33,8 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
 import javax.microedition.khronos.opengles.GL10;
+
+import commontools.LogUtils;
 
 /**
  * Demonstrate how to use ETC1 format compressed textures.

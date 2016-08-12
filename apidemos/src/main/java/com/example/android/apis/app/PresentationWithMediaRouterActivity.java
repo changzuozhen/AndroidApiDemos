@@ -37,7 +37,8 @@ import android.widget.TextView;
 
 import com.example.android.apis.R;
 import com.example.android.apis.graphics.CubeRenderer;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 
 /**

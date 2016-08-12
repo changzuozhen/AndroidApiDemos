@@ -34,10 +34,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.IOException;
 import java.util.List;
+
+import commontools.LogUtils;
 
 // Need the following import to get access to the app resources, since this
 // class is in a sub-package.

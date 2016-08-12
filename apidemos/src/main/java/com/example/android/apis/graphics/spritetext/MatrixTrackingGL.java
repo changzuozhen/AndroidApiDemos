@@ -16,8 +16,6 @@
 
 package com.example.android.apis.graphics.spritetext;
 
-import com.tencent.commontools.LogUtils;
-
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -30,6 +28,8 @@ import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL10Ext;
 import javax.microedition.khronos.opengles.GL11;
 import javax.microedition.khronos.opengles.GL11Ext;
+
+import commontools.LogUtils;
 
 /**
  * Allows retrieving the current matrix even if the current OpenGL ES

@@ -25,7 +25,6 @@ import android.opengl.GLUtils;
 import android.os.Bundle;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +38,8 @@ import javax.microedition.khronos.opengles.GL;
 import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL11;
 import javax.microedition.khronos.opengles.GL11ExtensionPack;
+
+import commontools.LogUtils;
 
 /**
  * Demonstrate how to use the OES_texture_cube_map extension, available on some

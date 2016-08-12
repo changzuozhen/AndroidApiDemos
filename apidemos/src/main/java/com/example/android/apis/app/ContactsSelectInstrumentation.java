@@ -24,7 +24,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.KeyEvent;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 /**
  * This is an example implementation of the {@link android.app.Instrumentation}

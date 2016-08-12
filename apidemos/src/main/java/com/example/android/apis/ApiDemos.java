@@ -25,8 +25,6 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.tencent.commontools.LogUtils;
-
 import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -34,6 +32,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import commontools.LogUtils;
 
 public class ApiDemos extends ListActivity {
 

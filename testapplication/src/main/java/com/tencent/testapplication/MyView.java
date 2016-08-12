@@ -16,7 +16,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 /**
  * TODO: document your custom view class.

@@ -31,7 +31,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 public class DraggableDot extends View {
     static final String TAG = "DraggableDot";
@@ -106,7 +107,7 @@ public class DraggableDot extends View {
             public boolean onLongClick(View v) {
                 ClipData data = ClipData.newPlainText("dot", "Dot : " + v.toString());
                 v.startDrag(data, new ANRShadowBuilder(v, mAnrType == ANR_SHADOW),
-                        (Object)v, 0);
+                        v, 0);
                 return true;
             }
         });
@@ -238,7 +239,7 @@ public class DraggableDot extends View {
             LogUtils.i(TAG, "Dropped item " + i + " : " + item);
             if (mReportView != null) {
                 String text = item.coerceToText(getContext()).toString();
-                if (event.getLocalState() == (Object) this) {
+                if (event.getLocalState() == this) {
                     text += " : Dropped on self!";
                 }
                 mReportView.setText(text);

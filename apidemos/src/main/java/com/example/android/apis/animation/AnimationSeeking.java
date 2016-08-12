@@ -40,9 +40,10 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
+
+import commontools.LogUtils;
 
 /**
  * This application demonstrates the seeking capability of ValueAnimator. The SeekBar in the

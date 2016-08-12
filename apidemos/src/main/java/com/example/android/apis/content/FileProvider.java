@@ -25,12 +25,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 
-import com.tencent.commontools.LogUtils;
-
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+
+import commontools.LogUtils;
 
 /**
  * A very simple content provider that can serve arbitrary asset files from

@@ -35,7 +35,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * This is an example of implementing an application service that runs locally
@@ -80,8 +81,6 @@ public class ServiceStartArguments extends Service {
         mServiceHandler = new ServiceHandler(mServiceLooper);
         }
 
-    ;
-    
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         LogUtils.i("ServiceStartArguments",

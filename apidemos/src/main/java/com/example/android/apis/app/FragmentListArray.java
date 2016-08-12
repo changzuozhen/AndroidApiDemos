@@ -24,7 +24,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.android.apis.Shakespeare;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * Demonstration of using ListFragment to show a list of items

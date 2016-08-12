@@ -12,7 +12,8 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 public class AndyTestViewAnimateActivity extends Activity implements View.OnClickListener {
 

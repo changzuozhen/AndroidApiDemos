@@ -47,9 +47,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
-import com.tencent.commontools.LogUtils;
-
 import java.util.HashMap;
+
+import commontools.LogUtils;
 
 /**
  * Demonstration of bottom to top implementation of a content provider holding

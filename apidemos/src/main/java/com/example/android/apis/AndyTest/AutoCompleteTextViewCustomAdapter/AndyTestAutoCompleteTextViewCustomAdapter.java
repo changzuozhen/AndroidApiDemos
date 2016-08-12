@@ -5,15 +5,35 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import com.example.android.apis.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import commontools.LogUtils;
+
 public class AndyTestAutoCompleteTextViewCustomAdapter extends Activity implements AdapterView.OnItemClickListener {
+    private static final String TAG = "AndyTestAutoCompleteTextViewCustomAdapter";
     List<PhoneContact> mList;
     private AutoCompleteTextView mACTV;
+    private Button btn1;
+    private Button btn2;
+    private PhoneAdapter mAdapter;
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn1:
+                    mAdapter.notifyDataSetInvalidated();
+                    break;
+                case R.id.btn2:
+                    mAdapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +62,20 @@ public class AndyTestAutoCompleteTextViewCustomAdapter extends Activity implemen
     }
 
     private void findView() {
+
+        btn1 = (Button) findViewById(R.id.btn1);
+        btn2 = (Button) findViewById(R.id.btn2);
+
+        btn1.setOnClickListener(onClickListener);
+        btn2.setOnClickListener(onClickListener);
+
         mACTV = (AutoCompleteTextView) findViewById(R.id.mACTV);
-        PhoneAdapter mAdapter = new PhoneAdapter(mList, getApplicationContext());
+        mAdapter = new PhoneAdapter(mList, getApplicationContext());
         mACTV.setAdapter(mAdapter);
         mACTV.setThreshold(1);    //设置输入一个字符 提示，默认为2
 
         mACTV.setOnItemClickListener(this);
+        mACTV.requestFocus();
     }
 
     @Override
@@ -56,6 +84,7 @@ public class AndyTestAutoCompleteTextViewCustomAdapter extends Activity implemen
 
         PhoneContact pc = mList.get(position);
         mACTV.setText(pc.getName() + " " + pc.getPhone());
+        LogUtils.d(TAG, "onItemClick() called with: " + " position = [" + position + "], pc = [" + pc + "]");
     }
 
 }

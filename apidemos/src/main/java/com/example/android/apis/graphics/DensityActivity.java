@@ -35,7 +35,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * This activity demonstrates various ways density can cause the scaling of

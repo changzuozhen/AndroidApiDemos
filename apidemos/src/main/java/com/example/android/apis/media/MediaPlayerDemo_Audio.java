@@ -23,7 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 public class MediaPlayerDemo_Audio extends Activity {
 

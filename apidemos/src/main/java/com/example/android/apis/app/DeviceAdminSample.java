@@ -41,9 +41,10 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.List;
+
+import commontools.LogUtils;
 
 /**
  * This activity provides a comprehensive UI for exploring and operating the DevicePolicyManager

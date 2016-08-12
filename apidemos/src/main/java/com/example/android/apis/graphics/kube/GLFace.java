@@ -16,10 +16,10 @@
 
 package com.example.android.apis.graphics.kube;
 
-import com.tencent.commontools.LogUtils;
-
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
+
+import commontools.LogUtils;
 
 public class GLFace {
 

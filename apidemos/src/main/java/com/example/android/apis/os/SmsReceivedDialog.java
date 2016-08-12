@@ -26,9 +26,10 @@ import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.Locale;
+
+import commontools.LogUtils;
 
 public class SmsReceivedDialog extends Activity implements OnInitListener {
     public static final String SMS_FROM_ADDRESS_EXTRA = "com.example.android.apis.os.SMS_FROM_ADDRESS";

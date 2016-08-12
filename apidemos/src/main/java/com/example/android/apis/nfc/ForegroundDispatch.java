@@ -27,7 +27,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * An example of how to use the NFC foreground dispatch APIs. This will intercept any MIME data

@@ -21,9 +21,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.tencent.commontools.LogUtils;
-
 import java.util.ArrayList;
+
+import commontools.LogUtils;
 
 /**
  * A BroadcastReceiver that listens for updates for the ExampleAppWidgetProvider.  This

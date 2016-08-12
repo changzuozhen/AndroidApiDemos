@@ -23,10 +23,11 @@ package com.example.android.apis.app;
  import android.widget.Button;
 
  import com.example.android.apis.R;
- import com.tencent.commontools.LogUtils;
 
  import java.util.Locale;
  import java.util.Random;
+
+ import commontools.LogUtils;
 
 /**
  * <p>Demonstrates text-to-speech (TTS). Please note the following steps:</p>

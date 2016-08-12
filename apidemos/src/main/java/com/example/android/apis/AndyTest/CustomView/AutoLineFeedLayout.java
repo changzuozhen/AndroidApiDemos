@@ -12,7 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.android.apis.DensityUtil;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * 只适用于子控件全部为textView，且高度一直，不然的话需要重新改造一下
@@ -122,7 +123,7 @@ public class AutoLineFeedLayout extends ViewGroup {
      * @return
      */
     private int getWidth(TextView view) {
-        int width = DensityUtil.dip2px(context, view.length() * childWidthRatio);
+        int width = DensityUtil.dip2px(context, view.length() * childWidthRatio + view.getPaddingLeft() + view.getPaddingRight());
         return width;
     }
 

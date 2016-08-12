@@ -35,13 +35,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import commontools.LogUtils;
 
 
 /**

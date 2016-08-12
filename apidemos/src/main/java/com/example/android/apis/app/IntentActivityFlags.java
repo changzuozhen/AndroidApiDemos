@@ -12,7 +12,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * Example of various Intent flags to modify the activity stack.

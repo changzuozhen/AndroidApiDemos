@@ -18,7 +18,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 /**
  * @author http://http://blog.csdn.net/qinjuning

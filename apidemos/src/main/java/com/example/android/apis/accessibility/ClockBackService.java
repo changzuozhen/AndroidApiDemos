@@ -32,9 +32,10 @@ import android.util.SparseArray;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.List;
+
+import commontools.LogUtils;
 
 /**
  * This class is an {@link AccessibilityService} that provides custom feedback

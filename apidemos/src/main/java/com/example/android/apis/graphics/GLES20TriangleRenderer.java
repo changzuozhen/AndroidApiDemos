@@ -26,7 +26,6 @@ import android.opengl.Matrix;
 import android.os.SystemClock;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +35,8 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
+
+import commontools.LogUtils;
 
 class GLES20TriangleRenderer implements GLSurfaceView.Renderer {
 

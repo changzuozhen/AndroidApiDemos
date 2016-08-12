@@ -13,11 +13,16 @@ import com.example.android.apis.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import commontools.LogUtils;
+
 /**
  * Created by AndyChang on 16/8/11.
  */
 
 public class PhoneAdapter extends BaseAdapter implements Filterable {
+
+    private static final String TAG = "PhoneAdapter";
+
     private ArrayFilter mFilter;
     private List<PhoneContact> mList;
     private Context context;
@@ -31,18 +36,20 @@ public class PhoneAdapter extends BaseAdapter implements Filterable {
     @Override
     public int getCount() {
 
+        LogUtils.v(TAG, "getCount() called with: " + "");
         return mList == null ? 0 : mList.size();
     }
 
     @Override
     public Object getItem(int position) {
         // TODO Auto-generated method stub
+        LogUtils.d(TAG, "getItem() called with: " + "position = [" + position + "]");
         return mList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-
+        LogUtils.d(TAG, "getItemId() called with: " + "position = [" + position + "]");
         return position;
     }
 
@@ -70,6 +77,7 @@ public class PhoneAdapter extends BaseAdapter implements Filterable {
         holder.tv_phone.setText("电话：" + pc.getPhone());
         holder.tv_email.setText("Email：" + pc.getEmail());
 
+        LogUtils.d(TAG, "getView() called with: " + "position = [" + position + "], data = [" + pc + "]");
         return view;
     }
 
@@ -91,6 +99,8 @@ public class PhoneAdapter extends BaseAdapter implements Filterable {
 
         @Override
         protected android.widget.Filter.FilterResults performFiltering(CharSequence prefix) {
+            LogUtils.d(TAG, "performFiltering() called with: " + "prefix = [" + prefix + "]");
+
             android.widget.Filter.FilterResults results = new android.widget.Filter.FilterResults();
 
             if (mUnfilteredData == null) {
@@ -122,10 +132,16 @@ public class PhoneAdapter extends BaseAdapter implements Filterable {
                         }
                     }
                 }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
                 results.values = newValues;
                 results.count = newValues.size();
             }
+            LogUtils.d(TAG, "performFiltering() returned: " + results.count);
 
             return results;
         }
@@ -134,6 +150,7 @@ public class PhoneAdapter extends BaseAdapter implements Filterable {
         protected void publishResults(CharSequence constraint,
                                       FilterResults results) {
             //noinspection unchecked
+            LogUtils.d(TAG, "publishResults() called with: " + "constraint = [" + constraint + "], results = [" + results.values + "]");
             mList = (List<PhoneContact>) results.values;
             if (results.count > 0) {
                 notifyDataSetChanged();

@@ -12,9 +12,9 @@ import android.view.animation.Interpolator;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
 
-import com.tencent.commontools.LogUtils;
-
 import java.util.ArrayList;
+
+import commontools.LogUtils;
 
 //自定义ViewGroup ， 包含了三个LinearLayout控件，存放在不同的布局位置，通过scrollBy或者scrollTo方法切换
 public class MultiViewGroup extends ViewGroup {

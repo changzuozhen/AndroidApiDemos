@@ -27,7 +27,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 public class Sweep extends GraphicsActivity {
 

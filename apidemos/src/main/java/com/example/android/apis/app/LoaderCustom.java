@@ -48,7 +48,6 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.File;
 import java.text.Collator;
@@ -56,6 +55,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import commontools.LogUtils;
 
 /**
  * Demonstration of the implementation of a custom Loader.

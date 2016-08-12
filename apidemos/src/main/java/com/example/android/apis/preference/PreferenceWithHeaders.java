@@ -25,9 +25,10 @@ import android.preference.PreferenceManager;
 import android.widget.Button;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.List;
+
+import commontools.LogUtils;
 
 /**
  * Demonstration of PreferenceActivity to make a top-level preference

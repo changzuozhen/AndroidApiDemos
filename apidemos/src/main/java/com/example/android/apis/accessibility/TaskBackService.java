@@ -25,9 +25,10 @@ import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityRecord;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.Locale;
+
+import commontools.LogUtils;
 
 /**
  * This class demonstrates how an accessibility service can query

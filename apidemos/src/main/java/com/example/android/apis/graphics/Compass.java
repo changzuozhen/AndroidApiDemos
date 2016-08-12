@@ -28,7 +28,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 public class Compass extends GraphicsActivity {
 

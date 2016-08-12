@@ -13,7 +13,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * This sample application shows how to use layout animation and various

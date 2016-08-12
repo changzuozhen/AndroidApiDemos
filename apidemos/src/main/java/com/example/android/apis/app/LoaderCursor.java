@@ -36,7 +36,7 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SimpleCursorAdapter;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 /**
  * Demonstration of the use of a CursorLoader to load and display contacts

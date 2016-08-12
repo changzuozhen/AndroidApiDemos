@@ -46,7 +46,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 
 /**

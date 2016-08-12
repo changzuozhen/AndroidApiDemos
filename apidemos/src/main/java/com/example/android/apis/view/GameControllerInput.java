@@ -37,10 +37,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import commontools.LogUtils;
 
 
 /**

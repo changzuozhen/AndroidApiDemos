@@ -15,7 +15,8 @@ import android.widget.TextView;
 import com.example.android.apis.AndyTest.CustomView.AutoLineFeedLayout;
 import com.example.android.apis.DensityUtil;
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 public class AndyTestAutoCompleteTextView extends AppCompatActivity {
     private static final String TAG = "AndyTestAutoCompleteTextView";
@@ -72,13 +73,17 @@ public class AndyTestAutoCompleteTextView extends AppCompatActivity {
         for (int i = 0; i < autoStrings.length; i++) {
             str += i;
             Button tv = new Button(this);
-            tv.setPadding(0, 0, 0, 0);
+//            tv.setPadding(0, 0, 0, 0);
+            tv.setPadding(16, 0, 16, 0);
             tv.setTextSize(16);
             tv.setGravity(Gravity.CENTER);
             tv.setText(autoStrings[i]);
             tv.setBackgroundColor(Color.parseColor("#ff0000ff"));
             tv.setVisibility(View.VISIBLE);
             tv.setOnClickListener(onClickListener);
+            tv.setBackgroundResource(com.tencent.commontools.R.drawable.btn_shape);
+//            R.id.btn_shape;
+
             autoll_myshare_explv_child_share.addView(tv);
         }
 

@@ -34,7 +34,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 /**
  * This application demonstrates how to use LayoutTransition to automate transition animations

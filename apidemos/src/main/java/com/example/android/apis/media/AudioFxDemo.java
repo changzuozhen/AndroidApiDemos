@@ -35,7 +35,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
+
+import commontools.LogUtils;
 
 public class AudioFxDemo extends Activity {
     private static final String TAG = "AudioFxDemo";

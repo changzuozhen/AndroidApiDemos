@@ -7,9 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.util.ArrayList;
+
+import commontools.LogUtils;
 
 public class AndyTestMediaPlayerActivity extends Activity implements View.OnClickListener {
 

@@ -28,7 +28,7 @@ import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 public class SensorTest extends GraphicsActivity {
     private final String TAG = "SensorTest";
@@ -94,7 +94,6 @@ public class SensorTest extends GraphicsActivity {
     private Sensor mSensor;
     private SampleView mView;
     private float[] mValues;
-    ;
 
     @Override
     protected void onCreate(Bundle icicle) {

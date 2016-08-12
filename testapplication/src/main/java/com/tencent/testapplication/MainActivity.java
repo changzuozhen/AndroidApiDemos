@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
-import com.tencent.commontools.LogUtils;
+import commontools.LogUtils;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

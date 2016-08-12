@@ -33,9 +33,10 @@ import android.view.View;
 
 import com.example.android.apis.DensityUtil;
 import com.example.android.apis.R;
-import com.tencent.commontools.LogUtils;
 
 import java.io.InputStream;
+
+import commontools.LogUtils;
 
 public class AlphaBitmap extends GraphicsActivity {
     private static final String TAG = "AlphaBitmap";
