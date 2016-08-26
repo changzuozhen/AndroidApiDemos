@@ -75,6 +75,7 @@ public class AndyTestXfermodes extends Activity {
         private static final int ROW_MAX = 4;   // number of samples per row
         private static final Xfermode[] sModes = {
                 new PorterDuffXfermode(PorterDuff.Mode.CLEAR),
+                new PorterDuffXfermode(PorterDuff.Mode.OVERLAY),
                 new PorterDuffXfermode(PorterDuff.Mode.SRC),
                 new PorterDuffXfermode(PorterDuff.Mode.DST),
                 new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER),
@@ -90,15 +91,14 @@ public class AndyTestXfermodes extends Activity {
                 new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN),
                 new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY),
                 new PorterDuffXfermode(PorterDuff.Mode.SCREEN),
-                new PorterDuffXfermode(PorterDuff.Mode.ADD),
-                new PorterDuffXfermode(PorterDuff.Mode.OVERLAY)
+                new PorterDuffXfermode(PorterDuff.Mode.ADD)
         };
         private static final String[] sLabels = {
-                "Clear", "Src", "Dst", "SrcOver",
+                "Clear", "Overlay", "Src", "Dst", "SrcOver",
                 "DstOver", "SrcIn", "DstIn", "SrcOut",
                 "DstOut", "SrcATop", "DstATop", "Xor",
                 "Darken", "Lighten", "Multiply", "Screen",
-                "Add", "Overlay"
+                "Add"
         };
         private static int W = 64;
         private static int H = 64;
@@ -181,16 +181,25 @@ public class AndyTestXfermodes extends Activity {
 
                 // oval 画圆
                 canvas.drawBitmap(mDstB, 0, 0, paint);
-                paint.setXfermode(sModes[i]);
+                float textSize = labelP.getTextSize();
+                LogUtils.d("onDraw: " +
+                        " W" + W +
+                        "H" + H +
+                        " getTextSize" + textSize);
+                canvas.drawText("Dst", W / 3.f, textSize, labelP);
 
+
+                paint.setXfermode(sModes[i]);
                 //rect 画方
                 canvas.drawBitmap(mSrcB, W / 3, H / 3, paint);
+                canvas.drawText("Src", (float) (W / 3 * 2), H - textSize / 2, labelP);
+
                 paint.setXfermode(null);
                 canvas.restoreToCount(sc);
 
                 // draw the label
                 canvas.drawText(sLabels[i],
-                        x + W / 2, y - labelP.getTextSize() / 2, labelP);
+                        x + W / 2, y - textSize / 2, labelP);
 
                 x += W + W / 5;
 
