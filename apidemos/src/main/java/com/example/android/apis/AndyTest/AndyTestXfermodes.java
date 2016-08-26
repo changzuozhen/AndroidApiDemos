@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-package com.example.android.apis.graphics;
+package com.example.android.apis.AndyTest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
@@ -36,7 +37,7 @@ import com.example.android.apis.DensityUtil;
 
 import commontools.LogUtils;
 
-public class Xfermodes extends GraphicsActivity {
+public class AndyTestXfermodes extends Activity {
 
     // create a bitmap with a circle, used for the "dst" image
     static Bitmap makeDst(int w, int h) {

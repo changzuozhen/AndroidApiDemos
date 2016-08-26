@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'android-apt'
+apply plugin: 'android-apt'
 android {
     compileSdkVersion 'Google Inc.:Google APIs:22'
     buildToolsVersion '23.0.2'
@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.android.apis"
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 22
 
         testApplicationId "com.example.android.apis.tests"
@@ -29,5 +29,7 @@ android {
 dependencies {
     compile project(':commontools')
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 //    compile 'com.android.support:appcompat-v7:24.1.1'
 }

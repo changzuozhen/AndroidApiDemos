@@ -1,4 +1,4 @@
-package com.tencent.testapplication;
+package com.example.android.apis.AndyTest.CustomView;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Shader;
@@ -15,6 +16,8 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.android.apis.R;
 
 import commontools.LogUtils;
 
@@ -37,6 +40,7 @@ public class MyView extends View {
     private float touchY;
     private Paint mMaskPaint;
     private Bitmap mMaskBitmap;
+    private Paint customControllPaint = new Paint();
 
     public MyView(Context context) {
         super(context);
@@ -68,6 +72,8 @@ public class MyView extends View {
 
     public void setSetup1(int setup1) {
         mTextPaint.setShadowLayer(setup1, setup2, setup3, Color.RED);
+        customControllPaint.setShadowLayer(setup1, setup2, setup3, Color.RED);
+        customControllPaint.setStrokeWidth(setup1);
         invalidate();
         this.setup1 = setup1;
     }
@@ -78,6 +84,7 @@ public class MyView extends View {
 
     public void setSetup2(int setup2) {
         mTextPaint.setShadowLayer(setup1, setup2, setup3, Color.RED);
+        customControllPaint.setShadowLayer(setup1, setup2, setup3, Color.RED);
         invalidate();
         this.setup2 = setup2;
     }
@@ -88,6 +95,7 @@ public class MyView extends View {
 
     public void setSetup3(int setup3) {
         mTextPaint.setShadowLayer(setup1, setup2, setup3, Color.RED);
+        customControllPaint.setShadowLayer(setup1, setup2, setup3, Color.RED);
         invalidate();
         this.setup3 = setup3;
     }
@@ -122,10 +130,11 @@ public class MyView extends View {
         mTextPaint.setTextAlign(Paint.Align.LEFT);
         mTextPaint.setShadowLayer(10, 0, 0, Color.RED);
 
+
         // Update TextPaint and text measurements from attributes
         invalidateTextPaintAndMeasurements();
 
-        this.setOnTouchListener(new View.OnTouchListener() {
+        this.setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 LogUtils.d(TAG, "onTouch " + event.toString());
@@ -202,6 +211,28 @@ public class MyView extends View {
         }
         Bitmap maskBitmap = getMaskBitmap();
         canvas.drawBitmap(maskBitmap, 0, 100, mMaskPaint);
+
+
+        customControllPaint.setColor(Color.RED);  //设置画笔颜色
+        customControllPaint.setStyle(Paint.Style.STROKE);//设置填充样式
+        customControllPaint.setStrokeWidth(5);//设置画笔宽度
+
+
+        canvas.drawLine(200, 200, 300, 300, customControllPaint);
+
+
+        Path path = new Path();
+
+        path.moveTo(10, 10); //设定起始点
+        path.lineTo(10, 100);//第一条直线的终点，也是第二条直线的起点
+        path.lineTo(300, 100);//画第二条直线
+        path.lineTo(500, 100);//第三条直线
+
+//        path.close();//闭环
+
+        canvas.drawPath(path, customControllPaint);
+
+
     }
 
     private Bitmap getMaskBitmap() {
