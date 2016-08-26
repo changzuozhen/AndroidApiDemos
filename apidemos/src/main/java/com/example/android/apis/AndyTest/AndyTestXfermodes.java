@@ -16,6 +16,7 @@
 
 package com.example.android.apis.AndyTest;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -29,6 +30,7 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Xfermode;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -46,7 +48,7 @@ public class AndyTestXfermodes extends Activity {
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         p.setColor(0xFFFFCC44);
-        c.drawOval(new RectF(0, 0, w * 3 / 4, h * 3 / 4), p);
+        c.drawOval(new RectF(0, 0, w, h), p);
         return bm;
     }
 
@@ -57,7 +59,8 @@ public class AndyTestXfermodes extends Activity {
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
         p.setColor(0xFF66AAFF);
-        c.drawRect(w / 3, h / 3, w * 19 / 20, h * 19 / 20, p);
+//        c.drawRect(w / 3, h / 3, w * 19 / 20, h * 19 / 20, p);
+        c.drawRect(0, 0, w, h, p);
         return bm;
     }
 
@@ -67,6 +70,7 @@ public class AndyTestXfermodes extends Activity {
         setContentView(new SampleView(this));
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     private static class SampleView extends View {
         private static final int ROW_MAX = 4;   // number of samples per row
         private static final Xfermode[] sModes = {
@@ -85,18 +89,23 @@ public class AndyTestXfermodes extends Activity {
                 new PorterDuffXfermode(PorterDuff.Mode.DARKEN),
                 new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN),
                 new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY),
-                new PorterDuffXfermode(PorterDuff.Mode.SCREEN)
+                new PorterDuffXfermode(PorterDuff.Mode.SCREEN),
+                new PorterDuffXfermode(PorterDuff.Mode.ADD),
+                new PorterDuffXfermode(PorterDuff.Mode.OVERLAY)
         };
         private static final String[] sLabels = {
                 "Clear", "Src", "Dst", "SrcOver",
                 "DstOver", "SrcIn", "DstIn", "SrcOut",
                 "DstOut", "SrcATop", "DstATop", "Xor",
-                "Darken", "Lighten", "Multiply", "Screen"
+                "Darken", "Lighten", "Multiply", "Screen",
+                "Add", "Overlay"
         };
         private static int W = 64;
         private static int H = 64;
         private final int dip2px;
+        // rect
         private Bitmap mSrcB;
+        // oval
         private Bitmap mDstB;
         private Shader mBG;     // background checker-board pattern
 
@@ -112,8 +121,12 @@ public class AndyTestXfermodes extends Activity {
             H = W;
 //            W *= dip2px;
 //            H *= dip2px;
-            mSrcB = makeSrc(W, H);
-            mDstB = makeDst(W, H);
+
+            // oval 左上
+            mDstB = makeDst(W * 2 / 3, H * 2 / 3);
+
+            // rect 右下
+            mSrcB = makeSrc(W * 2 / 3, H * 2 / 3);
 
             // make a ckeckerboard pattern
             Bitmap bm = Bitmap.createBitmap(new int[]{0xFFFFFFFF, 0xFFCCCCCC,
@@ -152,6 +165,8 @@ public class AndyTestXfermodes extends Activity {
 
                 // draw the checker-board pattern
                 paint.setStyle(Paint.Style.FILL);
+
+                // 画背景
                 paint.setShader(mBG);
                 canvas.drawRect(x, y, x + W, y + H, paint);
 
@@ -163,9 +178,13 @@ public class AndyTestXfermodes extends Activity {
                                 Canvas.FULL_COLOR_LAYER_SAVE_FLAG |
                                 Canvas.CLIP_TO_LAYER_SAVE_FLAG);
                 canvas.translate(x, y);
+
+                // oval 画圆
                 canvas.drawBitmap(mDstB, 0, 0, paint);
                 paint.setXfermode(sModes[i]);
-                canvas.drawBitmap(mSrcB, 0, 0, paint);
+
+                //rect 画方
+                canvas.drawBitmap(mSrcB, W / 3, H / 3, paint);
                 paint.setXfermode(null);
                 canvas.restoreToCount(sc);
 
