@@ -34,12 +34,24 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.android.apis.DensityUtil;
+import com.example.android.apis.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import commontools.LogUtils;
 
 public class AndyTestXfermodes extends Activity {
+
+    @BindView(R.id.modeBtn)
+    Button modeBtn;
+    SampleView sampleView;
+    @BindView(R.id.layout_container)
+    LinearLayout layoutContainer;
 
     // create a bitmap with a circle, used for the "dst" image
     static Bitmap makeDst(int w, int h) {
@@ -67,11 +79,28 @@ public class AndyTestXfermodes extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(new SampleView(this));
+
+        setContentView(R.layout.andy_test_xfermodes_activity);
+        ButterKnife.bind(this);
+        sampleView = new SampleView(this);
+        layoutContainer.addView(sampleView);
+
+//        setContentView(new SampleView(this));
+
+    }
+
+    @OnClick({R.id.modeBtn})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.modeBtn:
+                sampleView.switchMode();
+                break;
+        }
+
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    private static class SampleView extends View {
+    public static class SampleView extends View {
         private static final int ROW_MAX = 4;   // number of samples per row
         private static final Xfermode[] sModes = {
                 new PorterDuffXfermode(PorterDuff.Mode.CLEAR),
@@ -103,6 +132,7 @@ public class AndyTestXfermodes extends Activity {
         private static int W = 64;
         private static int H = 64;
         private final int dip2px;
+        int mode = 0;
         // rect
         private Bitmap mSrcB;
         // oval
@@ -139,6 +169,14 @@ public class AndyTestXfermodes extends Activity {
             m.setScale(6 * dip2px, 6 * dip2px);
 
             mBG.setLocalMatrix(m);
+        }
+
+        public void switchMode() {
+            mode++;
+            if (mode > 3) {
+                mode = 0;
+            }
+            invalidate();
         }
 
         @Override
@@ -179,8 +217,13 @@ public class AndyTestXfermodes extends Activity {
                                 Canvas.CLIP_TO_LAYER_SAVE_FLAG);
                 canvas.translate(x, y);
 
-                // oval 画圆
-                canvas.drawBitmap(mDstB, 0, 0, paint);
+                if (mode % 2 == 0) {
+                    // oval 画圆
+                    canvas.drawBitmap(mDstB, 0, 0, paint);
+                } else {
+                    //rect 画方
+                    canvas.drawBitmap(mSrcB, 0, 0, paint);
+                }
                 float textSize = labelP.getTextSize();
                 LogUtils.d("onDraw: " +
                         " W" + W +
@@ -188,10 +231,17 @@ public class AndyTestXfermodes extends Activity {
                         " getTextSize" + textSize);
                 canvas.drawText("Dst", W / 3.f, textSize, labelP);
 
-
                 paint.setXfermode(sModes[i]);
-                //rect 画方
-                canvas.drawBitmap(mSrcB, W / 3, H / 3, paint);
+
+                if (mode < 2) {
+                    //rect 画方
+                    canvas.drawBitmap(mSrcB, W / 3, H / 3, paint);
+                } else {
+                    // oval 画圆
+                    canvas.drawBitmap(mDstB, W / 3, H / 3, paint);
+                }
+
+
                 canvas.drawText("Src", (float) (W / 3 * 2), H - textSize / 2, labelP);
 
                 paint.setXfermode(null);
