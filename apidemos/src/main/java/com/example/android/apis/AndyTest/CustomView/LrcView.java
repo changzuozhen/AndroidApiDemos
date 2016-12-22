@@ -14,7 +14,9 @@ import com.example.android.apis.R;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -229,6 +231,40 @@ public class LrcView extends View {
         }
 
         reader.close();
+    }
+
+    // 外部提供方法
+    // 设置lrc的路径
+    public void setLrcStr(String lrcStr) {
+        mLrcs.clear();
+        BufferedReader reader = new BufferedReader(new StringReader(lrcStr));
+        String line = "";
+        String[] arr;
+        try {
+            while (null != (line = reader.readLine())) {
+                arr = parseLine(line);
+                if (null == arr) {
+                    continue;
+                }
+
+                // 如果解析出来只有一个
+                if (1 == arr.length) {
+                    String last = mLrcs.remove(mLrcs.size() - 1);
+                    mLrcs.add(last + arr[0]);
+                    continue;
+                }
+                mTimes.add(Long.parseLong(arr[0]));
+                mLrcs.add(arr[1]);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     // 外部提供方法
