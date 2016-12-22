@@ -3486,7 +3486,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AndyTest.AndyTestActivity3"
+            android:name=".AndyTest.AndyTestLRCActivity"
             android:label="AndyTest/AndyTestActivity3">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -3516,6 +3516,16 @@
         <activity
             android:name=".AndyTest.AndyTestViewAnimateActivity"
             android:label="AndyTest/AndyTestViewAnimateActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.SAMPLE_CODE" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".AndyTest.AndyTestRxJavaActivity"
+            android:label="AndyTestRxJavaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -6,14 +6,29 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 
 import com.example.android.apis.R;
 
-import commontools.LogUtils;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-public class AndyTestActivity4 extends Activity implements View.OnClickListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import commontools.LogUtils;
+import rx.Observable;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
+public class AndyTestActivity4 extends Activity {
 
     private static final String TAG = "AndyTestActivity";
     String bt1Str =
@@ -26,29 +41,194 @@ public class AndyTestActivity4 extends Activity implements View.OnClickListener 
             "reset";
     String bt5Str =
             "seek";
-    Button btn1, btn2, btn3, btn4, btn5;
+    @BindView(R.id.btn1)
+    Button btn1;
+    @BindView(R.id.btn2)
+    Button btn2;
+    @BindView(R.id.btn3)
+    Button btn3;
+    @BindView(R.id.btn4)
+    Button btn4;
+    @BindView(R.id.btn5)
+    Button btn5;
+    private Subscription subscription;
+    private GestureDetector gestureDetector1;
+    private GestureDetector gestureDetector2;
+    private GestureDetector gestureDetector3;
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        subscription.unsubscribe();
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_andy_test);
-        btn1 = (Button) findViewById(R.id.btn1);
-        btn2 = (Button) findViewById(R.id.btn2);
-        btn3 = (Button) findViewById(R.id.btn3);
-        btn4 = (Button) findViewById(R.id.btn4);
-        btn5 = (Button) findViewById(R.id.btn5);
+        ButterKnife.bind(this);
 
         btn1.setText(bt1Str);
         btn2.setText(bt2Str);
         btn3.setText(bt3Str);
         btn4.setText(bt4Str);
         btn5.setText(bt5Str);
+        gestureDetector1 = new GestureDetector(this, new GestureDetector.OnGestureListener() {
+            private static final String TAG = "GestureDetector1";
 
-        findViewById(R.id.btn1).setOnClickListener(this);
-        findViewById(R.id.btn2).setOnClickListener(this);
-        findViewById(R.id.btn3).setOnClickListener(this);
-        findViewById(R.id.btn4).setOnClickListener(this);
-        findViewById(R.id.btn5).setOnClickListener(this);
+            @Override
+            public boolean onDown(MotionEvent e) {
+                LogUtils.d(TAG, "onDown() called with: ");
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                LogUtils.d(TAG, "onShowPress() called with: ");
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                LogUtils.d(TAG, "onSingleTapUp() called with: ");
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                LogUtils.d(TAG, "onScroll() called with: distanceX = [" + distanceX + "], distanceY = [" + distanceY + "]");
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                LogUtils.d(TAG, "onLongPress() called with: ");
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                LogUtils.d(TAG, "onFling() called with: velocityX = [" + velocityX + "], velocityY = [" + velocityY + "]");
+                return false;
+            }
+        });
+        gestureDetector2 = new GestureDetector(this, new GestureDetector.OnGestureListener() {
+            private static final String TAG = "GestureDetector2";
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                LogUtils.d(TAG, "onDown() called with: ");
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                LogUtils.d(TAG, "onShowPress() called with: ");
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                LogUtils.d(TAG, "onSingleTapUp() called with: ");
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                LogUtils.d(TAG, "onScroll() called with: distanceX = [" + distanceX + "], distanceY = [" + distanceY + "]");
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                LogUtils.d(TAG, "onLongPress() called with: ");
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                LogUtils.d(TAG, "onFling() called with: velocityX = [" + velocityX + "], velocityY = [" + velocityY + "]");
+                return false;
+            }
+        });
+        gestureDetector3 = new GestureDetector(this, new GestureDetector.OnGestureListener() {
+            private static final String TAG = "GestureDetector3";
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                LogUtils.d(TAG, "onDown() called with: ");
+                return false;
+            }
+
+            @Override
+            public void onShowPress(MotionEvent e) {
+                LogUtils.d(TAG, "onShowPress() called with: ");
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                LogUtils.d(TAG, "onSingleTapUp() called with: ");
+                return false;
+            }
+
+            @Override
+            public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                LogUtils.d(TAG, "onScroll() called with: distanceX = [" + distanceX + "], distanceY = [" + distanceY + "]");
+                return false;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                LogUtils.d(TAG, "onLongPress() called with: ");
+
+            }
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                LogUtils.d(TAG, "onFling() called with: velocityX = [" + velocityX + "], velocityY = [" + velocityY + "]");
+                return false;
+            }
+        });
+        gestureDetector3.setOnDoubleTapListener(new GestureDetector.OnDoubleTapListener() {
+            private static final String TAG = "OnDoubleTapListener";
+
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                LogUtils.d(TAG, "onSingleTapConfirmed() called with: " + "e = [" + e + "]");
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTap(MotionEvent e) {
+                LogUtils.d(TAG, "onDoubleTap() called with: " + "e = [" + e + "]");
+                return false;
+            }
+
+            @Override
+            public boolean onDoubleTapEvent(MotionEvent e) {
+                LogUtils.d(TAG, "onDoubleTapEvent() called with: " + "e = [" + e + "]");
+                return false;
+            }
+        });
+        btn4.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector3.onTouchEvent(event);
+                return false;
+            }
+        });
+        btn5.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector2.onTouchEvent(event);
+                return false;
+            }
+        });
+    }
+
+    //下面实现的这些接口负责处理所有在该Activity上发生的触碰屏幕相关的事件
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        return gestureDetector1.onTouchEvent(e);
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -58,15 +238,74 @@ public class AndyTestActivity4 extends Activity implements View.OnClickListener 
         String tmDevice = "" + tm.getSubscriberId();// 得到用户Id（IMSI）
         LogUtils.d(TAG, "getDeviceId() IMSI : " + tmDevice);
 
+
         int value = 0;
         if (btn1.getTag() != null) {
             value = (int) btn1.getTag();
         }
         switch (value) {
             case 0:
+                Observable
+                        .range(1, 10)
+                        .subscribeOn(Schedulers.computation())
+                        .filter(new Func1<Integer, Boolean>() {
+                            @Override
+                            public Boolean call(Integer integer) {
+                                if (integer % 3 == 0) LogUtils.d(TAG, "call: " + integer);
+                                return integer % 3 == 0;
+                            }
+                        })
+                        .map(new Func1<Integer, Integer>() {
+                            @Override
+                            public Integer call(Integer integer) {
+                                LogUtils.d(TAG, "call: " + integer);
+                                return integer * 10;
+                            }
+                        })
+                        .takeLastBuffer(2)
+                        .map(new Func1<List<Integer>, Integer>() {
+                            @Override
+                            public Integer call(List<Integer> integers) {
+                                for (int i = 0; i < integers.size(); i++) {
+                                    LogUtils.d(TAG, "call: " +
+                                            "i:" + i +
+                                            ":" + integers.get(i));
+                                }
+                                return integers.size();
+                            }
+                        })
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<Integer>() {
+                            @Override
+                            public void call(Integer integer) {
+                                LogUtils.d(TAG, "call: " + integer);
+                            }
+                        });
                 btn1.setTag(1);
                 break;
             case 1:
+                Observable.create(new Observable.OnSubscribe<Integer>() {
+                    @Override
+                    public void call(Subscriber<? super Integer> subscriber) {
+                        for (int i = 0; i < 50; i++) {
+                            subscriber.onNext(i);
+                            try {
+                                Thread.sleep(100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                })
+                        .subscribeOn(Schedulers.io())
+                        .sample(1, TimeUnit.SECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<Integer>() {
+                            @Override
+                            public void call(Integer integer) {
+                                LogUtils.d(TAG, "call: i:" + integer);
+                            }
+                        });
                 btn1.setTag(0);
                 break;
         }
@@ -80,6 +319,29 @@ public class AndyTestActivity4 extends Activity implements View.OnClickListener 
         }
         switch (value) {
             case 0:
+                subscription = Observable.create(new Observable.OnSubscribe<Integer>() {
+                    @Override
+                    public void call(Subscriber<? super Integer> subscriber) {
+                        for (int i = 0; i < 50; i++) {
+                            subscriber.onNext(i);
+                            try {
+                                Thread.sleep(i * 100);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                })
+                        .subscribeOn(Schedulers.io())
+//                        .throttleWithTimeout(1, TimeUnit.SECONDS)
+                        .debounce(1, TimeUnit.SECONDS)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Action1<Integer>() {
+                            @Override
+                            public void call(Integer integer) {
+                                LogUtils.d(TAG, "call: i:" + integer);
+                            }
+                        });
                 btn2.setTag(1);
                 break;
             case 1:
@@ -97,7 +359,7 @@ public class AndyTestActivity4 extends Activity implements View.OnClickListener 
     private void seek() {
     }
 
-    @Override
+    @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5})
     public void onClick(View v) {
         switch (v.getId()) {
 

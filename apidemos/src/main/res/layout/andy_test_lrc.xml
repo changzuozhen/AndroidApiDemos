@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lrc="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:orientation="vertical">
+
+    <org.load.openlrc.LrcView
+        android:id="@+id/lrc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dip"
+        android:background="@android:color/white"
+        lrc:currentTextColor="#ffffff"
+        lrc:dividerHeight="10dip"
+        lrc:lrcTextSize="20sp"
+        lrc:normalTextColor="@android:color/white"
+        lrc:rows="5" />
+
+</LinearLayout>

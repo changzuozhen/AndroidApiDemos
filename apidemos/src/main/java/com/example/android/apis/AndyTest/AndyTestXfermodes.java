@@ -54,23 +54,23 @@ public class AndyTestXfermodes extends Activity {
     LinearLayout layoutContainer;
 
     // create a bitmap with a circle, used for the "dst" image
-    static Bitmap makeDst(int w, int h) {
+    static Bitmap makeOval(int w, int h, int color) {
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        p.setColor(0xFFFFCC44);
+        p.setColor(color);
         c.drawOval(new RectF(0, 0, w, h), p);
         return bm;
     }
 
     // create a bitmap with a rect, used for the "src" image
-    static Bitmap makeSrc(int w, int h) {
+    static Bitmap makeRect(int w, int h, int color) {
         Bitmap bm = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(bm);
         Paint p = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-        p.setColor(0xFF66AAFF);
+        p.setColor(color);
 //        c.drawRect(w / 3, h / 3, w * 19 / 20, h * 19 / 20, p);
         c.drawRect(0, 0, w, h, p);
         return bm;
@@ -132,11 +132,13 @@ public class AndyTestXfermodes extends Activity {
         private static int W = 64;
         private static int H = 64;
         private final int dip2px;
+        private final Bitmap mOval2;
+        private final Bitmap mOval3;
+        private final Bitmap mOval4;
         int mode = 0;
         // rect
-        private Bitmap mSrcB;
         // oval
-        private Bitmap mDstB;
+        private Bitmap mOval1;
         private Shader mBG;     // background checker-board pattern
 
         public SampleView(Context context) {
@@ -153,10 +155,13 @@ public class AndyTestXfermodes extends Activity {
 //            H *= dip2px;
 
             // oval 左上
-            mDstB = makeDst(W * 2 / 3, H * 2 / 3);
+            //0xFFFFCC44
+            mOval1 = makeOval(W * 2 / 3, H * 2 / 3, getResources().getColor(R.color.alpha_red));
+            mOval2 = makeOval(W * 2 / 3, H * 2 / 3, getResources().getColor(R.color.alpha_green));
+            mOval3 = makeOval(W * 2 / 3, H * 2 / 3, getResources().getColor(R.color.alpha_blue));
+            mOval4 = makeOval(W * 2 / 3, H * 2 / 3, getResources().getColor(R.color.alpha_yellow));
 
             // rect 右下
-            mSrcB = makeSrc(W * 2 / 3, H * 2 / 3);
 
             // make a ckeckerboard pattern
             Bitmap bm = Bitmap.createBitmap(new int[]{0xFFFFFFFF, 0xFFCCCCCC,
@@ -171,6 +176,21 @@ public class AndyTestXfermodes extends Activity {
             mBG.setLocalMatrix(m);
         }
 
+        public Bitmap getBitmap(int i) {
+            switch (i % 4) {
+                case 0:
+                    return mOval1;
+                case 1:
+                    return mOval2;
+                case 2:
+                    return mOval3;
+                case 3:
+                    return mOval4;
+                default:
+                    return mOval1;
+            }
+        }
+
         public void switchMode() {
             mode++;
             if (mode > 3) {
@@ -178,6 +198,7 @@ public class AndyTestXfermodes extends Activity {
             }
             invalidate();
         }
+
 
         @Override
         protected void onDraw(Canvas canvas) {
@@ -217,13 +238,7 @@ public class AndyTestXfermodes extends Activity {
                                 Canvas.CLIP_TO_LAYER_SAVE_FLAG);
                 canvas.translate(x, y);
 
-                if (mode % 2 == 0) {
-                    // oval 画圆
-                    canvas.drawBitmap(mDstB, 0, 0, paint);
-                } else {
-                    //rect 画方
-                    canvas.drawBitmap(mSrcB, 0, 0, paint);
-                }
+                canvas.drawBitmap(getBitmap(mode), 0, 0, paint);
                 float textSize = labelP.getTextSize();
                 LogUtils.d("onDraw: " +
                         " W" + W +
@@ -233,14 +248,7 @@ public class AndyTestXfermodes extends Activity {
 
                 paint.setXfermode(sModes[i]);
 
-                if (mode < 2) {
-                    //rect 画方
-                    canvas.drawBitmap(mSrcB, W / 3, H / 3, paint);
-                } else {
-                    // oval 画圆
-                    canvas.drawBitmap(mDstB, W / 3, H / 3, paint);
-                }
-
+                canvas.drawBitmap(getBitmap(mode + 1), W / 3, H / 3, paint);
 
                 canvas.drawText("Src", (float) (W / 3 * 2), H - textSize / 2, labelP);
 

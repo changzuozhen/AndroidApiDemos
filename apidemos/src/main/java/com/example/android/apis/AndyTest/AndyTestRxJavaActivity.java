@@ -11,11 +11,18 @@ import android.widget.Button;
 
 import com.example.android.apis.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import commontools.LogUtils;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
-public class AndyTestActivity3 extends Activity implements View.OnClickListener {
+public class AndyTestRxJavaActivity extends Activity {
 
-    private static final String TAG = "AndyTestActivity";
+    private static final String TAG = "AndyTestRxJavaActivity";
     String bt1Str =
             "prepare";
     String bt2Str =
@@ -26,29 +33,28 @@ public class AndyTestActivity3 extends Activity implements View.OnClickListener 
             "reset";
     String bt5Str =
             "seek";
-    Button btn1, btn2, btn3, btn4, btn5;
+    @BindView(R.id.btn1)
+    Button btn1;
+    @BindView(R.id.btn2)
+    Button btn2;
+    @BindView(R.id.btn3)
+    Button btn3;
+    @BindView(R.id.btn4)
+    Button btn4;
+    @BindView(R.id.btn5)
+    Button btn5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_andy_test);
-        btn1 = (Button) findViewById(R.id.btn1);
-        btn2 = (Button) findViewById(R.id.btn2);
-        btn3 = (Button) findViewById(R.id.btn3);
-        btn4 = (Button) findViewById(R.id.btn4);
-        btn5 = (Button) findViewById(R.id.btn5);
+        ButterKnife.bind(this);
 
         btn1.setText(bt1Str);
         btn2.setText(bt2Str);
         btn3.setText(bt3Str);
         btn4.setText(bt4Str);
         btn5.setText(bt5Str);
-
-        findViewById(R.id.btn1).setOnClickListener(this);
-        findViewById(R.id.btn2).setOnClickListener(this);
-        findViewById(R.id.btn3).setOnClickListener(this);
-        findViewById(R.id.btn4).setOnClickListener(this);
-        findViewById(R.id.btn5).setOnClickListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -65,6 +71,46 @@ public class AndyTestActivity3 extends Activity implements View.OnClickListener 
         switch (value) {
             case 0:
                 btn1.setTag(1);
+
+                Observable.create(new Observable.OnSubscribe<String>() {
+                    @Override
+                    public void call(Subscriber<? super String> subscriber) {
+                        for (int i = 0; i < 10; i++) {
+                            subscriber.onNext("" + i);
+                            try {
+                                Thread.currentThread().sleep(500);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        subscriber.onCompleted();
+                    }
+                })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new Subscriber<String>() {
+                            @Override
+                            public void onStart() {
+                                super.onStart();
+                                LogUtils.d(TAG, "onStart() called with: " + "");
+                            }
+
+                            @Override
+                            public void onCompleted() {
+                                LogUtils.d(TAG, "onCompleted() called with: " + "");
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                LogUtils.d(TAG, "onError() called with: " + "e = [" + e + "]");
+                            }
+
+                            @Override
+                            public void onNext(String s) {
+                                LogUtils.d(TAG, "onNext() called with: " + "s = [" + s + "]");
+                            }
+                        });
+
                 break;
             case 1:
                 btn1.setTag(0);
@@ -97,7 +143,7 @@ public class AndyTestActivity3 extends Activity implements View.OnClickListener 
     private void seek() {
     }
 
-    @Override
+    @OnClick({R.id.btn1, R.id.btn2, R.id.btn3, R.id.btn4, R.id.btn5})
     public void onClick(View v) {
         switch (v.getId()) {
 
