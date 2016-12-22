@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.android.apis.R;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;

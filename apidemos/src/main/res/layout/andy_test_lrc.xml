@@ -2,19 +2,19 @@
     xmlns:lrc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="#943232"
     android:orientation="vertical">
 
-    <org.load.openlrc.LrcView
+    <com.example.android.apis.AndyTest.CustomView.LrcView
         android:id="@+id/lrc"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="100dip"
         android:background="@android:color/white"
-        lrc:currentTextColor="#ffffff"
+        lrc:currentTextColor="#48ff00"
         lrc:dividerHeight="10dip"
         lrc:lrcTextSize="20sp"
-        lrc:normalTextColor="@android:color/white"
+        lrc:normalTextColor="#07b8fd"
         lrc:rows="5" />
 
 </LinearLayout>
