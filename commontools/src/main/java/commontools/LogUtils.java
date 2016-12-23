@@ -52,6 +52,17 @@ public class LogUtils {
         }
     }
 
+    public static void i(String logKey, String msg, Throwable e) {
+        if (sOpenLog) {
+            StackTraceElement ste = new Throwable().getStackTrace()[1];
+            String log = build(logKey, msg, ste);
+            Log.i(TAG, log, e);
+            if (sOpenLogToFile) {
+                writeToFile(build(logKey, msg, ste, e));
+            }
+        }
+    }
+
     public static void i(String logKey, String msg) {
         i(logKey, msg, 2);
     }
