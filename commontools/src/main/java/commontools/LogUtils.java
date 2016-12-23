@@ -18,8 +18,12 @@ public class LogUtils {
     private static FileWriter mFileWriter = null;
 
     public static void d(String logKey, String msg) {
+        d(logKey, msg, 2);
+    }
+
+    public static void d(String logKey, String msg, int stackIndex) {
         if (sOpenLog) {
-            StackTraceElement ste = new Throwable().getStackTrace()[1];
+            StackTraceElement ste = new Throwable().getStackTrace()[stackIndex];
             String log = build(msg, ste);
 //            Log.d(logKey, log);
             Log.d(TAG, "[" + logKey + "]" + log);
@@ -38,9 +42,9 @@ public class LogUtils {
         }
     }
 
-    public static void i(String logKey, String msg) {
+    public static void i(String logKey, String msg, int stackIndex) {
         if (sOpenLog) {
-            StackTraceElement ste = new Throwable().getStackTrace()[1];
+            StackTraceElement ste = new Throwable().getStackTrace()[stackIndex];
             String log = build(msg, ste);
             Log.i(TAG, "[" + logKey + "]" + log);
 //            Log.i(logKey, log);
@@ -48,33 +52,27 @@ public class LogUtils {
         }
     }
 
-    public static void i(String logKey, String msg, Throwable e) {
+    public static void i(String logKey, String msg) {
+        i(logKey, msg, 2);
+    }
+
+    public static void v(String logKey, String msg, int stackIndex) {
         if (sOpenLog) {
-            StackTraceElement ste = new Throwable().getStackTrace()[1];
-            String log = build(logKey, msg, ste);
-            Log.i(TAG, log, e);
-            if (sOpenLogToFile) {
-                writeToFile(build(logKey, msg, ste, e));
-            }
+            StackTraceElement ste = new Throwable().getStackTrace()[stackIndex];
+            String log = build(msg, ste);
+            Log.v(TAG, "[" + logKey + "]" + log);
         }
     }
 
-    public static void v(String logKey, String msg) {
-        if (sOpenLog) {
-            StackTraceElement ste = new Throwable().getStackTrace()[1];
-            String log = build(msg, ste);
-            Log.v(TAG, "[" + logKey + "]" + log);
-//            Log.v(logKey, log);
 
-        }
+    public static void v(String logKey, String msg) {
+        v(logKey, msg, 2);
     }
 
     public static void w(String logKey, String msg) {
         if (sOpenLog) {
             StackTraceElement ste = new Throwable().getStackTrace()[1];
             String log = build(logKey, msg, ste);
-//            Log.w(TAG, log);
-//            Log.w(logKey, log);
             Log.w(TAG, "[" + logKey + "]" + log);
             if (sOpenLogToFile) {
                 writeToFile(log);
@@ -139,8 +137,8 @@ public class LogUtils {
      */
     public static void t(String tag, String str) {
         if (sOpenLog) {
-            Log.i(tag, "DebugInfo: " + str);
-            Exception e = new Exception(tag);
+            LogUtils.i(tag, "DebugInfo: " + str);
+            Throwable e = new Throwable(tag);
             e.printStackTrace();
         }
     }
