@@ -22,6 +22,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import commontools.LogUtils;
+import commontools.Utils;
+
 /**
  * 显示lrc歌词控件
  *
@@ -29,22 +32,19 @@ import java.util.regex.Pattern;
  */
 @SuppressLint("DrawAllocation")
 public class LrcView extends View {
+    private static final String TAG = "LrcView";
     private List<String> mLrcs = new ArrayList<String>(); // 存放歌词
     private List<Long> mTimes = new ArrayList<Long>(); // 存放时间
-
+    private String hintStr = "";
     private long mNextTime = 0l; // 保存下一句开始的时间
-
     private int mViewWidth; // view的宽度
     private int mLrcHeight; // lrc界面的高度
     private int mRows;      // 多少行
     private int mCurrentLine = 0; // 当前行
-
     private float mTextSize; // 字体
     private float mDividerHeight; // 行间距
-
     private Paint mNormalPaint; // 常规的字体
     private Paint mCurrentPaint; // 当前歌词的大小
-
     private Bitmap mBackground = null;
 
     public LrcView(Context context, AttributeSet attrs) {
@@ -55,6 +55,11 @@ public class LrcView extends View {
     public LrcView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initViews(attrs);
+    }
+
+    public void setHintStr(String hintStr) {
+        this.hintStr = hintStr;
+        postInvalidate();
     }
 
     // 初始化操作
@@ -86,6 +91,9 @@ public class LrcView extends View {
         mNormalPaint.setColor(normalTextColor);
         mCurrentPaint.setTextSize(mTextSize);
         mCurrentPaint.setColor(currentTextColor);
+
+        mNormalPaint.setAntiAlias(true);
+        mCurrentPaint.setAntiAlias(true);
     }
 
     @Override
@@ -106,7 +114,19 @@ public class LrcView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (Utils.notEmpty(hintStr)) {
+            canvas.save();
+            // 圈出可视区域
+            canvas.clipRect(0, 0, mViewWidth, mLrcHeight);
+            // 将画布上移
+            canvas.translate(0, -((mCurrentLine - 3) * (mTextSize + mDividerHeight)));
+            float currentX = (mViewWidth - mCurrentPaint.measureText(hintStr)) / 2;
+            canvas.drawText(hintStr, currentX, (mTextSize + mDividerHeight) * mCurrentLine, mNormalPaint);
+            canvas.restore();
+            return;
+        }
         if (mLrcs.isEmpty() || mTimes.isEmpty()) {
+            LogUtils.d(TAG, "onDraw() called with: lrc  Empty");
             return;
         }
 
@@ -122,6 +142,7 @@ public class LrcView extends View {
         // 将画布上移
         canvas.translate(0, -((mCurrentLine - 3) * (mTextSize + mDividerHeight)));
 
+
         // 画当前行上面的
         for (int i = mCurrentLine - 1; i >= 0; i--) {
             String lrc = mLrcs.get(i);
@@ -133,6 +154,7 @@ public class LrcView extends View {
         float currentX = (mViewWidth - mCurrentPaint.measureText(currentLrc)) / 2;
         // 画当前行
         canvas.drawText(currentLrc, currentX, (mTextSize + mDividerHeight) * mCurrentLine, mCurrentPaint);
+        LogUtils.d(TAG, "onDraw() called with: " + "currentLrc = [" + currentLrc + "]");
 
         // 画当前行下面的
         for (int i = mCurrentLine + 1; i < mLrcs.size(); i++) {
@@ -146,18 +168,30 @@ public class LrcView extends View {
 
     // 解析时间
     private Long parseTime(String time) {
-        // 03:02.12
         String[] min = time.split(":");
         String[] sec = min[1].split("\\.");
-
-        long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
-                .replaceAll("\r", "").replaceAll("\n", "").trim());
-        long secInt = Long.parseLong(sec[0].replaceAll("\\D+", "")
-                .replaceAll("\r", "").replaceAll("\n", "").trim());
-        long milInt = Long.parseLong(sec[1].replaceAll("\\D+", "")
-                .replaceAll("\r", "").replaceAll("\n", "").trim());
-
-        return minInt * 60 * 1000 + secInt * 1000 + milInt * 10;
+        if (min.length == 2 && sec.length == 2) {
+            // 03:02.12
+            long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
+                    .replaceAll("\r", "").replaceAll("\n", "").trim());
+            long secInt = Long.parseLong(sec[0].replaceAll("\\D+", "")
+                    .replaceAll("\r", "").replaceAll("\n", "").trim());
+            long milInt = Long.parseLong(sec[1].replaceAll("\\D+", "")
+                    .replaceAll("\r", "").replaceAll("\n", "").trim());
+            return minInt * 60 * 1000 + secInt * 1000 + milInt * 10;
+        } else if (min.length == 3) {
+            // 03:02:12
+            long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
+                    .replaceAll("\r", "").replaceAll("\n", "").trim());
+            long secInt = Long.parseLong(min[1].replaceAll("\\D+", "")
+                    .replaceAll("\r", "").replaceAll("\n", "").trim());
+            long milInt = Long.parseLong(min[2].replaceAll("\\D+", "")
+                    .replaceAll("\r", "").replaceAll("\n", "").trim());
+            return minInt * 60 * 1000 + secInt * 1000 + milInt * 10;
+        } else {
+            LogUtils.i(TAG, "parseTime() called with : invalid " + "time = [" + time + "]");
+            return Long.valueOf(0);
+        }
     }
 
     // 解析每行
@@ -178,20 +212,37 @@ public class LrcView extends View {
 
     // 外部提供方法
     // 传入当前播放时间
-    public synchronized void changeCurrent(long time) {
+    public synchronized void changeCurrent(long time, boolean isSeeking) {
+
+        // 手动 seek 需要重新计算 currentline
+        if (mTimes.isEmpty()) return;
+        if (isSeeking) {
+            mNextTime = 0;
+            int i = 0;
+            for (; i < mTimes.size(); i++) {
+                if (mTimes.get(i) > time) {
+                    mCurrentLine = i <= 1 ? 0 : i - 1;
+                    break;
+                }
+            }
+            if (i == mTimes.size()) mCurrentLine = i <= 1 ? 0 : i - 1;
+        }
+
         // 如果当前时间小于下一句开始的时间
         // 直接return
         if (mNextTime > time) {
+            LogUtils.i(TAG, "changeCurrent() called with: " + "time = [" + time + "], mNextTime = [" + mNextTime + "], isSeeking = [" + isSeeking + "]");
             return;
         }
 
         // 每次进来都遍历存放的时间
+//        LogUtils.d(TAG, "changeCurrent() called with: " + "time = [" + time + "], isSeeking = [" + isSeeking + "]");
         for (int i = 0; i < mTimes.size(); i++) {
             // 发现这个时间大于传进来的时间
             // 那么现在就应该显示这个时间前面的对应的那一行
             // 每次都重新显示，是不是要判断：现在正在显示就不刷新了
             if (mTimes.get(i) > time && i >= mCurrentLine + 1) {
-                System.out.println("换");
+                System.out.println(TAG + " 换");
                 mNextTime = mTimes.get(i);
                 mCurrentLine = i <= 1 ? 0 : i - 1;
                 postInvalidate();
@@ -203,9 +254,15 @@ public class LrcView extends View {
     // 外部提供方法
     // 设置lrc的路径
     public void setLrcPath(String path) throws Exception {
-        mLrcs.clear();
         File file = new File(path);
+        setLrcFile(file);
+    }
+
+    public void setLrcFile(File file) throws Exception {
+        LogUtils.d(TAG, "setLrcFile() called with: " + "file = [" + file + "]", 2);
+        clearData();
         if (!file.exists()) {
+            LogUtils.d(TAG, "setLrcFile() called with: lrc not found... " + "file = [" + file + "]");
             throw new Exception("lrc not found...");
         }
 
@@ -231,12 +288,22 @@ public class LrcView extends View {
         }
 
         reader.close();
+        changeCurrent(0, true);
+    }
+
+    public void clearData() {
+        hintStr = "";
+        mLrcs.clear();
+        mTimes.clear();
+        mCurrentLine = 0;
+        mNextTime = 0;
     }
 
     // 外部提供方法
     // 设置lrc的路径
     public void setLrcStr(String lrcStr) {
-        mLrcs.clear();
+        LogUtils.d(TAG, "setLrcStr() called with: " + "lrcStr = [" + lrcStr + "]");
+        clearData();
         BufferedReader reader = new BufferedReader(new StringReader(lrcStr));
         String line = "";
         String[] arr;
@@ -264,6 +331,7 @@ public class LrcView extends View {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        changeCurrent(0, true);
 
     }
 

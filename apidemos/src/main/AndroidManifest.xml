@@ -3487,7 +3487,7 @@
         </activity>
         <activity
             android:name=".AndyTest.AndyTestLRCActivity"
-            android:label="AndyTest/AndyTestActivity3">
+            android:label="AndyTestLRCActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -3525,7 +3525,7 @@
 
         <activity
             android:name=".AndyTest.AndyTestRxJavaActivity"
-            android:label="AndyTestRxJavaActivity">
+            android:label="AndyTest/AndyTestRxJavaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -3575,7 +3575,7 @@
         </activity>
         <activity
             android:name=".AndyTest.AndyTestColorMatrixActivity"
-            android:label="AndyTestColorMatrixActivity">
+            android:label="AndyTest/AndyTestColorMatrixActivity">
             <!--android:theme="@style/Theme.AppCompat"-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

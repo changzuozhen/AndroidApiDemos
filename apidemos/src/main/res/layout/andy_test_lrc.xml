@@ -2,19 +2,25 @@
     xmlns:lrc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#943232"
+    android:background="#966363"
     android:orientation="vertical">
 
     <com.example.android.apis.AndyTest.CustomView.LrcView
-        android:id="@+id/lrc"
+        android:id="@+id/lrc_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="100dip"
-        android:background="@android:color/white"
-        lrc:currentTextColor="#48ff00"
-        lrc:dividerHeight="10dip"
-        lrc:lrcTextSize="20sp"
-        lrc:normalTextColor="#07b8fd"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="#00ffffff"
+        lrc:currentTextColor="#7bbf37"
+        lrc:dividerHeight="16dp"
+        lrc:lrcTextSize="32dp"
+        lrc:normalTextColor="#ffffff"
         lrc:rows="5" />
+
+    <SeekBar
+        android:id="@+id/seekbar_lrc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="400000" />
 
 </LinearLayout>

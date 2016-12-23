@@ -35,4 +35,5 @@ dependencies {
 //    compile project(':materialscrollbar')
 //    provided 'com.android.support:appcompat-v7:24.1.1'
 //    compile 'com.android.support:appcompat-v7:24.1.1'
+    compile 'org.jetbrains:annotations-java5:15.0'
 }
