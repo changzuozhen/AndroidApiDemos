@@ -42,6 +42,7 @@ public class LrcView extends View {
     private int mRows;      // 多少行
     private int mCurrentLine = 0; // 当前行
     private float mTextSize; // 字体
+    private float mTextDecent; // 字体
     private float mDividerHeight; // 行间距
     private Paint mNormalPaint; // 常规的字体
     private Paint mCurrentPaint; // 当前歌词的大小
@@ -92,6 +93,9 @@ public class LrcView extends View {
         mCurrentPaint.setTextSize(mTextSize);
         mCurrentPaint.setColor(currentTextColor);
 
+
+        mTextDecent = mNormalPaint.getFontMetrics().descent;
+
         mNormalPaint.setAntiAlias(true);
         mCurrentPaint.setAntiAlias(true);
     }
@@ -121,7 +125,7 @@ public class LrcView extends View {
             // 将画布上移
             canvas.translate(0, -((mCurrentLine - 3) * (mTextSize + mDividerHeight)));
             float currentX = (mViewWidth - mCurrentPaint.measureText(hintStr)) / 2;
-            canvas.drawText(hintStr, currentX, (mTextSize + mDividerHeight) * mCurrentLine, mNormalPaint);
+            canvas.drawText(hintStr, currentX, (mTextSize + mDividerHeight) * mCurrentLine - mTextDecent, mNormalPaint);
             canvas.restore();
             return;
         }
@@ -144,23 +148,23 @@ public class LrcView extends View {
 
 
         // 画当前行上面的
-        for (int i = mCurrentLine - 1; i >= 0; i--) {
+        for (int i = mCurrentLine - 1; i >= 0 && Math.abs(mCurrentLine - i) < mRows; i--) {
             String lrc = mLrcs.get(i);
             float x = (mViewWidth - mNormalPaint.measureText(lrc)) / 2;
-            canvas.drawText(lrc, x, (mTextSize + mDividerHeight) * i, mNormalPaint);
+            canvas.drawText(lrc, x, (mTextSize + mDividerHeight) * i - mTextDecent, mNormalPaint);
         }
 
         String currentLrc = mLrcs.get(mCurrentLine);
         float currentX = (mViewWidth - mCurrentPaint.measureText(currentLrc)) / 2;
         // 画当前行
-        canvas.drawText(currentLrc, currentX, (mTextSize + mDividerHeight) * mCurrentLine, mCurrentPaint);
+        canvas.drawText(currentLrc, currentX, (mTextSize + mDividerHeight) * mCurrentLine - mTextDecent, mCurrentPaint);
         LogUtils.d(TAG, "onDraw() called with: " + "currentLrc = [" + currentLrc + "]");
 
         // 画当前行下面的
-        for (int i = mCurrentLine + 1; i < mLrcs.size(); i++) {
+        for (int i = mCurrentLine + 1; i < mLrcs.size() && Math.abs(mCurrentLine - i) < mRows; i++) {
             String lrc = mLrcs.get(i);
             float x = (mViewWidth - mNormalPaint.measureText(lrc)) / 2;
-            canvas.drawText(lrc, x, (mTextSize + mDividerHeight) * i, mNormalPaint);
+            canvas.drawText(lrc, x, (mTextSize + mDividerHeight) * i - mTextDecent, mNormalPaint);
         }
 
         canvas.restore();
