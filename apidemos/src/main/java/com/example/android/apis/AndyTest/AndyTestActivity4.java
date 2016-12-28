@@ -13,6 +13,9 @@ import android.widget.Button;
 
 import com.example.android.apis.R;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -351,6 +354,7 @@ public class AndyTestActivity4 extends Activity {
     }
 
     private void stop() {
+        testReflect();
     }
 
     private void reset() {
@@ -388,6 +392,69 @@ public class AndyTestActivity4 extends Activity {
                 seek();
             }
             break;
+        }
+    }
+
+    private void testReflect() {
+        try {
+            Class<?> clazz = Class.forName("com.example.android.apis.AndyTest.CustomView.LrcView");
+            LogUtils.d(TAG, "===============本类属性===============");
+            // 取得本类的全部属性
+            Field[] field = clazz.getDeclaredFields();
+            for (int i = 0; i < field.length; i++) {
+                // 权限修饰符
+                int mo = field[i].getModifiers();
+                String priv = Modifier.toString(mo);
+                // 属性类型
+                Class<?> type = field[i].getType();
+                LogUtils.d(TAG, priv + " " + type.getName() + " " + field[i].getName() + ";");
+            }
+
+            LogUtils.d(TAG, "==========实现的接口或者父类的属性==========");
+            // 取得实现的接口或者父类的属性
+            Field[] filed1 = clazz.getFields();
+            for (int j = 0; j < filed1.length; j++) {
+                // 权限修饰符
+                int mo = filed1[j].getModifiers();
+                String priv = Modifier.toString(mo);
+                // 属性类型
+                Class<?> type = filed1[j].getType();
+                LogUtils.d(TAG, priv + " " + type.getName() + " " + filed1[j].getName() + ";");
+            }
+
+            Method method[] = clazz.getMethods();
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < method.length; ++i) {
+                Class<?> returnType = method[i].getReturnType();
+                Class<?> para[] = method[i].getParameterTypes();
+                int temp = method[i].getModifiers();
+                builder.append(Modifier.toString(temp) + " ");
+                builder.append(returnType.getName() + "  ");
+                builder.append(method[i].getName() + " ");
+                builder.append("(");
+                for (int j = 0; j < para.length; ++j) {
+                    builder.append(para[j].getName() + " " + "arg" + j);
+                    if (j < para.length - 1) {
+                        builder.append(",");
+                    }
+                }
+                Class<?> exce[] = method[i].getExceptionTypes();
+                if (exce.length > 0) {
+                    builder.append(") throws ");
+                    for (int k = 0; k < exce.length; ++k) {
+                        builder.append(exce[k].getName() + " ");
+                        if (k < exce.length - 1) {
+                            builder.append(",");
+                        }
+                    }
+                } else {
+                    builder.append(")");
+                }
+                builder.append('\n');
+            }
+            LogUtils.d(TAG, builder.toString());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
 
         // Enabling multidex support.
-//        multiDexEnabled true
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -29,9 +29,9 @@ android {
 
 }
 
-//dependencies {
-//    compile 'com.android.support:multidex:1.0.0'
-//}
+dependencies {
+    compile 'com.android.support:multidex:1.0.0'
+}
 
 dependencies {
     compile project(':commontools')

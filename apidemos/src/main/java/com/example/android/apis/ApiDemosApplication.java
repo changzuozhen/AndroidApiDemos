@@ -17,6 +17,8 @@
 package com.example.android.apis;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 /**
  * This is an example of a {@link android.app.Application} class.  This can
@@ -34,9 +36,9 @@ public class ApiDemosApplication extends Application {
     public void onCreate() {
     }
 
-//    @Override
-//    protected void attachBaseContext(Context base) {
-//        super.attachBaseContext(base);
-//        MultiDex.install(this);
-//    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 }
