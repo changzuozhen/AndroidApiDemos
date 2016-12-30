@@ -66,6 +66,7 @@ public class LrcView extends View {
     }
 
     public void setHintStr(String hintStr) {
+        LogUtils.d(TAG, "setHintStr() called with: " + "hintStr = [" + hintStr + "]", 2);
         this.hintStr = hintStr;
         postInvalidate();
     }
@@ -225,48 +226,25 @@ public class LrcView extends View {
         canvas.restore();
     }
 
-    // 解析时间
-    private Long parseTime(String time) {
-        String[] min = time.split(":");
-        String[] sec = min[1].split("\\.");
-        if (min.length == 2 && sec.length == 2) {
-            // 03:02.12
-            long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
-                    .replaceAll("\r", "").replaceAll("\n", "").trim());
-            long secInt = Long.parseLong(sec[0].replaceAll("\\D+", "")
-                    .replaceAll("\r", "").replaceAll("\n", "").trim());
-            long milInt = Long.parseLong(sec[1].replaceAll("\\D+", "")
-                    .replaceAll("\r", "").replaceAll("\n", "").trim());
-            return minInt * 60 * 1000 + secInt * 1000 + milInt * 10;
-        } else if (min.length == 3) {
-            // 03:02:12
-            long minInt = Long.parseLong(min[0].replaceAll("\\D+", "")
-                    .replaceAll("\r", "").replaceAll("\n", "").trim());
-            long secInt = Long.parseLong(min[1].replaceAll("\\D+", "")
-                    .replaceAll("\r", "").replaceAll("\n", "").trim());
-            long milInt = Long.parseLong(min[2].replaceAll("\\D+", "")
-                    .replaceAll("\r", "").replaceAll("\n", "").trim());
-            return minInt * 60 * 1000 + secInt * 1000 + milInt * 10;
-        } else {
-            LogUtils.i(TAG, "parseTime() called with : invalid " + "time = [" + time + "]");
-            return Long.valueOf(0);
-        }
-    }
-
     // 解析每行
     private String[] parseLine(String line) {
-        Matcher matcher = Pattern.compile("\\[.+\\].+").matcher(line);
-        // 如果形如：[xxx]后面啥也没有的，则return空
-        if (!matcher.matches()) {
-            System.out.println("throws " + line);
-            return null;
+        /* >benny: [16-12-30 16:58] 格式, 时和毫秒可选 [00:?00:00.00?] */
+        Matcher matcher = Pattern.compile("\\[((\\d{2}):)?(\\d{2}):(\\d{2})(\\.(\\d{2}))?\\](.+)").matcher(line);
+        try {
+            if (matcher.find() && matcher.groupCount() >= 7) {
+                String hourStr = matcher.group(2);
+                int hour = hourStr == null ? 0 : Integer.valueOf(hourStr);
+                int min = Integer.valueOf(matcher.group(3));
+                int sec = Integer.valueOf(matcher.group(4));
+                String milSecStr = matcher.group(6);
+                int milSec = milSecStr == null ? 0 : Integer.valueOf(milSecStr);
+                String lrcLine = matcher.group(7);
+                return new String[]{String.valueOf(hour * 3600 * 1000 + min * 60 * 1000 + sec * 1000 + milSec * 10), lrcLine};
+            }
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
         }
-
-        line = line.replaceAll("\\[", "");
-        String[] result = line.split("\\]");
-        result[0] = String.valueOf(parseTime(result[0]));
-
-        return result;
+        return null;
     }
 
     // 外部提供方法
@@ -285,6 +263,7 @@ public class LrcView extends View {
                 }
             }
             if (i == mTimes.size()) mCurrentLine = i <= 1 ? 0 : i - 1;
+            LogUtils.d(TAG, "changeCurrent() called with: " + "time = [" + time + "], mCurrentLine = [" + mCurrentLine + "]");
         }
 
         // 如果当前时间小于下一句开始的时间
@@ -296,7 +275,8 @@ public class LrcView extends View {
 
         // 每次进来都遍历存放的时间
 //        LogUtils.d(TAG, "changeCurrent() called with: " + "time = [" + time + "], isSeeking = [" + isSeeking + "]");
-        for (int i = 0; i < mTimes.size(); i++) {
+        int i = 0;
+        for (i = 0; i < mTimes.size(); i++) {
             // 发现这个时间大于传进来的时间
             // 那么现在就应该显示这个时间前面的对应的那一行
             // 每次都重新显示，是不是要判断：现在正在显示就不刷新了
@@ -307,6 +287,11 @@ public class LrcView extends View {
                 postInvalidate();
                 break;
             }
+        }
+        /* >AndyChang: [16-12-30 11:03] 如果歌词中的每一条都是小于现有时间的，那么应该显示最后一行 */
+        if (i == mTimes.size()) {
+            mCurrentLine = i <= 1 ? 0 : i - 1;
+            postInvalidate();
         }
     }
 
@@ -344,6 +329,12 @@ public class LrcView extends View {
             }
             mTimes.add(Long.parseLong(arr[0]));
             mLrcs.add(arr[1]);
+        }
+        if (mLrcs.isEmpty()) {
+            LogUtils.i(TAG, "setLrcFile() called with: isEmpty  delete" + "file = [" + file + "]");
+            file.delete();
+        } else {
+            postInvalidate();
         }
 
         reader.close();
