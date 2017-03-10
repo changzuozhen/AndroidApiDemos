@@ -1,1 +1,4 @@
-include ':apidemos', ':Demo_ScrollerView', ':testapplication', ':commontools'
+include ':apidemos',
+        ':Demo_ScrollerView',
+        ':testapplication',
+        ':commontools', ':recyclerViewDemos'
