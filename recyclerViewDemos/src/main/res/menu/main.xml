@@ -32,9 +32,9 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/id_action_staggeredgridview"
+        android:id="@+id/id_action_verticalGridView"
         android:orderInCategory="100"
-        android:title="StaggeredGridView"
+        android:title="VerticalGridView"
         app:showAsAction="never" />
 
 </menu>

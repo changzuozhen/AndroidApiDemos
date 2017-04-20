@@ -1,6 +1,5 @@
 package com.tencent.demorecyclerview;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,6 +10,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.tencent.demorecyclerview.HomeAdapter.OnItemClickLitener;
@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private List<String> mDatas;
     private HomeAdapter mAdapter;
-
+    private StaggeredHomeAdapter mStaggeredHomeAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,10 +33,11 @@ public class HomeActivity extends AppCompatActivity {
 
         mRecyclerView = (RecyclerView) findViewById(R.id.id_recyclerview);
         mAdapter = new HomeAdapter(this, mDatas);
+        mStaggeredHomeAdapter = new StaggeredHomeAdapter(this, mDatas, LinearLayout.VERTICAL);
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,
                 StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mStaggeredHomeAdapter);
 
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
         // 设置item动画
@@ -80,23 +81,33 @@ public class HomeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.id_action_add:
                 mAdapter.addData(1);
+                mStaggeredHomeAdapter.addData(1);
+                mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.id_action_delete:
                 mAdapter.removeData(1);
+                mStaggeredHomeAdapter.removeData(1);
+                mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.id_action_gridview:
                 mRecyclerView.setLayoutManager(new GridLayoutManager(this, 4));
+                mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.id_action_listview:
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+                mRecyclerView.setAdapter(mAdapter);
                 break;
             case R.id.id_action_horizontalGridView:
-                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,
+                mStaggeredHomeAdapter.setOrientation(LinearLayout.HORIZONTAL);
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(5,
                         StaggeredGridLayoutManager.HORIZONTAL));
+                mRecyclerView.setAdapter(mStaggeredHomeAdapter);
                 break;
-            case R.id.id_action_staggeredgridview:
-                Intent intent = new Intent(this, StaggeredGridLayoutActivity.class);
-                startActivity(intent);
+            case R.id.id_action_verticalGridView:
+                mStaggeredHomeAdapter.setOrientation(LinearLayout.VERTICAL);
+                mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(6,
+                        StaggeredGridLayoutManager.VERTICAL));
+                mRecyclerView.setAdapter(mStaggeredHomeAdapter);
                 break;
         }
         return true;

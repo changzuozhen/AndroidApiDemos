@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ import java.util.List;
 class StaggeredHomeAdapter extends
         RecyclerView.Adapter<StaggeredHomeAdapter.MyViewHolder> {
 
+    private int orientation = LinearLayout.VERTICAL;
     private List<String> mDatas;
     private LayoutInflater mInflater;
-
     private List<Integer> mHeights;
     private OnItemClickLitener mOnItemClickLitener;
 
-    public StaggeredHomeAdapter(Context context, List<String> datas) {
+    public StaggeredHomeAdapter(Context context, List<String> datas, int orientation) {
         mInflater = LayoutInflater.from(context);
         mDatas = datas;
 
@@ -31,6 +32,14 @@ class StaggeredHomeAdapter extends
         for (int i = 0; i < mDatas.size(); i++) {
             mHeights.add((int) (100 + Math.random() * 300));
         }
+    }
+
+    public int getOrientation() {
+        return orientation;
+    }
+
+    public void setOrientation(int orientation) {
+        this.orientation = orientation;
     }
 
     public void setOnItemClickLitener(OnItemClickLitener mOnItemClickLitener) {
@@ -47,9 +56,15 @@ class StaggeredHomeAdapter extends
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         LayoutParams lp = holder.tv.getLayoutParams();
-        lp.height = mHeights.get(position);
+        if (orientation == LinearLayout.VERTICAL) {
+            lp.width = LayoutParams.MATCH_PARENT;
+            lp.height = mHeights.get(position);
+        } else {
+            lp.width = mHeights.get(position);
+            lp.height = LayoutParams.MATCH_PARENT;
+        }
 
-        holder.tv.setLayoutParams(lp);
+        holder.itemView.setLayoutParams(lp);
         holder.tv.setText(mDatas.get(position));
 
         // 如果设置了回调，则设置点击事件

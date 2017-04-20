@@ -8,12 +8,14 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 /**
  * @author zhy
  */
 public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
+    private static final String TAG = "DividerGridItemDecoration";
 
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;
@@ -133,19 +135,22 @@ public class DividerGridItemDecoration extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, int itemPosition,
-                               RecyclerView parent) {
-        int spanCount = getSpanCount(parent);
-        int childCount = parent.getAdapter().getItemCount();
-        if (isLastRaw(parent, itemPosition, spanCount, childCount))// 如果是最后一行，则不需要绘制底部
-        {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
-        } else if (isLastColum(parent, itemPosition, spanCount, childCount))// 如果是最后一列，则不需要绘制右边
-        {
-            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
-        } else {
-            outRect.set(0, 0, mDivider.getIntrinsicWidth(),
-                    mDivider.getIntrinsicHeight());
-        }
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+//        int spanCount = getSpanCount(parent);
+//        int childCount = parent.getAdapter().getItemCount();
+//        int itemPosition = parent.getChildAdapterPosition(view);
+//        if (isLastRaw(parent, itemPosition, spanCount, childCount))// 如果是最后一行，则不需要绘制底部
+//        {
+//            outRect.set(0, 0, mDivider.getIntrinsicWidth(), 0);
+//        } else if (isLastColum(parent, itemPosition, spanCount, childCount))// 如果是最后一列，则不需要绘制右边
+//        {
+//            outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
+//        } else {
+//            outRect.set(0, 0, mDivider.getIntrinsicWidth(),
+//                    mDivider.getIntrinsicHeight());
+//        }
+        outRect.set(0, 0, mDivider.getIntrinsicWidth(),
+                mDivider.getIntrinsicHeight());
+        Log.d(TAG, "getItemOffsets() " + "outRect = [" + outRect + "], state = [" + state + "]");
     }
 }
