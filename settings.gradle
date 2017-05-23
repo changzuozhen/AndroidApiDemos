@@ -1,4 +1,6 @@
 include ':apidemos',
         ':Demo_ScrollerView',
         ':testapplication',
-        ':commontools', ':recyclerViewDemos'
+        ':commontools',
+        ':recyclerViewDemos',
+        ':testTouchEvents'
