@@ -67,11 +67,41 @@ public class ApiDemos extends ListActivity {
     protected List<Map<String, Object>> getData(String prefix) {
         List<Map<String, Object>> myData = new ArrayList<Map<String, Object>>();
 
-        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
-        mainIntent.addCategory(Intent.CATEGORY_SAMPLE_CODE);
-
         PackageManager pm = getPackageManager();
-        List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
+
+//        Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+//        mainIntent.addCategory(Intent.CATEGORY_SAMPLE_CODE);
+//        List<ResolveInfo> list = pm.queryIntentActivities(mainIntent, 0);
+
+        // https://github.com/android-cn/android-discuss/issues/623
+        //分3次加载
+        String CATEGORY_SAMPLE_CODE_ONE = "android.intent.category.SAMPLE_CODE_ONE";
+        String CATEGORY_SAMPLE_CODE_TWO = "android.intent.category.SAMPLE_CODE_TWO";
+        String CATEGORY_SAMPLE_CODE_THREE = "android.intent.category.SAMPLE_CODE_THREE";
+        List<ResolveInfo> list = new ArrayList<>();
+        Intent mainIntent1 = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent1.addCategory(CATEGORY_SAMPLE_CODE_ONE);
+        List<ResolveInfo> list1 = pm.queryIntentActivities(mainIntent1, 0);//一定性加载会使报错FAILED BINDER TRANSACTION
+
+        Intent mainIntent2 = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent2.addCategory(CATEGORY_SAMPLE_CODE_TWO);
+        List<ResolveInfo> list2 = pm.queryIntentActivities(mainIntent2, 0);
+
+        Intent mainIntent3 = new Intent(Intent.ACTION_MAIN, null);
+        mainIntent3.addCategory(CATEGORY_SAMPLE_CODE_THREE);
+        List<ResolveInfo> list3 = pm.queryIntentActivities(mainIntent3, 0);
+
+        if (list1 != null && list1.size() > 0) {
+            list.addAll(list1);
+        }
+
+        if (list2 != null && list2.size() > 0) {
+            list.addAll(list2);
+        }
+
+        if (list3 != null && list3.size() > 0) {
+            list.addAll(list3);
+        }
 
         if (null == list)
             return myData;

@@ -98,7 +98,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -108,7 +108,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -118,7 +118,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -127,7 +127,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -137,7 +137,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -147,7 +147,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -157,7 +157,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -166,7 +166,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -176,7 +176,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -186,7 +186,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -196,7 +196,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -207,7 +207,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -216,7 +216,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -225,7 +225,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -237,7 +237,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity android:name=".app.ForwardTarget" />
@@ -247,7 +247,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity android:name=".app.RedirectMain" />
@@ -265,7 +265,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -274,7 +274,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity android:name=".app.ReorderTwo" />
@@ -286,7 +286,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -295,7 +295,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -304,7 +304,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -313,7 +313,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -322,7 +322,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -331,7 +331,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -340,7 +340,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -353,7 +353,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -363,7 +363,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -373,7 +373,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -384,7 +384,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -394,7 +394,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -404,7 +404,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -414,7 +414,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -424,7 +424,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -437,7 +437,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -447,7 +447,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -457,7 +457,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -467,7 +467,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -477,7 +477,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -487,7 +487,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -497,7 +497,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -510,7 +510,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -520,7 +520,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -530,7 +530,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -546,7 +546,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -558,7 +558,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -567,7 +567,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -584,7 +584,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -593,7 +593,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -607,7 +607,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -637,7 +637,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -646,7 +646,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -655,7 +655,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -668,7 +668,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -681,7 +681,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -692,7 +692,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -720,7 +720,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -734,7 +734,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -748,7 +748,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -768,7 +768,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -793,7 +793,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -804,7 +804,7 @@
             android:label="@string/activity_local_sample">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!-- category android:name="android.intent.category.SAMPLE_CODE" / -->
+                <!-- category android:name="android.intent.category.SAMPLE_CODE_ONE" / -->
             </intent-filter>
         </activity>
         <activity
@@ -812,7 +812,7 @@
             android:label="@string/activity_contacts_filter">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!-- category android:name="android.intent.category.SAMPLE_CODE" / -->
+                <!-- category android:name="android.intent.category.SAMPLE_CODE_ONE" / -->
             </intent-filter>
         </activity>
 
@@ -824,7 +824,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -833,7 +833,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -866,7 +866,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -878,7 +878,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -889,7 +889,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -907,7 +907,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
 
             <!-- This metadata entry causes .app.SearchQueryResults to be the default context -->
@@ -935,7 +935,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
 
             <!-- This intent-filter identifies this activity as "searchable" -->
@@ -996,7 +996,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1025,7 +1025,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1037,7 +1037,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1063,7 +1063,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1075,7 +1075,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1087,7 +1087,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1097,7 +1097,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1108,7 +1108,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1118,7 +1118,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1128,7 +1128,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1138,7 +1138,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1150,7 +1150,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1173,7 +1173,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1183,7 +1183,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1192,7 +1192,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1201,7 +1201,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1210,7 +1210,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1219,7 +1219,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1228,7 +1228,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1237,7 +1237,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1247,7 +1247,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1262,7 +1262,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1271,7 +1271,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
@@ -1281,7 +1281,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
@@ -1291,7 +1291,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
@@ -1302,7 +1302,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
@@ -1313,7 +1313,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
@@ -1323,7 +1323,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
                 <category android:name="android.intent.category.EMBED" />
             </intent-filter>
         </activity>
@@ -1333,7 +1333,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1342,7 +1342,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
         <activity
@@ -1352,7 +1352,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_ONE" />
             </intent-filter>
         </activity>
 
@@ -1371,7 +1371,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1380,7 +1380,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1390,7 +1390,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1399,7 +1399,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1427,7 +1427,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1438,7 +1438,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1449,7 +1449,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1460,7 +1460,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1471,7 +1471,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1482,7 +1482,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1492,7 +1492,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1503,7 +1503,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1514,7 +1514,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1524,7 +1524,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1534,7 +1534,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1544,7 +1544,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
 
@@ -1558,7 +1558,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
 
@@ -1572,7 +1572,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1581,7 +1581,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1590,7 +1590,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1599,7 +1599,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1608,7 +1608,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1617,7 +1617,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1626,7 +1626,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1635,7 +1635,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1644,7 +1644,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1653,7 +1653,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1662,7 +1662,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1671,7 +1671,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1680,7 +1680,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1689,7 +1689,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1698,7 +1698,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1707,7 +1707,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1716,7 +1716,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1725,7 +1725,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1734,7 +1734,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1743,7 +1743,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1752,7 +1752,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1761,7 +1761,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1771,7 +1771,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1780,7 +1780,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1789,7 +1789,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1798,7 +1798,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1807,7 +1807,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1816,7 +1816,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1825,7 +1825,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1834,7 +1834,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1843,7 +1843,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1852,7 +1852,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1861,7 +1861,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1870,7 +1870,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1879,7 +1879,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1888,7 +1888,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1897,7 +1897,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1906,7 +1906,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1915,7 +1915,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1924,7 +1924,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1933,7 +1933,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1942,7 +1942,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1951,7 +1951,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1960,7 +1960,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1969,7 +1969,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1978,7 +1978,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1987,7 +1987,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -1996,7 +1996,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2005,7 +2005,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2014,7 +2014,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2023,7 +2023,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2032,7 +2032,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2041,7 +2041,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2050,7 +2050,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2059,7 +2059,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2068,7 +2068,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2077,7 +2077,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2086,7 +2086,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2095,7 +2095,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2104,7 +2104,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2113,7 +2113,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2122,7 +2122,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2131,7 +2131,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2140,7 +2140,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2149,7 +2149,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2158,7 +2158,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2167,7 +2167,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2176,7 +2176,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2185,7 +2185,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2194,7 +2194,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2203,7 +2203,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2212,7 +2212,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2221,7 +2221,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2230,7 +2230,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2240,7 +2240,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2249,7 +2249,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2258,7 +2258,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2267,7 +2267,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2276,7 +2276,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2285,7 +2285,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2294,7 +2294,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2303,7 +2303,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2312,7 +2312,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_TWO" />
             </intent-filter>
         </activity>
         <activity
@@ -2321,7 +2321,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2330,7 +2330,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2339,7 +2339,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2348,7 +2348,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2357,7 +2357,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2366,7 +2366,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2375,7 +2375,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2384,7 +2384,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2393,7 +2393,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2402,7 +2402,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2411,7 +2411,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2420,7 +2420,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2430,7 +2430,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2440,7 +2440,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2451,7 +2451,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2462,7 +2462,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2472,7 +2472,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2482,7 +2482,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2491,7 +2491,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2500,7 +2500,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2509,7 +2509,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2518,7 +2518,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2527,7 +2527,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2536,7 +2536,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2545,7 +2545,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2554,7 +2554,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2563,7 +2563,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2572,7 +2572,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2581,7 +2581,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2590,7 +2590,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2599,7 +2599,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2608,7 +2608,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2617,7 +2617,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2626,7 +2626,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2635,7 +2635,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2644,7 +2644,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2653,7 +2653,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2662,7 +2662,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2671,7 +2671,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2681,7 +2681,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
 
             <meta-data
@@ -2695,7 +2695,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
 
             <meta-data
@@ -2709,7 +2709,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2718,7 +2718,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2727,7 +2727,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2736,7 +2736,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2747,7 +2747,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2756,7 +2756,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2765,7 +2765,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2775,7 +2775,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2786,7 +2786,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2797,7 +2797,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2806,7 +2806,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -2821,7 +2821,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2830,7 +2830,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2840,7 +2840,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2851,7 +2851,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2862,7 +2862,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2873,7 +2873,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2884,7 +2884,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2895,7 +2895,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2905,7 +2905,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2916,7 +2916,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2927,7 +2927,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2938,7 +2938,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2949,7 +2949,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2958,7 +2958,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2967,7 +2967,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2976,7 +2976,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2985,7 +2985,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -2994,7 +2994,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3003,7 +3003,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3013,7 +3013,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3022,7 +3022,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3031,7 +3031,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3041,7 +3041,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3050,7 +3050,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3060,7 +3060,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3069,7 +3069,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3079,7 +3079,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3089,7 +3089,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3098,7 +3098,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3107,7 +3107,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3116,7 +3116,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3125,7 +3125,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3134,7 +3134,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3143,7 +3143,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3152,7 +3152,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3161,7 +3161,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3170,7 +3170,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3179,7 +3179,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3189,7 +3189,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3198,7 +3198,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3207,7 +3207,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3217,7 +3217,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3228,7 +3228,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3237,7 +3237,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3246,7 +3246,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3255,7 +3255,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3264,7 +3264,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3273,7 +3273,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -3284,7 +3284,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity-alias>
 
@@ -3294,7 +3294,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -3308,21 +3308,21 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
             android:name=".media.MediaPlayerDemo_Audio"
             android:label="Media/MediaPlayer">
             <intent-filter>
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
             android:name=".media.MediaPlayerDemo_Video"
             android:label="Media/MediaPlayer">
             <intent-filter>
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3331,7 +3331,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3340,7 +3340,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -3383,7 +3383,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3392,7 +3392,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3401,7 +3401,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3410,7 +3410,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3419,7 +3419,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
 
             <!-- Add a technology filter -->
@@ -3437,7 +3437,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3446,7 +3446,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3455,7 +3455,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3464,7 +3464,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3473,7 +3473,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3482,7 +3482,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3491,7 +3491,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3500,7 +3500,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3510,7 +3510,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3519,7 +3519,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -3529,7 +3529,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -3540,7 +3540,7 @@
         <!-- <action android:name="android.intent.action.MAIN" /> -->
 
 
-        <!-- <category android:name="android.intent.category.SAMPLE_CODE" /> -->
+        <!-- <category android:name="android.intent.category.SAMPLE_CODE_THREE" /> -->
         <!-- </intent-filter> -->
         <!-- </activity> -->
         <activity
@@ -3550,7 +3550,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3560,7 +3560,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3570,7 +3570,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
         <activity
@@ -3580,7 +3580,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
 
@@ -3590,7 +3590,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.SAMPLE_CODE" />
+                <category android:name="android.intent.category.SAMPLE_CODE_THREE" />
             </intent-filter>
         </activity>
     </application>
