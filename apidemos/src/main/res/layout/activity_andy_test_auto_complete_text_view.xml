@@ -83,11 +83,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.example.android.apis.AndyTest.CustomView.AutoLineFeedLayout
+        <com.example.android.apis.AndyTest.custom_view.AutoLineFeedLayout
             android:id="@+id/autoll_myshare_explv_child_share"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/solid_red"></com.example.android.apis.AndyTest.CustomView.AutoLineFeedLayout>
+            android:background="@color/solid_red"></com.example.android.apis.AndyTest.custom_view.AutoLineFeedLayout>
 
     </ScrollView>
 

@@ -1,4 +1,4 @@
-package com.example.android.apis.AndyTest.CustomView;
+package com.example.android.apis.AndyTest.custom_view;
 
 import android.content.Context;
 import android.content.res.TypedArray;

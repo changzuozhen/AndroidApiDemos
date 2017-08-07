@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.android.apis.AndyTest.opengl.AndyTestOpenGLActivity">
+    <!--android:background="@drawable/transparent_background"-->
+
+    <!--android:background="@drawable/transparent_background"-->
+    <FrameLayout
+        android:id="@+id/glContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </FrameLayout>
+
+
+    <SeekBar
+        android:id="@+id/seekBar1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:max="1000"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/seekBar1TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/seekBar1"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:text="0"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/seekBar1_2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/seekBar1"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:text="0"
+        android:textColor="#fff" />
+
+    <SeekBar
+        android:id="@+id/seekBar2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBar1"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:max="1000"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/seekBar2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/seekBar2"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:text="0"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/seekBar2_2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/seekBar2"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:text="0"
+        android:textColor="#fff" />
+
+    <SeekBar
+        android:id="@+id/seekBar3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/seekBar2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:max="1000"
+        android:progress="0" />
+
+    <TextView
+        android:id="@+id/seekBar3TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/seekBar3"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:text="0"
+        android:textColor="#fff" />
+
+    <TextView
+        android:id="@+id/seekBar3_2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/seekBar3"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:text="0"
+        android:textColor="#fff" />
+
+
+    <Button
+        android:id="@+id/resetBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="reset" />
+
+    <ToggleButton
+        android:id="@+id/modeBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/resetBtn"
+        android:layout_toRightOf="@id/resetBtn"
+        android:textOff="TranslateMode"
+        android:textOn="RotationMode" />
+
+
+</RelativeLayout>

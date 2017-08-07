@@ -1,4 +1,4 @@
-package com.example.android.apis.AndyTest.CustomView;
+package com.example.android.apis.AndyTest.custom_view;
 
 /**
  * Created by AndyChang on 16/8/11.

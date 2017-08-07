@@ -5,7 +5,7 @@
     android:background="#966363"
     android:orientation="vertical">
 
-    <com.example.android.apis.AndyTest.CustomView.LrcView
+    <com.example.android.apis.AndyTest.custom_view.LrcView
         android:id="@+id/lrc_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

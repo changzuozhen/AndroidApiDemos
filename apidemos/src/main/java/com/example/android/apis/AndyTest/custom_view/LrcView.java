@@ -1,4 +1,4 @@
-package com.example.android.apis.AndyTest.CustomView;
+package com.example.android.apis.AndyTest.custom_view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.example.android.apis.AndyTest.CustomView.MyView;
+import com.example.android.apis.AndyTest.custom_view.MyView;
 import com.example.android.apis.R;
 
 import butterknife.BindView;

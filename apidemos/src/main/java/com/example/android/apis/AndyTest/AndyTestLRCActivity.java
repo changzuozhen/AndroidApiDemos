@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.SeekBar;
 
-import com.example.android.apis.AndyTest.CustomView.LrcView;
+import com.example.android.apis.AndyTest.custom_view.LrcView;
 import com.example.android.apis.R;
 
 import butterknife.BindView;

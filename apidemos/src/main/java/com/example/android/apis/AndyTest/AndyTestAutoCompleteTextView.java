@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
-import com.example.android.apis.AndyTest.CustomView.AutoLineFeedLayout;
+import com.example.android.apis.AndyTest.custom_view.AutoLineFeedLayout;
 import com.example.android.apis.DensityUtil;
 import com.example.android.apis.R;
 

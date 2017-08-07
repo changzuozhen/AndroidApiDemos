@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'android-apt'
 android {
     compileSdkVersion 'Google Inc.:Google APIs:22'
@@ -31,6 +33,7 @@ android {
 
 dependencies {
     compile 'com.android.support:multidex:1.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
 
 dependencies {
@@ -40,9 +43,20 @@ dependencies {
     }
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile "org.jetbrains.anko:anko:$anko_version"
+//    compile "org.jetbrains.anko:anko-appcompat-v7:$anko_version"
 
+    compile 'org.slf4j:slf4j-api:1.7.21'
+    compile 'com.github.tony19:logback-android-core:1.1.1-5'
+    compile 'com.github.tony19:logback-android-classic:1.1.1-5'
 //    compile 'com.jakewharton:butterknife:8.2.1'
     //    apt 'com.jakewharton:butterknife-compiler:8.2.1'
 //    compile 'com.android.support:appcompat-v7:24.1.1'
 //    compile 'com.android.support:appcompat-v7:25.1.0'
 }
+//repositories {
+//    mavenCentral()
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
+//}
